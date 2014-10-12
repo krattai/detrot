@@ -1,0 +1,63 @@
+install 8.10 alternate (NB:  8.04 has bad video drivers causing "smearing")
+install via video drivers as per:
+
+The Ubuntu 8.10 driver can be downloaded from:
+http://linux.via.com.tw/support/beginDownload.action?eleid=222&fid=483
+
+There is also a possible updated video driver in a file labelled:
+CX700XOrg85a_U810_20090625.tgz
+
+If necessary, the 8.04 driver can be downloaded from:
+http://linux.via.com.tw/support/beginDownload.action?eleid=7&fid=165
+
+These drivers will be put on the ihdn file server in time.
+
+After you reinstalled Ubuntu 8.10 and before you install the correct
+driver for Ubuntu 8.10, please make sure you also go through the
+preparation steps as outlined in the readme file:
+...
+...
+1. Preparation
+   It's suggested to install the ubuntu-8.10-alternate-i386.iso CD
+image
+in case of new start.
+   To create a xorg.conf to meet user's environment, there are few
+procedures to generate the xorg.conf template listed as below before
+entering X-Windows.
+   1.1 After Intrepid installed in text mode by default, reboot and
+hit
+<ESC> right before OS boots. This brings up the Grub Menu for boot
+option.
+   1.2 From the available modes, select the one ended with "(recovery
+mode)" then enter to boot.
+   1.3 Login as root at prompt in text mode.
+   1.4 Produce the X configuration file according to your own system 
+       X -configure
+       This generates a file named xorg.conf.new under $HOME folder of
+the user.  
+   1.5 Copy the new xorg.conf to and backup the original one
+       cp /etc/X11/xorg.conf /etc/X11/xorg.conf.viabak
+       cp $HOME/xorg.conf.new /etc/X11/xorg.conf
+
+
+2. How to Install/Uninstall the via Linux Driver 
+   1.1 uncompress the via driver package
+	tar zxvf ./5.74.33.85a-44597.tar.gz
+   1.2  Install the via linux driver
+	cd   ./5.74.33.85a-44597
+	sudo ./vinstall
+        Reboot system
+   1.3  Uninstall the via linux driver 
+	cd   ./5.74.33.85a-44597
+	sudo ./unvinstall
+        Reboot system
+
+Just got the HDTV. Component video out also works.
+The option to add is:
+...
+...
+Option	"TVOutput"		"YPbPr"
+
+There is an option for outputting 480p:
+
+Option "TVType"        "480P"

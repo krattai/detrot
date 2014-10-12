@@ -1,0 +1,14 @@
+[playlist]
+NumberOfEntries=12
+File1=/home/ihdn/demo/VTS_01_1.VOB
+File2=/home/ihdn/demo/VTS_02_1.VOB
+File3=/home/ihdn/demo/VTS_03_1.VOB
+File4=/home/ihdn/demo/VTS_04_1.VOB
+File5=/home/ihdn/demo/VTS_05_1.VOB
+File6=/home/ihdn/demo/VTS_06_1.VOB
+File7=/home/ihdn/demo/VTS_07_1.VOB
+File8=/home/ihdn/demo/VTS_08_1.VOB
+File9=/home/ihdn/demo/VTS_09_1.VOB
+File10=/home/ihdn/demo/VTS_10_1.VOB
+File11=/home/ihdn/demo/VTS_11_1.VOB
+File12=/home/ihdn/demo/VTS_12_1.VOB
