@@ -1,0 +1,198 @@
+AEBL_play
+
+# set sound volume as %
+amixer  sset PCM,0 90%
+
+Streamed show from:
+http://thespecialist.listen2myradio.com/listen2myradio1/index.php?ip=78.129.187.57&port=25722
+
+was:
+http://78.129.187.57:25722
+
+Client ID  - 2c2502c6961ac1f275324d844353ccc6
+Client Secret - 508dda5e456b68f604b6b706bcfa0307
+
+https://soundcloud.com/connect
+https://api.soundcloud.com/oauth2/token
+
+# nb: need to apt-get install vlc for cvlc to work
+cvlc --volume 400 -q http://api.soundcloud.com/tracks/148649963/stream?client_id=2c2502c6961ac1f275324d844353ccc6 vlc://quit
+
+mpg123 -v http://api.soundcloud.com/tracks/92911426/stream?client_id=2c2502c6961ac1f275324d844353ccc6
+
+omxplayer http://api.soundcloud.com/tracks/92911426/stream?client_id=2c2502c6961ac1f275324d844353ccc6
+
+wget -N -nd -w 3 -O everything.mp3 http://api.soundcloud.com/tracks/92911426/stream?client_id=2c2502c6961ac1f275324d844353ccc6
+
+if embed not available:
+
+wget -N -nd -w 3 -O testpl.txt 'http://api.soundcloud.com/resolve.json?url=https://soundcloud.com/tbtbmu-mu/goldcrest-gaze-at-the-summer-from-the-sky&client_id=2c2502c6961ac1f275324d844353ccc6'
+
+{"kind":"track","id":158206853,"created_at":"2014/07/11 03:38:35 +0000","user_id":5585614,"duration":304145,"commentable":true,"state":"finished","original_content_size":9914823,"sharing":"public","tag_list":"Ambient Electronica","permalink":"goldcrest-gaze-at-the-summer-from-the-sky","streamable":false,"embeddable_by":"me","downloadable":false,"purchase_url":null,"label_id":null,"purchase_title":null,"genre":"Trance","title":"Goldcrest gaze at the Summer from the Sky","description":"","label_name":"","release":"","track_type":"","key_signature":"","isrc":"","video_url":null,"bpm":null,"release_year":null,"release_month":null,"release_day":null,"original_format":"m4a","license":"cc-by-nc-sa","uri":"http://api.soundcloud.com/tracks/158206853","user":{"id":5585614,"kind":"user","permalink":"tbtbmu-mu","username":"Mareo Akifuji","uri":"http://api.soundcloud.com/users/5585614","permalink_url":"http://soundcloud.com/tbtbmu-mu","avatar_url":"http://i1.sndcdn.com/avatars-000095450741-15713b-large.jpg?e76cf77"},"permalink_url":"http://soundcloud.com/tbtbmu-mu/goldcrest-gaze-at-the-summer-from-the-sky","artwork_url":"http://i1.sndcdn.com/artworks-000085719043-29noqz-large.jpg?e76cf77","waveform_url":"http://w1.sndcdn.com/CxRJVGJhVK7n_m.png","playback_count":2590,"download_count":0,"favoritings_count":17,"comment_count":6,"attachments_uri":"http://api.soundcloud.com/tracks/158206853/attachments"}
+
+to get playlist info:
+
+wget -N -nd -w 3 -O testpl.txt http://api.soundcloud.com/playlists/40261550?client_id=2c2502c6961ac1f275324d844353ccc6
+
+pi@raspberrypi ~ $ cat testpl.txt
+<?xml version="1.0" encoding="UTF-8"?>
+<playlist>
+  <kind>playlist</kind>
+  <id type="integer">40261550</id>
+  <created-at type="datetime">2014-06-18T15:28:54Z</created-at>
+  <user-id type="integer">2999499</user-id>
+  <duration type="integer">568319</duration>
+  <sharing>public</sharing>
+  <tag-list></tag-list>
+  <permalink>eddie-vegas-14</permalink>
+  <track-count type="integer">2</track-count>
+  <streamable type="boolean">true</streamable>
+  <downloadable nil="true"></downloadable>
+  <embeddable-by>all</embeddable-by>
+  <purchase-url nil="true"></purchase-url>
+  <label-id nil="true"></label-id>
+  <type nil="true"></type>
+  <playlist-type nil="true"></playlist-type>
+  <ean nil="true"></ean>
+  <description nil="true"></description>
+  <genre nil="true"></genre>
+  <release nil="true"></release>
+  <purchase-title nil="true"></purchase-title>
+  <label-name nil="true"></label-name>
+  <title>Eddie Vegas</title>
+  <release-year nil="true"></release-year>
+  <release-month nil="true"></release-month>
+  <release-day nil="true"></release-day>
+  <license>all-rights-reserved</license>
+  <uri>http://api.soundcloud.com/playlists/40261550</uri>
+  <permalink-url>http://soundcloud.com/as_label/sets/eddie-vegas-14</permalink-url>
+  <artwork-url nil="true"></artwork-url>
+  <user>
+    <id type="integer">2999499</id>
+    <kind>user</kind>
+    <permalink>as_label</permalink>
+    <username>AudioSociety</username>
+    <uri>http://api.soundcloud.com/users/2999499</uri>
+    <permalink-url>http://soundcloud.com/as_label</permalink-url>
+    <avatar-url>http://i1.sndcdn.com/avatars-000086814049-maof8a-large.jpg?e76cf77</avatar-url>
+  </user>
+  <tracks type="array">
+    <track>
+      <kind>track</kind>
+      <id type="integer">154814237</id>
+      <created-at type="datetime">2014-06-17T20:04:04Z</created-at>
+      <user-id type="integer">2999499</user-id>
+      <duration type="integer">300252</duration>
+      <commentable type="boolean">true</commentable>
+      <state>finished</state>
+      <original-content-size type="integer">4803085</original-content-size>
+      <sharing>public</sharing>
+      <tag-list></tag-list>
+      <permalink>64-bar-statement-chase-status-remix</permalink>
+      <streamable type="boolean">true</streamable>
+      <embeddable-by>all</embeddable-by>
+      <downloadable type="boolean">false</downloadable>
+      <purchase-url nil="true"></purchase-url>
+      <label-id nil="true"></label-id>
+      <purchase-title nil="true"></purchase-title>
+      <genre>Dubstep</genre>
+      <title>64 Bar Statement [Chase &amp; Status Remix]</title>
+      <description>Eddie Vegas - 64 Bar Statement [Chase &amp; Status Remix]</description>
+      <label-name nil="true"></label-name>
+      <release nil="true"></release>
+      <track-type nil="true"></track-type>
+      <key-signature nil="true"></key-signature>
+      <isrc nil="true"></isrc>
+      <video-url nil="true"></video-url>
+      <bpm nil="true"></bpm>
+      <release-year nil="true"></release-year>
+      <release-month nil="true"></release-month>
+      <release-day nil="true"></release-day>
+      <original-format>mp3</original-format>
+      <license>all-rights-reserved</license>
+      <uri>http://api.soundcloud.com/tracks/154814237</uri>
+      <user>
+        <id type="integer">2999499</id>
+        <kind>user</kind>
+        <permalink>as_label</permalink>
+        <username>AudioSociety</username>
+        <uri>http://api.soundcloud.com/users/2999499</uri>
+        <permalink-url>http://soundcloud.com/as_label</permalink-url>
+        <avatar-url>http://i1.sndcdn.com/avatars-000086814049-maof8a-large.jpg?e76cf77</avatar-url>
+      </user>
+      <permalink-url>http://soundcloud.com/as_label/64-bar-statement-chase-status-remix</permalink-url>
+      <artwork-url>http://i1.sndcdn.com/artworks-000082652461-87yo6e-large.jpg?e76cf77</artwork-url>
+      <waveform-url>http://w1.sndcdn.com/1XJVz7Fj7A2e_m.png</waveform-url>
+      <stream-url>http://api.soundcloud.com/tracks/154814237/stream</stream-url>
+      <playback-count type="integer">50</playback-count>
+      <download-count type="integer">0</download-count>
+      <favoritings-count type="integer">10</favoritings-count>
+      <comment-count type="integer">0</comment-count>
+      <attachments-uri>http://api.soundcloud.com/tracks/154814237/attachments</attachments-uri>
+    </track>
+    <track>
+      <kind>track</kind>
+      <id type="integer">129327872</id>
+      <created-at type="datetime">2014-01-13T17:14:10Z</created-at>
+      <user-id type="integer">4763468</user-id>
+      <duration type="integer">268067</duration>
+      <commentable type="boolean">true</commentable>
+      <state>finished</state>
+      <original-content-size type="integer">10724749</original-content-size>
+      <sharing>public</sharing>
+      <tag-list></tag-list>
+      <permalink>eddie-vegas-going-in-for-the</permalink>
+      <streamable type="boolean">true</streamable>
+      <embeddable-by>all</embeddable-by>
+      <downloadable type="boolean">true</downloadable>
+      <purchase-url nil="true"></purchase-url>
+      <label-id nil="true"></label-id>
+      <purchase-title nil="true"></purchase-title>
+      <genre>Dubstep</genre>
+      <title>Eddie Vegas - Going in For The Kill [RMX]</title>
+      <description></description>
+      <label-name></label-name>
+      <release></release>
+      <track-type>remix</track-type>
+      <key-signature></key-signature>
+      <isrc></isrc>
+      <video-url nil="true"></video-url>
+      <bpm nil="true"></bpm>
+      <release-year nil="true"></release-year>
+      <release-month nil="true"></release-month>
+      <release-day nil="true"></release-day>
+      <original-format>mp3</original-format>
+      <license>all-rights-reserved</license>
+      <uri>http://api.soundcloud.com/tracks/129327872</uri>
+      <user>
+        <id type="integer">4763468</id>
+        <kind>user</kind>
+        <permalink>eddievegasuk</permalink>
+        <username>Eddie vegas</username>
+        <uri>http://api.soundcloud.com/users/4763468</uri>
+        <permalink-url>http://soundcloud.com/eddievegasuk</permalink-url>
+        <avatar-url>http://i1.sndcdn.com/avatars-000092025179-1ov1zl-large.jpg?e76cf77</avatar-url>
+      </user>
+      <permalink-url>http://soundcloud.com/eddievegasuk/eddie-vegas-going-in-for-the</permalink-url>
+      <artwork-url>http://i1.sndcdn.com/artworks-000080225720-09ytph-large.jpg?e76cf77</artwork-url>
+      <waveform-url>http://w1.sndcdn.com/4Mm5E9iagCRk_m.png</waveform-url>
+      <stream-url>http://api.soundcloud.com/tracks/129327872/stream</stream-url>
+      <download-url>http://api.soundcloud.com/tracks/129327872/download</download-url>
+      <playback-count type="integer">1916</playback-count>
+      <download-count type="integer">25</download-count>
+      <favoritings-count type="integer">121</favoritings-count>
+      <comment-count type="integer">65</comment-count>
+      <attachments-uri>http://api.soundcloud.com/tracks/129327872/attachments</attachments-uri>
+    </track>
+  </tracks>
+  <created-with>
+    <id type="integer">46941</id>
+    <kind>app</kind>
+    <name>SoundCloud.com</name>
+    <uri>http://api.soundcloud.com/apps/46941</uri>
+    <permalink-url>http://soundcloud.com/apps/v2-on-https-soundcloud-com</permalink-url>
+    <external-url></external-url>
+    <creator>spadgos</creator>
+  </created-with>
+</playlist>
+

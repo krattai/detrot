@@ -1,0 +1,45 @@
+Use /run/shm for temp or lock files, as it is RAMdisk
+
+http://www.raspberrypi.org/forums/viewtopic.php?t=59497&p=445505
+http://www.cyberciti.biz/tips/what-is-devshm-and-its-practical-usage.html
+https://wiki.archlinux.org/index.php//dev/shm
+
+~~~~~~~~~~~~~~~~~~
+
+both work to play soundcloud stream, first will play song after downloaded, not sure if second plays once wget output begins, or simply plays after download complete:
+
+wget -N -nd -w 3 -O song.mp3 http://api.soundcloud.com/tracks/148649963/stream?client_id=2c2502c6961ac1f275324d844353ccc6 ; mpg123 song.mpg
+
+wget -N -nd -w 3 -O song.mp3 "http://api.soundcloud.com/tracks/148649963/stream?client_id=2c2502c6961ac1f275324d844353ccc6" open song.mp3 &>/dev/null || mpg123 song.mp3 &>/dev/null
+
+~~~~~~~~~~~~~~~~~~
+
+while read x; do
+  var=$x
+done < var.txt
+
+# Do some stuff, change var to a new value
+
+echo $var > var.txt
+
+~~~~~
+
+read var < var.txt
+# do stuff with var
+echo $var > var.txt
+
+~~~~~
+
+#!/bin/bash
+
+read val < <( tail -n 1 "$0" )
+
+(( val++ ))
+echo "$val"
+
+tmp=$(mktemp /tmp/XXXXXXX)
+sed '$s/.*/'$val'/' "$0" > "$tmp"
+mv "$tmp" "$0"
+
+exit
+0
