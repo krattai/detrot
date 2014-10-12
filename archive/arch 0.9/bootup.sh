@@ -44,14 +44,11 @@ case "$1" in
     sudo -u pi rm /home/pi/.mkplayrun
     sudo -u pi rm /home/pi/.optimized
     sudo -u pi rm /home/pi/.sysrunning
-    mount -o exec,remount /run/shm
-    sudo -u pi mkdir /run/shm/scripts
-    sudo -u pi cp -p /home/pi/scripts/* /run/shm/scripts
 
     if [ ! -f "${AUTOOFF_CHECK_FILE}" ]; then
         echo "${AUTOOFF_CHECK_FILE} not found, in auto mode."
         setterm -blank 1
-        sudo -u pi /run/shm/scripts/./getupdt.sh &
+        sudo -u pi /home/pi/scripts/./getupdt.sh &
     fi
     echo "Could do more here"
     ;;

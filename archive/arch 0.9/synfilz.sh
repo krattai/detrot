@@ -36,24 +36,15 @@
 # this would be the last command before a the script exits
 # on a success rather than a fail exit
 
-FIRST_RUN_DONE="/home/pi/.firstrundone"
 AEBL_TEST="/home/pi/.aebltest"
 AEBL_SYS="/home/pi/.aeblsys"
 IHDN_TEST="/home/pi/.ihdntest"
 IHDN_SYS="/home/pi/.ihdnsys"
-TEMP_DIR="/home/pi/tmp"
-
-T_STO="/run/shm"
-T_SCR="/run/shm/scripts"
-
-LOCAL_SYS="${T_STO}/.local"
-NETWORK_SYS="${T_STO}/.network"
-OFFLINE_SYS="${T_STO}/.offline"
-
-NOTHING_NEW="${T_STO}/.nonew"
-NEW_PL="${T_STO}/.newpl"
-
+LOCAL_SYS="/home/pi/.local"
+NETWORK_SYS="/home/pi/.network"
+OFFLINE_SYS="/home/pi/.offline"
 MACe0=$(ip link show eth0 | awk '/ether/ {print $2}')
+
 
 cd $HOME
 
@@ -63,21 +54,21 @@ if [ -f "${NETWORK_SYS}" ]; then
 
 #     touch $HOME/log.txt
 
-    rm $T_STO/test.log
+    rm $HOME/test.log
 
-    touch $T_STO/test.log
+    touch $HOME/test.log
 
-    echo "${MACe0}" >> $T_STO/test.log
-    echo "$(date +"%y-%m-%d")" >> $T_STO/test.log
-    echo "$(date +"%T")" >> $T_STO/test.log
+    echo "${MACe0}" >> test.log
+    echo "$(date +"%y-%m-%d")" >> test.log
+    echo "$(date +"%T")" >> test.log
 
-    echo "#!~~ free ~~~!#" >> $T_STO/test.log
-    free >> $T_STO/test.log
-    echo "#!~~ ps x ~~~!#" >> $T_STO/test.log
-    ps x >> $T_STO/test.log
+    echo "#!~~ free ~~~!#" >> test.log
+    free >> test.log
+    echo "#!~~ ps x ~~~!#" >> test.log
+    ps x >> test.log
 
-    echo "#!~~ ls -al ~~~!#" >> $T_STO/test.log
-    ls -al >> $T_STO/test.log
+    echo "#!~~ ls -al ~~~!#" >> test.log
+    ls -al >> test.log
 
 #     echo "#!~~ cronttab -l ~~~!#" >> test.log
 
@@ -90,25 +81,25 @@ if [ -f "${NETWORK_SYS}" ]; then
 
 #     echo "#!~~~~~!#" >> test.log
 
-    echo "#!~~ ls -al pl ~~~!#" >> $T_STO/test.log
-    ls -al pl >> $T_STO/test.log
+    echo "#!~~ ls -al pl ~~~!#" >> test.log
+    ls -al pl >> test.log
 
-    echo "#!~~~~~!#" >> $T_STO/test.log
+    echo "#!~~~~~!#" >> test.log
 
-    echo "#!~~ cat .newpl ~~~!#" >> $T_STO/test.log
-    cat .newpl >> $T_STO/test.log
+    echo "#!~~ cat .newpl ~~~!#" >> test.log
+    cat .newpl >> test.log
 
-    echo "#!~~~~~!#" >> $T_STO/test.log
+    echo "#!~~~~~!#" >> test.log
 
-    echo "#!~~ ls -al mp4 ~~~!#" >> $T_STO/test.log
-    ls -al mp4 >> $T_STO/test.log
+    echo "#!~~ ls -al mp4 ~~~!#" >> test.log
+    ls -al mp4 >> test.log
 
-    echo "#!~~ df -h ~~~!#" >> $T_STO/test.log
-    df -h >> $T_STO/test.log
+    echo "#!~~ df -h ~~~!#" >> test.log
+    df -h >> test.log
 
-    echo "#!#!#!#!#" >> $T_STO/test.log
+    echo "#!#!#!#!#" >> test.log
 
-    $HOME/scripts/./dropbox_uploader.sh upload $T_STO/test.log /${MACe0}_up.txt &
+    $HOME/scripts/./dropbox_uploader.sh upload test.log /${MACe0}_up.txt &
 
 #     if [ "${MACe0}" == 'b8:27:eb:a7:23:94' ]; then
 
@@ -203,62 +194,44 @@ if [ -f "${LOCAL_SYS}" ]; then
     # Check if not syncing
     # should append syncing to syncing file and dump it to dropbox
 
-    if [ ! -f "${T_STO}/syncing" ]; then
+    if [ ! -f "${HOME}/syncing" ]; then
         echo "Currently not syncing." >> log.txt
         echo "Making running token."  >> log.txt
         echo $(date +"%T") >> log.txt
 
-        touch "${T_STO}/syncing"
+        touch "${HOME}/syncing"
 
         wget -N -nd -w 3 -P $HOME/scripts --limit-rate=50k http://192.168.200.6/files/getupdt.sh
 
-        chmod 777 $HOME/scripts/getupdt.sh
-
-        cp $HOME/scripts/getupdt.sh $T_SCR
-
-        wget -N -nd -w 3 -P $HOME/scripts --limit-rate=50k http://192.168.200.6/files/ctrlwtch.sh
-
-        chmod 777 $HOME/scripts/ctrlwtch.sh
-
-#         [ $file1 -ot $file2 ]
-
-        if [ "scripts/ctrlwtch.sh" -nt "/run/shm/scripts/ctrlwtch.sh" ]; then
-            touch $HOME/ctrl/.newctrl
-        fi
-
-        cp -p $HOME/scripts/ctrlwtch.sh $T_SCR
+        chmod 777 scripts/getupdt.sh
 
         wget -N -nd -w 3 -P $HOME/scripts --limit-rate=50k http://192.168.200.6/files/process_playlist.sh
 
-        chmod 777 $HOME/scripts/process_playlist.sh
-
-        cp $HOME/scripts/process_playlist.sh $T_SCR
+        chmod 777 scripts/process_playlist.sh
 
         wget -N -nd -w 3 -P $HOME/scripts --limit-rate=50k http://192.168.200.6/files/grabfiles.sh
 
-        chmod 777 $HOME/scripts/grabfiles.sh
+        chmod 777 scripts/grabfiles.sh
 
-        cp $HOME/scripts/grabfiles.sh $T_SCR
+        scripts/./grabfiles.sh
 
-        $T_SCR/./grabfiles.sh
-
-        rm $T_STO/synfil
+        rm synfil
 
         if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ]; then
-            wget -N -nd -w 3 -P $T_STO --limit-rate=50k http://192.168.200.6/files/aebl.m3u
+            wget -N -nd -w 3 -P $HOME --limit-rate=50k http://192.168.200.6/files/aebl.m3u
 
-            cp $T_STO/aebl.m3u $T_STO/synfil
+            cp aebl.m3u synfil
 
-            rm $T_STO/aebl.m3u
+            rm aebl.m3u
 
         fi
 
         if [ -f "${IHDN_TEST}" ]; then
-            wget -N -nd -w 3 -P $T_STO --limit-rate=50k http://192.168.200.6/files/ihdn.m3u
+            wget -N -nd -w 3 -P $HOME --limit-rate=50k http://192.168.200.6/files/ihdn.m3u
 
-            cp $T_STO/ihdn.m3u $T_STO/synfil
+            cp ihdn.m3u synfil
 
-            rm $T_STO/ihdn.m3u
+            rm ihdn.m3u
 
         fi
 
@@ -269,11 +242,9 @@ if [ -f "${LOCAL_SYS}" ]; then
                 wget -N -nd -w 3 -P $HOME/scripts --limit-rate=50k "https://www.dropbox.com/s/vtm7naqg4sbq2wh/ihdn_tests.sh"
             fi
             chmod 777 scripts/ihdn_tests.sh
-            cp $HOME/scripts/ihdn_tests.sh $T_SCR
-
         fi
 
-        GRAB_FILE="${T_STO}/synfil"
+        GRAB_FILE="${HOME}/synfil"
 
         x=1
 
@@ -346,7 +317,7 @@ if [ -f "${LOCAL_SYS}" ]; then
         echo "Done syncing." >> log.txt
         echo "Removing running token."  >> log.txt
         echo $(date +"%T") >> log.txt
-        rm "${T_STO}/syncing"
+        rm "${HOME}/syncing"
 
     # Else do nothing files
     #    else
@@ -367,24 +338,24 @@ if [ -f "${HOME}/.ihdnfol26" ] && [ ! -f "${OFFLINE_SYS}" ]; then
     # Check if not syncing
     # should append syncing to syncing file and dump it to dropbox
 
-    if [ ! -f "${T_STO}/syncing" ]; then
+    if [ ! -f "${HOME}/syncing" ]; then
         echo "Currently not syncing." >> log.txt
         echo "Making running token."  >> log.txt
         echo $(date +"%T") >> log.txt
 
-        touch "${T_STO}/syncing"
+        touch "${HOME}/syncing"
 
-        rm $T_STO/mychan
+        rm mychan
 
-        curl -o "$T_STO/chan26.m3u" -k -u videouser:password "sftp://184.71.76.158:8022/home/videouser/videos/000026/chan26.m3u"
+        curl -o "$HOME/chan26.m3u" -k -u videouser:password "sftp://184.71.76.158:8022/home/videouser/videos/000026/chan26.m3u"
 
-        cp $T_STO/chan26.m3u $T_STO/mychan
+        cp chan26.m3u mychan
 
-        rm $T_STO/chan26.m3u
+        rm chan26.m3u
 
         wget -N -nd -w 3 -P $HOME/scripts --limit-rate=50k "https://www.dropbox.com/s/vtm7naqg4sbq2wh/ihdn_tests.sh"
 
-        GRAB_FILE="${T_STO}/mychan"
+        GRAB_FILE="${HOME}/mychan"
 
         x=1
 
@@ -455,7 +426,7 @@ if [ -f "${HOME}/.ihdnfol26" ] && [ ! -f "${OFFLINE_SYS}" ]; then
     echo "Done syncing." >> log.txt
     echo "Removing running token."  >> log.txt
     echo $(date +"%T") >> log.txt
-    rm "${T_STO}/syncing"
+    rm "${HOME}/syncing"
 
 # Else do nothing files
 #    else

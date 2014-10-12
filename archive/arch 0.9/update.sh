@@ -36,37 +36,30 @@
 # http://www.davidpashley.com/articles/writing-robust-shell-scripts/#id2382181
 #
 
+LOCAL_SYS="/home/pi/.local"
+NETWORK_SYS="/home/pi/.network"
+OFFLINE_SYS="/home/pi/.offline"
+NOTHING_NEW="/home/pi/.nonew"
+NEW_PL="/home/pi/.newpl"
 FIRST_RUN_DONE="/home/pi/.firstrundone"
 AEBL_TEST="/home/pi/.aebltest"
 AEBL_SYS="/home/pi/.aeblsys"
 IHDN_TEST="/home/pi/.ihdntest"
 IHDN_SYS="/home/pi/.ihdnsys"
-TEMP_DIR="/home/pi/tmp"
-
-T_STO="/run/shm"
-T_SCR="/run/shm/scripts"
-
-LOCAL_SYS="${T_STO}/.local"
-NETWORK_SYS="${T_STO}/.network"
-OFFLINE_SYS="${T_STO}/.offline"
-
-NOTHING_NEW="${T_STO}/.nonew"
-NEW_PL="${T_STO}/.newpl"
-
 IPw0=$(ip addr show wlan0 | awk '/inet / {print $2}' | cut -d/ -f 1)
 MACw0=$(ip link show wlan0 | awk '/ether/ {print $2}')
 IPe0=$(ip addr show eth0 | awk '/inet / {print $2}' | cut -d/ -f 1)
 MACe0=$(ip link show eth0 | awk '/ether/ {print $2}')
 
-CRONCOMMFILE="${T_STO}/.tempcron"
+CRONCOMMFILE="/home/pi/.tempcron"
  
 # set to home directory
  
 cd $HOME
 
-touch $T_STO/.sysrunning
+touch .sysrunning
 
-while [ -f "${T_STO}/.sysrunning" ]; do
+while [ -f "${HOME}/.sysrunning" ]; do
 
     # log .id
 
@@ -83,11 +76,9 @@ while [ -f "${T_STO}/.sysrunning" ]; do
         fi
 
         if [ -f "$HOME/scripts/aebl_play.sh" ]; then
-            chmod 777 $HOME/scripts/aebl_play.sh
+            chmod 777 scripts/./aebl_play.sh
 
-            cp $HOME/scripts/aebl_play.sh $T_SCR
-
-            $T_SCR/./aebl_play.sh
+            scripts/./aebl_play.sh
         fi
     fi
 
@@ -102,11 +93,9 @@ while [ -f "${T_STO}/.sysrunning" ]; do
         fi
 
         if [ -f "$HOME/scripts/ihdn_play.sh" ]; then
-            chmod 777 $HOME/scripts/ihdn_play.sh
+            chmod 777 scripts/./ihdn_play.sh
 
-            cp $HOME/scripts/ihdn_play.sh $T_SCR
-
-            $T_SCR/./ihdn_play.sh
+            scripts/./ihdn_play.sh
         fi
     fi
 
@@ -120,12 +109,10 @@ while [ -f "${T_STO}/.sysrunning" ]; do
             fi
         fi
 
-        if [ -f "$HOME/scripts/ihdn_tests.sh" ] && [ ! -f "${T_STO}/.syschecks" ]; then
-            chmod 777 $HOME/scripts/ihdn_tests.sh
+        if [ -f "$HOME/scripts/ihdn_tests.sh" ] && [ ! -f "${HOME}/.syschecks" ]; then
+            chmod 777 scripts/./ihdn_tests.sh
 
-            cp $HOME/scripts/ihdn_tests.sh $T_SCR
-
-            $T_SCR/./ihdn_tests.sh &
+            scripts/./ihdn_tests.sh &
         fi
     fi
 
@@ -141,12 +128,12 @@ while [ -f "${T_STO}/.sysrunning" ]; do
 
     if [ -f "${AEBL_TEST}" ] && [ ! -f "${HOME}/.aeblv0090beta01" ]; then
         echo "MAC is ending :d7 so touching .aeblv0090beta01." >> log.txt
-        touch $HOME/.aeblv0090beta01
+        touch .aeblv0090beta01
     fi
 
     if [ -f "${AEBL_SYS}" ] && [ ! -f "${HOME}/.aeblv0090beta01" ]; then
         echo "MAC is ending :d7 so touching .aeblv0090beta01." >> log.txt
-        touch $HOME/.aeblv0090beta01
+        touch .aeblv0090beta01
     fi
 
     if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ]; then
@@ -182,10 +169,7 @@ while [ -f "${T_STO}/.sysrunning" ]; do
         if [ ! -f "${FIRST_RUN_DONE}" ]; then
             wget -t 1 -N -nd "https://www.dropbox.com/s/7e2png1lmzzmzxh/getupdt.sh" -O $HOME/scripts/getupdt.sh
 
-            chmod 777 $HOME/scripts/getupdt.sh
-
-            cp $HOME/scripts/getupdt.sh $T_SCR
-
+            chmod 777 scripts/getupdt.sh
         fi
     fi
 
@@ -212,12 +196,10 @@ while [ -f "${T_STO}/.sysrunning" ]; do
 
             fi
 
-            chmod 777 $HOME/scripts/grabfiles.sh
+            chmod 777 scripts/grabfiles.sh
             rm index*
 
-            cp $HOME/scripts/grabfiles.sh $T_SCR
-
-            $T_SCR/./grabfiles.sh
+            scripts/./grabfiles.sh
 
         fi
 
@@ -225,14 +207,14 @@ while [ -f "${T_STO}/.sysrunning" ]; do
 
     if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ]; then
         echo "Starting the following playlist set." >> log.txt
-        cat $T_STO/.playlist >> log.txt
+        cat .playlist >> log.txt
         echo $(date +"%T") >> log.txt
     fi
 
     if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ] && [ ! -f "${NOTHING_NEW}" ]; then
         echo "Setting system to not check updates with .nonew" >> log.txt
         echo $(date +"%T") >> log.txt
-        touch $T_STO/.nonew
+        touch .nonew
     fi
 
     if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ]; then
@@ -244,7 +226,7 @@ done
 
 # if .sysrunning token cleared, loop back to getupdt.sh
 
-$T_SCR/./getupdt.sh &
+scripts/./getupdt.sh &
 
 exit
 

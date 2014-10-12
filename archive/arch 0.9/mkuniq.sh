@@ -3,20 +3,14 @@
 #
 # Copyright (C) 2014 Uvea I. S., Kevin Rattai
 
+LOCAL_SYS="/home/pi/.local"
+NETWORK_SYS="/home/pi/.network"
+OFFLINE_SYS="/home/pi/.offline"
+FIRST_RUN_DONE="/home/pi/.firstrundone"
 AEBL_TEST="/home/pi/.aebltest"
 AEBL_SYS="/home/pi/.aeblsys"
 IHDN_TEST="/home/pi/.ihdntest"
 IHDN_SYS="/home/pi/.ihdnsys"
-TEMP_DIR="/home/pi/tmp"
-
-T_STO="/run/shm"
-T_SCR="/run/shm/scripts"
-
-LOCAL_SYS="${T_STO}/.local"
-NETWORK_SYS="${T_STO}/.network"
-OFFLINE_SYS="${T_STO}/.offline"
-
-FIRST_RUN_DONE="/home/pi/.firstrundone"
 
 TYPE_SYS="unknown"
 
@@ -62,13 +56,13 @@ if [ ! -f "${ID_FILE}" ]; then
 #    echo $(date +"%y-%m-%d")$(date +"%T")$MACe0$IPw0 > ${ID_FILE}
     echo ${U_ID} > ${ID_FILE}
 
-    $T_SCR/./macip.sh >> ${ID_FILE}
+    $HOME/scripts/./macip.sh >> ${ID_FILE}
 
     # create local store id file
 #    echo $(date +"%y-%m-%d")$(date +"%T")$MACe0$IPw0 > ${ID_FILE}
 
     # put to dropbox
-    $T_SCR/./dropbox_uploader.sh upload ${ID_FILE} /${U_ID}
+    $HOME/scripts/./dropbox_uploader.sh upload ${ID_FILE} /${U_ID}
 
     # Tweet -> SMS announce
 #     $HOME/tmpdir_maintenance/mod_Twitter/./tcli.sh -c statuses_update -s "automagic To @kratt, #${TYPE_SYS} registered ${U_ID} ${IPw0} ${IPe0} by ifTTT Tweet -> SMS."

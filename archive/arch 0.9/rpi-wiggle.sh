@@ -109,20 +109,15 @@ echo
 # Remarking out read aok as this should not be an interactive
 # script, rather an automagic script on first AEBL run to ensure
 # part size is appropriate for card
-# Change 2014-08-19
-# Changed to call shutdown after 1 minute
 #####################################################################
 echo System is now ready to resize your system. A REBOOT IS REQUIRED NOW!
-# echo "Press ENTER to reboot : \c"
+echo "Press ENTER to reboot : \c"
 # read aok
-# sleep 15
-# echo REBOOTING....
-# /bin/sync
-# /sbin/reboot
-# echo
-# echo Script Complete...
-
-sudo shutdown -r +1 &
+echo REBOOTING....
+/bin/sync
+/sbin/reboot
+echo
+echo Script Complete...
 
 ###################################################################
 # END OF SCRIPT

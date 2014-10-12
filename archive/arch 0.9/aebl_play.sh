@@ -44,29 +44,22 @@
 
 # set to home directory
 
+LOCAL_SYS="/home/pi/.local"
+NETWORK_SYS="/home/pi/.network"
+OFFLINE_SYS="/home/pi/.offline"
+NOTHING_NEW="/home/pi/.nonew"
+NEW_PL="/home/pi/.newpl"
+FIRST_RUN_DONE="/home/pi/.firstrundone"
 AEBL_TEST="/home/pi/.aebltest"
 AEBL_SYS="/home/pi/.aeblsys"
 IHDN_TEST="/home/pi/.ihdntest"
 IHDN_SYS="/home/pi/.ihdnsys"
-TEMP_DIR="/home/pi/tmp"
-
-T_STO="/run/shm"
-T_SCR="/run/shm/scripts"
-
-LOCAL_SYS="${T_STO}/.local"
-NETWORK_SYS="${T_STO}/.network"
-OFFLINE_SYS="${T_STO}/.offline"
-
-NOTHING_NEW="${T_STO}/.nonew"
-NEW_PL="${T_STO}/.newpl"
-FIRST_RUN_DONE="/home/pi/.firstrundone"
-
 IPw0=$(ip addr show wlan0 | awk '/inet / {print $2}' | cut -d/ -f 1)
 MACw0=$(ip link show wlan0 | awk '/ether/ {print $2}')
 IPe0=$(ip addr show eth0 | awk '/inet / {print $2}' | cut -d/ -f 1)
 MACe0=$(ip link show eth0 | awk '/ether/ {print $2}')
 
-CRONCOMMFILE="${T_STO}/.tempcron"
+CRONCOMMFILE="/home/pi/.tempcron"
  
  
 cd $HOME
@@ -105,12 +98,12 @@ fi
 if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ] && [ ! -f "${NOTHING_NEW}" ]; then
     echo "Setting system to not check updates with .nonew" >> log.txt
     echo $(date +"%T") >> log.txt
-    touch $NOTHING_NEW
+    touch .nonew
 fi
 
 # play through the playlist
-if [ -f "${T_STO}/.playlist" ]; then
-    $T_SCR/./process_playlist.sh
+if [ -f "${HOME}/.playlist" ]; then
+    scripts/./process_playlist.sh
 fi
 
 exit

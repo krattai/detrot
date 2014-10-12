@@ -14,20 +14,8 @@
 # this would be the last command before a the script exits
 # on a success rather than a fail exit
 
-AEBL_TEST="/home/pi/.aebltest"
-AEBL_SYS="/home/pi/.aeblsys"
-IHDN_TEST="/home/pi/.ihdntest"
-IHDN_SYS="/home/pi/.ihdnsys"
-TEMP_DIR="/home/pi/tmp"
-
-T_STO="/run/shm"
-T_SCR="/run/shm/scripts"
-LOCAL_SYS="${T_STO}/.local"
-NETWORK_SYS="${T_STO}/.network"
-OFFLINE_SYS="${T_STO}/.offline"
-
 # Where is the playlist
-PLAYLIST_FILE="${T_STO}/.playlist"
+PLAYLIST_FILE="${HOME}/.playlist"
 
 
 # Check for proper usage

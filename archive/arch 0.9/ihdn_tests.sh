@@ -44,34 +44,27 @@
 
 # set to home directory
 
+LOCAL_SYS="/home/pi/.local"
+NETWORK_SYS="/home/pi/.network"
+OFFLINE_SYS="/home/pi/.offline"
+NOTHING_NEW="/home/pi/.nonew"
+NEW_PL="/home/pi/.newpl"
+FIRST_RUN_DONE="/home/pi/.firstrundone"
 AEBL_TEST="/home/pi/.aebltest"
 AEBL_SYS="/home/pi/.aeblsys"
 IHDN_TEST="/home/pi/.ihdntest"
 IHDN_SYS="/home/pi/.ihdnsys"
-TEMP_DIR="/home/pi/tmp"
-
-T_STO="/run/shm"
-T_SCR="/run/shm/scripts"
-
-LOCAL_SYS="${T_STO}/.local"
-NETWORK_SYS="${T_STO}/.network"
-OFFLINE_SYS="${T_STO}/.offline"
-
-NOTHING_NEW="${T_STO}/.nonew"
-NEW_PL="${T_STO}/.newpl"
-FIRST_RUN_DONE="/home/pi/.firstrundone"
-
 IPw0=$(ip addr show wlan0 | awk '/inet / {print $2}' | cut -d/ -f 1)
 MACw0=$(ip link show wlan0 | awk '/ether/ {print $2}')
 IPe0=$(ip addr show eth0 | awk '/inet / {print $2}' | cut -d/ -f 1)
 MACe0=$(ip link show eth0 | awk '/ether/ {print $2}')
 
-CRONCOMMFILE="${T_STO}/.tempcron"
+CRONCOMMFILE="/home/pi/.tempcron"
  
  
 cd $HOME
 
-touch $T_STO/.syschecks
+touch $HOME/.syschecks
 
 # if [ ! -f "${OFFLINE_SYS}" ] && [ ! -f "${HOME}/scripts/macip.sh" ]; then
 #     wget -N -nd -w 3 -P $HOME/scripts "https://www.dropbox.com/s/hjmrvwqmzefhnhy/macip.sh"
@@ -125,20 +118,6 @@ if [ -f "${IHDN_TEST}" ] && [ ! -f "${HOME}/.ihdnaeblv0080beta01" ] && [ ! -f "$
 
 fi
 
-# check id present
-if ls /home/pi/.ihdnfol* &> /dev/null; then
-    echo "files do exist"
-
-    if ! ls /home/pi/ctrl/chanid* &> /dev/null; then
-#         cp /home/pi/.ihdnfol* /home/pi/ctrl/chanid*
-        cd $HOME
-        # this finds .ihdnfol* and copies renamed file it to ctrl fol
-        find -depth -name ".ihdnfol*" -exec bash -c 'cp "$1" "ctrl/${1/\.ihdnfol/chanid}"' _ {} \;
-    fi    
-else
-    echo "files do not exist"
-fi
-
 if [ "${MACe0}" == 'b8:27:eb:2c:41:d7' ] && [ ! -f "${IHDN_TEST}" ]; then
     echo "MAC is ending :d7 so touching .ihdntest." >> log.txt
     touch .ihdntest
@@ -163,13 +142,11 @@ if [ -f "${HOME}/.ihdnfol0" ] && [ ! -f "${OFFLINE_SYS}" ]; then
 
     fi
 
-    chmod 777 $HOME/scripts/grbchan0.sh
-
-    cp $HOME/scripts/grbchan0.sh $T_SCR
+    chmod 777 scripts/grbchan0.sh
 
     if [ ! -f "${HOME}/.getchan0" ]; then
         echo "Grabbing new Channel 0 files." >> log.txt
-        $T_SCR/./grbchan0.sh &
+        scripts/./grbchan0.sh &
     fi
 fi
 
@@ -188,10 +165,10 @@ fi
 if [ "${MACe0}" == 'b8:27:eb:e3:0d:f8' ] && [ ! -f "${HOME}/.ihdnfol25" ]; then
     if [ ! -f "${OFFLINE_SYS}" ]; then
         echo "MAC is ending :f8 so touching .ihdnfol25." >> log.txt
-        touch $HOME/.ihdnfol25
+        touch .ihdnfol25
         rm .id
 
-        $T_SCR/./mkuniq.sh &
+        scripts/./mkuniq.sh &
 
         # Tweet -> SMS announce
         $HOME/tmpdir_maintenance/mod_Twitter/./tcli.sh -c statuses_update -s "automagic msg #Brent_and_Larry #IHDNpi studio test unit ${MACe0} now re-registered for channel 25." &
@@ -206,7 +183,7 @@ if [ "${MACe0}" == 'b8:27:eb:a7:23:94' ] && [ ! -f "${HOME}/.ihdnfol26" ]; then
         touch .ihdnfol26
         rm .id
 
-        $T_SCR/./mkuniq.sh &
+        scripts/./mkuniq.sh &
 
         # Tweet -> SMS announce
         $HOME/tmpdir_maintenance/mod_Twitter/./tcli.sh -c statuses_update -s "automagic msg #Brent_and_Larry #IHDNpi ${MACe0} now re-registered for channel 26 at Robert E. Steen Community Centre." &
@@ -224,14 +201,12 @@ if [ -f "${HOME}/.ihdnfol0" ] && [ ! -f "${OFFLINE_SYS}" ]; then
 
     wget -t 1 -N -nd "https://www.dropbox.com/s/h8st6ech35eae2n/grbchan26.sh" -O $HOME/scripts/grbchan26.sh
 
-    chmod 777 $HOME/scripts/grbchan26.sh
-
-    cp $HOME/scripts/grbchan26.sh $T_SCR
+    chmod 777 scripts/grbchan26.sh
 
     if [ -f "$HOME/.getchan0" ]; then
         echo "Grabbing new Channel 26 files." >> log.txt
 
-        $T_SCR/./grbchan26.sh &
+        scripts/./grbchan26.sh &
 
     fi
 fi
@@ -244,14 +219,12 @@ if [ -f "${HOME}/.ihdnfol26" ] && [ ! -f "${OFFLINE_SYS}" ]; then
 
     wget -t 1 -N -nd "https://www.dropbox.com/s/h8st6ech35eae2n/grbchan26.sh" -O $HOME/scripts/grbchan26.sh
 
-    chmod 777 $HOME/scripts/grbchan26.sh
-
-    cp $HOME/scripts/grbchan26.sh $T_SCR
+    chmod 777 scripts/grbchan26.sh
 
     if [ -f "$HOME/.getchan26" ]; then
         echo "Grabbing new Channel 26 files." >> log.txt
 
-        $T_SCR/./grbchan26.sh &
+        scripts/./grbchan26.sh &
 
     fi
 fi
@@ -286,7 +259,7 @@ if [ -f "${HOME}/.newchan26" ]; then
 
 #    rmdir chan26tmp
     rm .newchan26
-    rm $T_STO/.newpl
+    rm .newpl
 fi
 
 if [ "${MACe0}" == 'b8:27:eb:3e:a8:17' ] && [ ! -f "${HOME}/.ihdnfol27" ]; then
@@ -295,7 +268,7 @@ if [ "${MACe0}" == 'b8:27:eb:3e:a8:17' ] && [ ! -f "${HOME}/.ihdnfol27" ]; then
         touch .ihdnfol27
         rm .id
 
-        %T_SCR/./mkuniq.sh &
+        scripts/./mkuniq.sh &
 
         # Tweet -> SMS announce
         $HOME/tmpdir_maintenance/mod_Twitter/./tcli.sh -c statuses_update -s "automagic msg #Brent_and_Larry #IHDNpi ${MACe0} now re-registered for #Hyundai demo on channel 27." &
@@ -309,13 +282,11 @@ if [ -f "${HOME}/.ihdnfol27" ] && [ ! -f "${OFFLINE_SYS}" ]; then
 
     wget -N -nd -w 3 -P $HOME/scripts "https://www.dropbox.com/s/kqecpctpzfxbc89/grbchan27.sh"
 
-    chmod 777 $HOME/scripts/grbchan27.sh
-
-    cp $HOME/scripts/grbchan27.sh $T_SCR
+    chmod 777 scripts/grbchan27.sh
 
     if [ ! -f "${HOME}/.getchan27" ]; then
         echo "Grabbing new Channel 27 files." >> log.txt
-        $T_SCR/./grbchan27.sh &
+        scripts/./grbchan27.sh &
     fi
 fi
 
@@ -328,7 +299,7 @@ if [ -f "${HOME}/.newchan27" ]; then
 
 #     rmdir chan27tmp
     rm .newchan27
-    rm $T_STO.newpl
+    rm .newpl
 fi
 
 # log current IPs
@@ -357,7 +328,7 @@ ls -al pl >> log.txt
 if [ ! -f "${FIRST_RUN_DONE}" ]; then
     wget -N -nd -w 3 -nd -P $HOME/scripts "https://www.dropbox.com/s/7e2png1lmzzmzxh/getupdt.sh"
 
-    chmod 777 $HOME/scripts/getupdt.sh
+    chmod 777 scripts/getupdt.sh
 fi
 
 if [ -f "${IHDN_TEST}" ] || [ -f "${IHDN_SYS}" ]; then
@@ -398,7 +369,7 @@ if [ -f "${IHDN_TEST}" ] || [ -f "${IHDN_SYS}" ]; then
     fi
 fi
 
-rm $T_STO/.syschecks
+rm $HOME/.syschecks
 
 
 exit

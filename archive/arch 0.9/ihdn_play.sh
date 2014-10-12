@@ -44,50 +44,43 @@
 
 # set to home directory
 
+LOCAL_SYS="/home/pi/.local"
+NETWORK_SYS="/home/pi/.network"
+OFFLINE_SYS="/home/pi/.offline"
+NOTHING_NEW="/home/pi/.nonew"
+NEW_PL="/home/pi/.newpl"
+FIRST_RUN_DONE="/home/pi/.firstrundone"
 AEBL_TEST="/home/pi/.aebltest"
 AEBL_SYS="/home/pi/.aeblsys"
 IHDN_TEST="/home/pi/.ihdntest"
 IHDN_SYS="/home/pi/.ihdnsys"
-TEMP_DIR="/home/pi/tmp"
-
-T_STO="/run/shm"
-T_SCR="/run/shm/scripts"
-
-LOCAL_SYS="${T_STO}/.local"
-NETWORK_SYS="${T_STO}/.network"
-OFFLINE_SYS="${T_STO}/.offline"
-
-NOTHING_NEW="${T_STO}/.nonew"
-NEW_PL="${T_STO}/.newpl"
-FIRST_RUN_DONE="/home/pi/.firstrundone"
-
 IPw0=$(ip addr show wlan0 | awk '/inet / {print $2}' | cut -d/ -f 1)
 MACw0=$(ip link show wlan0 | awk '/ether/ {print $2}')
 IPe0=$(ip addr show eth0 | awk '/inet / {print $2}' | cut -d/ -f 1)
 MACe0=$(ip link show eth0 | awk '/ether/ {print $2}')
 
-CRONCOMMFILE="${T_STO}/.tempcron"
+CRONCOMMFILE="/home/pi/.tempcron"
  
  
 cd $HOME
 
 if [ -f "${HOME}/.ihdnfol25" ] && [ -f "${HOME}/.newchan25" ] && [ ! -f "${HOME}/.getchan25" ]; then
-    rm $T_STO/.newpl
+    rm $HOME/.newpl
     rm $HOME/.newchan25
 fi
 
 if [ -f "${HOME}/.ihdnfol26" ] && [ -f "${HOME}/.newchan26" ] && [ ! -f "${HOME}/.getchan26" ]; then
-    rm $T_STO/.newpl
+    rm $HOME/.newpl
     rm $HOME/.newchan26
 fi
 
 if [ -f "${HOME}/.ihdnfol27" ] && [ -f "${HOME}/.newchan27" ] && [ ! -f "${HOME}/.getchan27" ]; then
-    rm $T_STO/.newpl
+    rm $HOME/.newpl
     rm $HOME/.newchan27
 fi
 
 if [ -f "${HOME}/.ihdnfol28" ] && [ -f "${HOME}/.newchan28" ] && [ ! -f "${HOME}/.getchan28" ]; then
-    rm $T_STO/.newpl
+    rm $HOME/.newpl
     rm $HOME/.newchan28
 fi
 
@@ -95,12 +88,12 @@ if [ -f "${NEW_PL}" ]; then
 #    rm .nonew
 #    sudo reboot
 
-    while [ -f "${T_STO}/.omx_playing" ]; do
+    while [ -f ".omx_playing" ]; do
         echo "waiting for player off"
     done
-    rm "${T_STO}/.playlist"
-    cp "${T_STO}/.newpl" "${T_STO}/.playlist"
-    rm "${T_STO}/.playlistnew"
+    rm "${HOME}/.playlist"
+    cp "${HOME}/.newpl" "${HOME}/.playlist"
+    rm "${HOME}/.playlistnew"
 # else
     # make playlist
 
@@ -112,8 +105,8 @@ if [ -f "${NEW_PL}" ]; then
 fi
 
 # play through the playlist
-if [ -f "${T_STO}/.playlist" ]; then
-    $T_SCR/./process_playlist.sh
+if [ -f "${HOME}/.playlist" ]; then
+    scripts/./process_playlist.sh
 fi
 
 exit

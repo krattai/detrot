@@ -1,7 +1,7 @@
 #!/bin/bash
 # runs on boot
 #
-# Copyright (C) 2014 IHDN, Uvea I. S., Kevin Rattai
+# Copyright (C) 2014 Uvea I. S., Kevin Rattai
 #
 # Boot up also included the following changes from:
 # http://blog.sheasilverman.com/2013/09/adding-a-startup-movie-to-your-raspberry-pi/

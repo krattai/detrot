@@ -20,34 +20,17 @@
 
 sudo bash /home/pi/scripts/led_on.sh
 
-AEBL_TEST="/home/pi/.aebltest"
-AEBL_SYS="/home/pi/.aeblsys"
-IHDN_TEST="/home/pi/.ihdntest"
-IHDN_SYS="/home/pi/.ihdnsys"
-TEMP_DIR="/home/pi/tmp"
-
-T_STO="/run/shm"
-T_SCR="/run/shm/scripts"
-
-LOCAL_SYS="${T_STO}/.local"
-NETWORK_SYS="${T_STO}/.network"
-OFFLINE_SYS="${T_STO}/.offline"
-
-NOTHING_NEW="${T_STO}/.nonew"
-NEW_PL="${T_STO}/.newpl"
-FIRST_RUN_DONE="/home/pi/.firstrundone"
-
 # If you want to switch omxplayer to something else, or add parameters, use these
 PLAYER="omxplayer"
 PLAYER_OPTIONS=""
 
 # Where is the playlist
-PLAYLIST_FILE="${T_STO}/.playlist"
+PLAYLIST_FILE="${HOME}/.playlist"
 
-touch $T_STO/.omx_playing
+touch .omx_playing
 
 # Process playlist contents
-while [ -f "${T_STO}/.omx_playing" ]; do
+while [ -f ".omx_playing" ]; do
         # Sleep a bit so it's possible to kill this
         # sleep 1
 
@@ -69,7 +52,7 @@ while [ -f "${T_STO}/.omx_playing" ]; do
                 echo "Playlist empty or bumped into an empty entry for some reason"
 
                 # added by Kevin: exit clean if empty
-                rm $T_STO/.omx_playing
+                rm .omx_playing
 
                 continue
 
@@ -95,8 +78,8 @@ while [ -f "${T_STO}/.omx_playing" ]; do
         echo
 done
 
-if [ -f "${T_STO}/.omx_playing" ]; then
-    rm $T_STO/.omx_playing
+if [ -f ".omx_playing" ]; then
+    rm .omx_playing
 fi
 
 exit

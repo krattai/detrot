@@ -8,19 +8,13 @@
 # --tries=10
 # --timeout=20
 
+LOCAL_SYS="/home/pi/.local"
+NETWORK_SYS="/home/pi/.network"
+OFFLINE_SYS="/home/pi/.offline"
 AEBL_TEST="/home/pi/.aebltest"
 AEBL_SYS="/home/pi/.aeblsys"
 IHDN_TEST="/home/pi/.ihdntest"
 IHDN_SYS="/home/pi/.ihdnsys"
-TEMP_DIR="/home/pi/tmp"
-
-T_STO="/run/shm"
-T_SCR="/run/shm/scripts"
-
-LOCAL_SYS="${T_STO}/.local"
-NETWORK_SYS="${T_STO}/.network"
-OFFLINE_SYS="${T_STO}/.offline"
-
 
 cd $HOME
 
@@ -62,26 +56,26 @@ fi
 ping -c 1 184.71.76.158
 
 if [ $? -eq 0 ]; then
-    touch $NETWORK_SYS
+    touch .network
     echo "Internet available."
 else
-    rm $NETWORK_SYS
+    rm .network
 fi
 
 ping -c 1 192.168.200.6
 
 if [[ $? -eq 0 ]]; then
-    touch $LOCAL_SYS
+    touch .local
     echo "Local network available."
 else
-    rm $LOCAL_SYS
+    rm .local
 fi
 
 if [ ! -f "${LOCAL_SYS}" ] && [ ! -f "${NETWORK_SYS}" ]; then
-    touch $OFFLINE_SYS
+    touch .offline
     echo "No network available."
 else
-    rm $OFFLINE_SYS
+    rm .offline
 fi
 
 if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ]; then

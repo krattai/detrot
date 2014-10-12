@@ -22,22 +22,9 @@
 # NB: this should be link to krattai dropbox public folder (not used):
 # https://www.dropbox.com/sh/37ntnxfrwz637bk/AAB1CaxMLmNr6l-VwOCcSHUna
 
-AEBL_TEST="/home/pi/.aebltest"
-AEBL_SYS="/home/pi/.aeblsys"
-IHDN_TEST="/home/pi/.ihdntest"
-IHDN_SYS="/home/pi/.ihdnsys"
-TEMP_DIR="/home/pi/tmp"
-
-T_STO="/run/shm"
-T_SCR="/run/shm/scripts"
-
-LOCAL_SYS="${T_STO}/.local"
-NETWORK_SYS="${T_STO}/.network"
-OFFLINE_SYS="${T_STO}/.offline"
-
-NOTHING_NEW="${T_STO}/.nonew"
-NEW_PL="${T_STO}/.newpl"
-FIRST_RUN_DONE="/home/pi/.firstrundone"
+LOCAL_SYS="/home/pi/.local"
+NETWORK_SYS="/home/pi/.network"
+OFFLINE_SYS="/home/pi/.offline"
 
 IPe0=$(ip addr show eth0 | awk '/inet / {print $2}' | cut -d/ -f 1)
 MACe0=$(ip link show eth0 | awk '/ether/ {print $2}')
@@ -54,21 +41,15 @@ if [ ! -f "${OFFLINE_SYS}" ]; then
 
         wget -N -nd -w 3 -P $HOME/scripts --limit-rate=50k http://192.168.200.6/files/l-ctrl.sh
 
-        chmod 777 $HOME/scripts/l-ctrl.sh
-
-        cp $HOME/scripts/l-ctrl.sh $T_SCR
+        chmod 777 scripts/l-ctrl.sh
 
         wget -N -nd -w 3 -P $HOME/scripts --limit-rate=50k http://192.168.200.6/files/inetup.sh
 
-        chmod 777 $HOME/scripts/inetup.sh
-
-        cp $HOME/scripts/inetup.sh $T_SCR
+        chmod 777 scripts/inetup.sh
 
         wget -N -nd -w 3 -P $HOME/scripts --limit-rate=50k http://192.168.200.6/files/synfilz.sh
 
-        chmod 777 $HOME/scripts/synfilz.sh
-
-        cp $HOME/scripts/synfilz.sh $T_SCR
+        chmod 777 scripts/synfilz.sh
 
 #        curl -o "$HOME/mp4/Gymkids_00.mp4" -k -u videouser:password "sftp://184.71.76.158:8022/home/videouser/videos/000025/Gymkids_00.mp4" &
 
@@ -78,27 +59,19 @@ if [ ! -f "${OFFLINE_SYS}" ]; then
 
         wget -t 1 -N -nd "https://www.dropbox.com/s/slt6ef1h54k68w4/synfilz.sh" -O $HOME/scripts/synfilz.sh
 
-        chmod 777 $HOME/scripts/synfilz.sh
+        chmod 777 scripts/synfilz.sh
   
-        cp $HOME/scripts/synfilz.sh $T_SCR
-
         wget -t 1 -N -nd "https://www.dropbox.com/s/k1ifbgmvhjh83na/l-ctrl.sh" -O $HOME/scripts/l-ctrl.sh
 
-        chmod 777 $HOME/scripts/l-ctrl.sh
+        chmod 777 scripts/l-ctrl.sh
   
-        cp $HOME/scripts/l-ctrl.sh $T_SCR
-
         wget -t 1 -N -nd "https://www.dropbox.com/s/o86jbuqc81esv83/cronadd.sh" -O $HOME/scripts/cronadd.sh
 
-        chmod 777 $HOME/scripts/cronadd.sh
+        chmod 777 scripts/cronadd.sh
   
-        cp $HOME/scripts/cronadd.sh $T_SCR
-
         wget -t 1 -N -nd "https://www.dropbox.com/s/4gee63a4fb06zjl/cronrem.sh" -O $HOME/scripts/cronrem.sh
 
-        chmod 777 $HOME/scripts/cronrem.sh
-
-        cp $HOME/scripts/cronrem.sh $T_SCR
+        chmod 777 scripts/cronrem.sh
 
         wget -t 1 -N -nd "https://www.dropbox.com/s/4fjx8hiqncpfyto/lctrl.ctab" -O $HOME/scripts/lctrl.ctab
 
@@ -113,15 +86,11 @@ if [ ! -f "${OFFLINE_SYS}" ]; then
 
         wget -t 1 -N -nd "https://www.dropbox.com/s/0tponu7z348osrs/inetup.sh" -O $HOME/scripts/inetup.sh
 
-        chmod 777 $HOME/scripts/inetup.sh
-
-        cp $HOME/scripts/inetup.sh $T_SCR
+        chmod 777 scripts/inetup.sh
 
         wget -t 1 -N -nd "https://www.dropbox.com/s/7e2png1lmzzmzxh/getupdt.sh" -O $HOME/scripts/getupdt.sh
 
-        chmod 777 $HOME/scripts/getupdt.sh
-
-        cp $HOME/scripts/getupdt.sh $T_SCR
+        chmod 777 scripts/getupdt.sh
 
 # curl -o "$HOME/mp4/Gymkids_00.mp4" -k -u videouser:password "sftp://184.71.76.158:8022/home/videouser/videos/000025/Gymkids_00.mp4" &
 
@@ -133,7 +102,7 @@ if [ ! -f "${OFFLINE_SYS}" ]; then
 
         # make token for files up to date
 
-        touch $T_STO/.nonew
+        touch .nonew
 
     fi
 

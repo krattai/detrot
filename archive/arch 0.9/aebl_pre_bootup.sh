@@ -48,7 +48,7 @@ case "$1" in
     if [ ! -f "${AUTOOFF_CHECK_FILE}" ]; then
         echo "${AUTOOFF_CHECK_FILE} not found, in auto mode."
         setterm -blank 1
-        sudo -u pi /home/pi/scripts/./create-sys.sh &
+        sudo -u pi /home/pi/scripts/./create-asys.sh &
     fi
     echo "Could do more here"
     ;;

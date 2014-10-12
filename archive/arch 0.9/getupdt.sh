@@ -18,6 +18,9 @@
 # cd $HOME
 # ./update.sh
 
+LOCAL_SYS="/home/pi/.local"
+NETWORK_SYS="/home/pi/.network"
+OFFLINE_SYS="/home/pi/.offline"
 FIRST_RUN_DONE="/home/pi/.firstrundone"
 AEBL_TEST="/home/pi/.aebltest"
 AEBL_SYS="/home/pi/.aeblsys"
@@ -25,19 +28,10 @@ IHDN_TEST="/home/pi/.ihdntest"
 IHDN_SYS="/home/pi/.ihdnsys"
 TEMP_DIR="/home/pi/tmp"
 
-T_STO="/run/shm"
-T_SCR="/run/shm/scripts"
-
-LOCAL_SYS="${T_STO}/.local"
-NETWORK_SYS="${T_STO}/.network"
-OFFLINE_SYS="${T_STO}/.offline"
-
 cd $HOME
 
-cp -p /home/pi/scripts/* /run/shm/scripts
-
-if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ] && [ ! -f "${T_STO}/.optimized" ]; then
-#     sudo service dbus stop
+if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ] && [ ! -f "${HOME}/.optimized" ]; then
+    sudo service dbus stop
     sudo mount -o remount,size=128M /dev/shm
     echo -n performance | sudo tee /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     sudo service triggerhappy stop
@@ -46,7 +40,7 @@ if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ] && [ ! -f "${T_STO}/.optimized"
     killall gvfsd
     killall dbus-daemon
     killall dbus-launch
-    touch $T_STO/.optimized
+    touch .optimized
 
 #  Can't do the following, on first run, network not yet established
 #     wget -N -r -nd -l2 -w 3 -P ${TEMP_DIR} --limit-rate=50k http://192.168.200.6/files/bootup.sh
@@ -59,24 +53,24 @@ if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ] && [ ! -f "${T_STO}/.optimized"
 
 fi
 
-if [ ! -f "${T_STO}/.mkplayrun" ]; then
-    $T_SCR/./mkplay.sh &
+if [ ! -f "${HOME}/.mkplayrun" ]; then
+    scripts/./mkplay.sh &
 fi
 
 if [ ! -f "${FIRST_RUN_DONE}" ]; then
     chmod 777 $HOME/pl
-    chmod 777 $HOME/ctrl
+    chmod 777 $HOME/aud
     chmod 777 $HOME/mp4
     chmod 777 $HOME/mp3
 
     rm .id
     rm $HOME/scripts/create-ihdn.sh
     rm $HOME/scripts/create-aebl.sh
-    touch $HOME/.firstrundone
+    touch .firstrundone
 fi
 
-if [ -f "${T_STO}/.omx_playing" ]; then
-    rm $T_STO/.omx_playing
+if [ -f ".omx_playing" ]; then
+    rm .omx_playing
 fi
 
 if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ]; then
@@ -88,12 +82,12 @@ fi
 # Discover network availability if not previously tested
 if [ ! -f "${LOCAL_SYS}" ] && [ ! -f "${NETWORK_SYS}" ] && [ ! -f "${OFFLINE_SYS}" ]; then
 
-    $T_SCR/./inetup.sh
+    scripts/./inetup.sh
 
 fi
 
 if [ ! -f "${OFFLINE_SYS}" ]; then
-    $T_SCR/./mkuniq.sh &
+    scripts/./mkuniq.sh &
 
     ID_FILE="${HOME}/ctrl/ip.txt"
     IPw0=$(ip addr show wlan0 | awk '/inet / {print $2}' | cut -d/ -f 1)
@@ -120,11 +114,10 @@ if [ ! -f "${OFFLINE_SYS}" ]; then
 
         chmod 777 "$HOME/scripts/ctrlwtch.sh"
 
-        cp "$HOME/scripts/ctrlwtch.sh" $T_SCR
     fi
 fi
 
-$T_SCR/./ctrlwtch.sh &
+$HOME/scripts/./ctrlwtch.sh &
 
 # clear all network check files
 
@@ -173,8 +166,6 @@ if [ ! -f "${OFFLINE_SYS}" ]; then
 
     fi
 
-    cp $HOME/scripts/update.sh $T_SCR
-
     if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ]; then
         echo "Ending update.sh if statement" >> log.txt
         echo $(date +"%T") >> log.txt
@@ -188,7 +179,7 @@ if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ]; then
     echo $(date +"%T") >> log.txt
 fi
 
-$T_SCR/./update.sh &
+scripts/./update.sh &
 
 if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ]; then
     echo "Ending getupdt.sh" >> log.txt

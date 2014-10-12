@@ -4,16 +4,6 @@
 # Copyright (C) 2014 IHDN, Uvea I. S., Kevin Rattai
 #
 
-FIRST_RUN_DONE="/home/pi/.firstrundone"
-AEBL_TEST="/home/pi/.aebltest"
-AEBL_SYS="/home/pi/.aeblsys"
-IHDN_TEST="/home/pi/.ihdntest"
-IHDN_SYS="/home/pi/.ihdnsys"
-TEMP_DIR="/home/pi/tmp"
-
-T_STO="/run/shm"
-T_SCR="/run/shm/scripts"
-
 LOCAL_SYS="/home/pi/.local"
 NETWORK_SYS="/home/pi/.network"
 OFFLINE_SYS="/home/pi/.offline"
@@ -119,8 +109,7 @@ if [ ! -f "${OFFLINE_SYS}" ] && [ -f "${NETWORK_SYS}" ]; then
             if [ ! -f "$HOME/mp4/${cont}" ]; then
 
     #         "${PLAYER}" ${PLAYER_OPTIONS} "${cont}" > /dev/null
-                curl -z "$HOME/mp4/${cont}" -o "${TEMP_DIR}/${cont}" -k -u videouser:password "sftp://184.71.76.158:8022/home/videouser/videos/000027/${cont}"
-                mv ${TEMP_DIR}/${cont} $HOME/mp4
+                curl -z "$HOME/mp4/${cont}" -o "$HOME/mp4/${cont}" -k -u videouser:password "sftp://184.71.76.158:8022/home/videouser/videos/000027/${cont}"
             fi
 
             echo
