@@ -189,6 +189,74 @@ do
         cc=0
     fi
 
+    # If new playlist, then update playlist, since mkplay.sh not running
+    #  uses ad directory for playlist compilation
+    #  eventually should use the mp4 directory, like other AEBL products, maybe
+    if [ ! -f "${T_STO}/mkpl" ] && [ -f "${T_STO}/mynew.pl" ]; then
+
+        touch $T_STO/mkpl
+
+        sudo -u pi cp "${T_STO}/mynew.pl" "${T_STO}/pl.part"
+
+        PL_FILE="${T_STO}/pl.part"
+
+        if [ -f "${T_STO}/pl.new" ]; then
+            rm $T_STO/pl.new
+        fi
+
+        sudo -u pi touch $T_STO/pl.new
+
+        PLAY_LIST="${T_STO}/pl.new"
+
+        x=1
+
+        while [ $x == 1 ]; do
+
+            # check file doesn't exist
+            if [ ! -f "${PL_FILE}" ]; then
+                    echo "Playlist file ${PL_FILE} not found"
+                    rm $T_STO/mkpl
+                    exit 1
+            fi
+    
+            # Get the top of the playlist
+            cont=$(cat "${PL_FILE}" | head -n1)
+    
+            # Skip if this is empty
+            if [ -z "${cont}" ]; then
+                echo "Playlist empty or bumped into an empty entry for some reason"
+
+                x=0
+
+            else
+                # And strip it off the playlist file
+                cat "${PL_FILE}" | tail -n+2 > "${PL_FILE}.new"
+                chown pi:pi "${PL_FILE}.new"
+                sudo -u pi mv "${PL_FILE}.new" "${PL_FILE}"
+
+                # Append file to playlist
+                echo "${HOME}/ad/${cont}" >> "${PLAY_LIST}"
+            fi
+
+        done
+
+        rm $T_STO/mkpl
+
+        if [ ! -f "${T_STO}/pl.tmp" ]; then
+            sudo -u pi cp "${T_STO}/.newpl" "${T_STO}/pl.tmp"
+        fi
+
+        if [ -f "${T_STO}/.newpl" ]; then
+            rm "${T_STO}/.newpl"
+        fi
+
+        chown pi:pi "${T_STO}/pl.new"
+        sudo -u pi cp "${T_STO}/pl.new" "${T_STO}/.newpl"
+        rm "${T_STO}/pl.new"
+        rm "${T_STO}/mynew.pl"
+
+    fi
+
  #  sleep .01;  no sleep for very fast loop
 done
 
