@@ -30,6 +30,8 @@ PLAYLIST="${T_STO}/.detpl"
 PLAYLIST_FILE="${T_STO}/.playlist"
 NEW_PL="${T_STO}/.newpl"
 
+OUT="/home/pi/.out"
+
 # create playlist if not exist, which it should not on boot and start det.sh
 if [ ! -f "${PLAYLIST_FILE}" ] && [ ! -f "${NEW_PL}" ]; then
     sudo -u pi $T_SCR/./playlist.sh /home/pi/ad/*.mp4
@@ -81,7 +83,6 @@ echo "0" > /sys/class/gpio/gpio4/value
 echo "1" > /sys/class/gpio/gpio3/value
 g1=1
 
-
 # Start Loop Program ****************************
 while :
 do
@@ -89,45 +90,44 @@ do
     # read inputs
     DD="$(cat /sys/class/gpio/gpio2/value)"
    
-    # Check if ready and Detect pulse
+    # Check if ready by detecting pulse
     if [ "$DD" -eq "0" ]; then
         # Start playback; could NOHUP this instead of &
         #  was:  omxplayer /home/pi/ad/*.mp4 &
 
-        # If detector is in no "out" state, do this before player starts.
-        # switch relay and go Amber
-        echo "1" > /sys/class/gpio/gpio17/value
-        echo "1" > /sys/class/gpio/gpio4/value
+        # If not out, switch then play, if out play then switch
+        if [ ! -f "${OUT}" ]; then
+            # switch relay and go Amber
+            echo "1" > /sys/class/gpio/gpio17/value
+            echo "1" > /sys/class/gpio/gpio4/value
 
-        # If detector in no "out" start player first to cover start latency
-        # This method is only for detectors with no "out" requirement.
-        "${PLAYER}" ${PLAYER_OPTIONS} "${file}" > /dev/null
+            "${PLAYER}" ${PLAYER_OPTIONS} "${file}" > /dev/null
 
-        # This method is only for detectors with "out" requirement.
-#         "${PLAYER}" ${PLAYER_OPTIONS} "${file}" > /dev/null &
+        else
+            "${PLAYER}" ${PLAYER_OPTIONS} "${file}" > /dev/null &
 
-        # If detector is in "out" state, do this after player starts.
-        # switch relay and go Amber
-#         echo "1" > /sys/class/gpio/gpio17/value
-#         echo "1" > /sys/class/gpio/gpio4/value
+            # switch relay and go Amber
+            echo "1" > /sys/class/gpio/gpio17/value
+            echo "1" > /sys/class/gpio/gpio4/value
+        fi
 
-        # If detector is in no "out" state, do not sleep.
-        # To prevent false trigger, wait 7 sec before out check
-#         sleep 7
+        if [ -f "${OUT}" ]; then
+            # To prevent false trigger, wait 7 sec before out check
+            sleep 7
 
-        # This loop SHOULD find next gpio SIG or mp4 EOF, this will ONLY
-        #  work in "demo" while production will need different tests
-        #  and this assumes that gpio2 only goes off for millisecs then
-        #  back on, otherwise this check doesn't work properly
-        #
-        # ie. gpio should be stream, for better realtime monitoring
+            # This loop SHOULD find next gpio SIG or mp4 EOF, this will ONLY
+            #  work in "demo" while production will need different tests
+            #  and this assumes that gpio2 only goes off for millisecs then
+            #  back on, otherwise this check doesn't work properly
+            #
+            # ie. gpio should be stream, for better realtime monitoring
 
-        # If detector is in no "out" state, do not check out.
-#         DD="$(cat /sys/class/gpio/gpio2/value)"
-#         while [ ! "$DD" = "0" ] && [ "$(pgrep omxplayer.bin)" ]; do
-            # read inputs
-#             DD="$(cat /sys/class/gpio/gpio2/value)"
-#         done
+            DD="$(cat /sys/class/gpio/gpio2/value)"
+            while [ ! "$DD" = "0" ] && [ "$(pgrep omxplayer.bin)" ]; do
+                # read inputs
+                DD="$(cat /sys/class/gpio/gpio2/value)"
+            done
+        fi
 
         # trigger occured, begin switch, kill and reset
 
