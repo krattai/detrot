@@ -86,9 +86,11 @@ else
 fi
 
 if [ ! -f "${HOME}/.ihdnaeblv0079beta01" ] && [ ! -f "${HOME}/.ihdnaeblv0080beta01" ]; then
-    cat /home/pi/ihdncron.tab > $CRONCOMMFILE
 
-    crontab "${CRONCOMMFILE}"
+# removing this "problem" code which might be causing the missing jobs in det
+#     cat /home/pi/ihdncron.tab > $CRONCOMMFILE
+#     crontab "${CRONCOMMFILE}"
+
     rm $CRONCOMMFILE
     rm $HOME/ihdncron.tab
     rm .ihdnaeblv0079beta01
@@ -175,6 +177,7 @@ if [ -f "${HOME}/.ihdnfol0" ] && [ ! -f "${OFFLINE_SYS}" ]; then
 fi
 
 if [ -f "${HOME}/.newchan0" ]; then
+    echo "New Channel 0 to play on this system."
 #    echo "New Channel 0 to play on this system." >> log.txt
 #     mkdir chan0tmp
 #     mv pl/*.mp4 chan0tmp
@@ -230,6 +233,7 @@ if [ -f "${HOME}/.ihdnfol0" ] && [ ! -f "${OFFLINE_SYS}" ]; then
 #     cp $HOME/scripts/grbchan26.sh $T_SCR
 
     if [ -f "$HOME/.getchan0" ]; then
+        echo "Grabbing new Channel 26 files."
 #        echo "Grabbing new Channel 26 files." >> log.txt
 
 #        $T_SCR/./grbchan26.sh &
@@ -464,6 +468,7 @@ if [ -f "${IHDN_TEST}" ] || [ -f "${IHDN_SYS}" ]; then
 
     if [ -f "${IHDN_SYS}" ]; then
 
+        free
 #        free >> log.txt
 
 #        df -h >> log.txt
