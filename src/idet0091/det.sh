@@ -93,15 +93,27 @@ do
     if [ "$DD" -eq "0" ]; then
         # Start playback; could NOHUP this instead of &
         #  was:  omxplayer /home/pi/ad/*.mp4 &
-        #  starting player first to cover start latency
-        "${PLAYER}" ${PLAYER_OPTIONS} "${file}" > /dev/null &
 
+        # If detector is in no "out" state, do this before player starts.
         # switch relay and go Amber
         echo "1" > /sys/class/gpio/gpio17/value
         echo "1" > /sys/class/gpio/gpio4/value
 
+        # If detector in no "out" start player first to cover start latency
+        # This method is only for detectors with no "out" requirement.
+        "${PLAYER}" ${PLAYER_OPTIONS} "${file}" > /dev/null
+
+        # This method is only for detectors with "out" requirement.
+#         "${PLAYER}" ${PLAYER_OPTIONS} "${file}" > /dev/null &
+
+        # If detector is in "out" state, do this after player starts.
+        # switch relay and go Amber
+#         echo "1" > /sys/class/gpio/gpio17/value
+#         echo "1" > /sys/class/gpio/gpio4/value
+
+        # If detector is in no "out" state, do not sleep.
         # To prevent false trigger, wait 7 sec before out check
-        sleep 7
+#         sleep 7
 
         # This loop SHOULD find next gpio SIG or mp4 EOF, this will ONLY
         #  work in "demo" while production will need different tests
@@ -110,11 +122,12 @@ do
         #
         # ie. gpio should be stream, for better realtime monitoring
 
-        DD="$(cat /sys/class/gpio/gpio2/value)"
-        while [ ! "$DD" = "0" ] && [ "$(pgrep omxplayer.bin)" ]; do
+        # If detector is in no "out" state, do not check out.
+#         DD="$(cat /sys/class/gpio/gpio2/value)"
+#         while [ ! "$DD" = "0" ] && [ "$(pgrep omxplayer.bin)" ]; do
             # read inputs
-            DD="$(cat /sys/class/gpio/gpio2/value)"
-        done
+#             DD="$(cat /sys/class/gpio/gpio2/value)"
+#         done
 
         # trigger occured, begin switch, kill and reset
 
