@@ -167,11 +167,18 @@ do
         #      on next blip, so this COULD fail during game, if next ad
         #      within 270 therefore, should do check how many blips or
         #      should only wait for 10 seconds or so
-#         while [ $cc -le 30 ]; do
-        while [ $cc -le 210 ]; do
+
+        if [ -f "/home/pi/.short" ]; then
+            wait=30
+        else
+            wait=210
+        fi
+
+        while [ $cc -le $wait ]; do
             cc=$(( $cc + 1 ))
             sleep 1
         done
+        cc=0
 
         # If there is a new set of ads, update for next rotation
         if [ -f "/run/shm/.newplay" ]; then
@@ -186,7 +193,6 @@ do
         # Go back green ready reset cc
         echo "0" > /sys/class/gpio/gpio4/value
         echo "1" > /sys/class/gpio/gpio3/value
-        cc=0
     fi
 
     # If new playlist, then update playlist, since mkplay.sh not running
