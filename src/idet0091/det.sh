@@ -1,5 +1,7 @@
 #!/bin/bash
 #
+# Copyright (C) 2014 IHDN, Uvea I. S., Kevin Rattai
+#
 # 14/10/02 - Kevin Rattai
 # added playlist - works internally
 # ----------------
