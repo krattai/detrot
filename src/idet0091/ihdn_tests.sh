@@ -86,9 +86,11 @@ else
 fi
 
 if [ ! -f "${HOME}/.ihdnaeblv0079beta01" ] && [ ! -f "${HOME}/.ihdnaeblv0080beta01" ]; then
-    cat /home/pi/ihdncron.tab > $CRONCOMMFILE
 
-    crontab "${CRONCOMMFILE}"
+# removing this "problem" code which might be causing the missing jobs in det
+#     cat /home/pi/ihdncron.tab > $CRONCOMMFILE
+#     crontab "${CRONCOMMFILE}"
+
     rm $CRONCOMMFILE
     rm $HOME/ihdncron.tab
     rm .ihdnaeblv0079beta01
