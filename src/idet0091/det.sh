@@ -31,6 +31,7 @@ PLAYLIST_FILE="${T_STO}/.playlist"
 NEW_PL="${T_STO}/.newpl"
 
 OUT="/home/pi/.out"
+SHORT="/home/pi/.short"
 
 # create playlist if not exist, which it should not on boot and start det.sh
 if [ ! -f "${PLAYLIST_FILE}" ] && [ ! -f "${NEW_PL}" ]; then
@@ -168,7 +169,7 @@ do
         #      within 270 therefore, should do check how many blips or
         #      should only wait for 10 seconds or so
 
-        if [ -f "/home/pi/.short" ]; then
+        if [ -f "${SHORT}" ]; then
             wait=30
         else
             wait=210
