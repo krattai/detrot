@@ -242,7 +242,7 @@ do
                 sudo -u pi mv "${PL_FILE}.new" "${PL_FILE}"
 
                 # Append file to playlist
-                echo "${HOME}/ad/${cont}" >> "${PLAY_LIST}"
+                echo "/home/pi/ad/${cont}" >> "${PLAY_LIST}"
             fi
 
         done
