@@ -429,7 +429,7 @@ if [ "${MACe0}" == 'b8:27:eb:31:a6:b5' ] && [ ! -f "${HOME}/.ihdnfol102" ]; then
         %T_SCR/./mkuniq.sh &
 
         # Tweet -> SMS announce
-        $HOME/tmpdir_maintenance/mod_Twitter/./tcli.sh -c statuses_update -s "automagic msg #Brent_and_Larry #IHDNdet ${MACe0} now re-registered for channel 101." &
+        $HOME/tmpdir_maintenance/mod_Twitter/./tcli.sh -c statuses_update -s "automagic msg #Brent_and_Larry #IHDNdet ${MACe0} now re-registered for channel 102." &
 
     fi
 
