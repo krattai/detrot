@@ -345,7 +345,7 @@ if [ "${MACe0}" == 'b8:27:eb:c2:2b:af' ] && [ ! -f "${HOME}/.ihdnfol100" ]; then
         %T_SCR/./mkuniq.sh &
 
         # Tweet -> SMS announce
-        $HOME/tmpdir_maintenance/mod_Twitter/./tcli.sh -c statuses_update -s "automagic msg #Brent_and_Larry #IHDNpi ${MACe0} now re-registered for channel 100." &
+        $HOME/tmpdir_maintenance/mod_Twitter/./tcli.sh -c statuses_update -s "automagic msg #Brent_and_Larry #IHDNdet ${MACe0} now re-registered for channel 100." &
 
     fi
 
@@ -374,7 +374,7 @@ if [ -f "${HOME}/.newchan100" ]; then
 #     mv chan27tmp/*.mp4 mp4
 
 #     rmdir chan27tmp
-    rm .newchan27
+    rm .newchan100
     rm $T_STO.newpl
 fi
 
