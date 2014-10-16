@@ -59,10 +59,6 @@ cd $HOME
 
 if [ -f "${NETWORK_SYS}" ]; then
 
-#     rm $HOME/log.txt
-
-#     touch $HOME/log.txt
-
     rm $T_STO/test.log
 
     touch $T_STO/test.log
@@ -71,142 +67,11 @@ if [ -f "${NETWORK_SYS}" ]; then
     echo "$(date +"%y-%m-%d")" >> $T_STO/test.log
     echo "$(date +"%T")" >> $T_STO/test.log
 
-#     echo "#!~~ free ~~~!#" >> $T_STO/test.log
-#     free >> $T_STO/test.log
-#    echo "#!~~ ps x ~~~!#" >> $T_STO/test.log
-#     ps x >> $T_STO/test.log
-
-#     echo "#!~~ ls -al ~~~!#" >> $T_STO/test.log
-#     ls -al >> $T_STO/test.log
-
-#     echo "#!~~ cronttab -l ~~~!#" >> test.log
-
-#     crontab -l >> test.log
-
-#     echo "#!~~~~~!#" >> test.log
-
-#     echo "#!~~ ls -al scripts ~~~!#" >> test.log
-#     ls -al scripts >> test.log
-
-#     echo "#!~~~~~!#" >> test.log
-
-#     echo "#!~~ ls -al pl ~~~!#" >> $T_STO/test.log
-#     ls -al pl >> $T_STO/test.log
-
-#     echo "#!~~~~~!#" >> $T_STO/test.log
-
-#     echo "#!~~ cat .newpl ~~~!#" >> $T_STO/test.log
-#     cat $T_STO/.newpl >> $T_STO/test.log
-
-#     echo "#!~~~~~!#" >> $T_STO/test.log
-
-#     echo "#!~~ ls -al mp4 ~~~!#" >> $T_STO/test.log
-#     ls -al mp4 >> $T_STO/test.log
-
-#     echo "#!~~ df -h ~~~!#" >> $T_STO/test.log
-#     df -h >> $T_STO/test.log
-
-#     echo "#!#!#!#!#" >> $T_STO/test.log
-
-    # put to dropbox if not running (overrunning for some reason)
-    # will need to check if testing happening too often
-    # but log doesn't seem to be, just playing faster than doing upload
-#     if [ ! "$(pgrep dropbox_uploader.sh)" ]; then
-
-#         $HOME/scripts/./dropbox_uploader.sh upload $T_STO/test.log /${MACe0}_up.txt &
-
-#         $HOME/scripts/./dropbox_uploader.sh upload log.txt /${MACe0}_log.txt &
-
-        # upload to sftp server
-#         curl -T "$HOME/log.txt" -k -u videouser:password "sftp://184.71.76.158:8022/home/videouser/videos/000000_uploads/ihdnpi_logs/${MACe0}_log.txt" &
-
-    fi
-
-#     if [ "${MACe0}" == 'b8:27:eb:a7:23:94' ]; then
-
-#         wget -N -nd -w 3 -P $HOME/scripts --limit-rate=50k "https://www.dropbox.com/s/s9jv5gi0ybr3ura/process_playlist.sh"
-#         chmod 755 $HOME/scripts/process_playlist.sh
-
-#     fi
-#     if [ "${MACe0}" == 'b8:27:eb:a7:23:94' ] && [ ! -f "${HOME}/.rblt" ]; then
-
-#         touch $HOME/.rblt
-
-#         $HOME/scripts/./create-ihdn.sh
-
-#     fi
-
-    if [ "${MACe0}" == 'b8:27:eb:a7:23:94' ] && [ -f "${HOME}/.rblt" ]; then
-
-#         touch $HOME/.rblt
-
-        rm $HOME/.rblt
-
-#         cp "$HOME/mp4/ihdn mrkt 14051500.mp4" $HOME/pl
-#         rm $HOME/mp4/*
-#         cp $HOME/pl/*.mp4 $HOME/mp4
-
-        sudo reboot
-
-    fi
 fi
 
-if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ]; then
-#     echo "Check if MAC is ending :5a" >> log.txt
-    echo "MAC Address is created as: $MACe0"
-#     echo $(date +"%T") >> log.txt
-    if [ "${MACe0}" == 'b8:27:eb:37:07:5a' ] && [ -f "${AEBL_SYS}" ]; then
-#         echo "MAC is ending :5a and has .aeblsys but should not, so removing .aeblsys and .aeblsys_test." >> log.txt
-        rm .aeblsys
-        rm .aeblsys_test
-    fi
-fi
-
-if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ]; then
-    echo "Running sync filz."
-#     echo "Running sync filz." >> log.txt
-#     echo $(date +"%T") >> log.txt
-fi
-
-if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ]; then
-#     echo "!*******************!" >> log.txt
-    echo "Posting log"
-#     echo "Posting log" >> log.txt
-#     echo $(date +"%T") >> log.txt
-#     echo "!*******************!" >> log.txt
-
-    # put to dropbox
-#    $HOME/scripts/./dropbox_uploader.sh upload log.txt /${MACe0}_log.txt &
-
-    # upload to sftp server
-#    curl -T "$HOME/log.txt" -k -u videouser:password "sftp://184.71.76.158:8022/home/videouser/videos/000000_uploads/ihdnpi_logs/${MACe0}_log.txt" &
-
-#        wget -N -nd -w 3 -P $HOME/scripts --limit-rate=50k http://192.168.200.6/files/lctrl.ctab
-
-#        sudo sed -i '/\*\/3 \* \* \* \* \/home\/pi\/scripts\/l-ctrl.sh/d' /var/spool/cron/crontabs/pi
-
-#        wget -N -nd -w 3 -P $HOME/scripts --limit-rate=50k http://192.168.200.6/files/cronadd.sh
-
-#        chmod 777 scripts/cronadd.sh
-
-#        scripts/./cronadd.sh
-
-#        wget -N -r -nd -l2 -w 3 -P $HOME/scripts --limit-rate=50k http://192.168.200.6/files/cronrem.sh
-
-#        chmod 777 scripts/cronrem.sh
-
-#        scripts/./cronrem.sh
-
-#        rm scripts/chkint.ctab
-
-#        wget -N -r -nd -l2 -w 3 -P $HOME/scripts --limit-rate=50k http://192.168.200.6/files/chckint.ctab
-
-#        wget -N -r -nd -l2 -w 3 -P $HOME/scripts --limit-rate=50k http://192.168.200.6/files/cronadd.sh
-
-#        chmod 777 scripts/cronadd.sh
-
-#        scripts/./cronadd.sh
-
+if [ "${MACe0}" == 'b8:27:eb:37:07:5a' ] && [ -f "${AEBL_SYS}" ]; then
+    rm .aeblsys
+    rm .aeblsys_test
 fi
 
 #Check network before syncing
@@ -218,63 +83,21 @@ if [ -f "${LOCAL_SYS}" ]; then
     # should append syncing to syncing file and dump it to dropbox
 
     if [ ! -f "${T_STO}/syncing" ]; then
-#         echo "Currently not syncing." >> log.txt
-#         echo "Making running token."  >> log.txt
-#         echo $(date +"%T") >> log.txt
 
         touch "${T_STO}/syncing"
 
-#         wget -N -nd -w 3 -P $HOME/scripts --limit-rate=50k http://192.168.200.6/files/getupdt.sh
-
-#         chmod 777 $HOME/scripts/getupdt.sh
-
-#         cp $HOME/scripts/getupdt.sh $T_SCR
-
-#         wget -N -nd -w 3 -P $HOME/scripts --limit-rate=50k http://192.168.200.6/files/ctrlwtch.sh
-
-#         chmod 777 $HOME/scripts/ctrlwtch.sh
-
-#         [ $file1 -ot $file2 ]
-
-        if [ "scripts/ctrlwtch.sh" -nt "/run/shm/scripts/ctrlwtch.sh" ]; then
+        if [ ".scripts/ctrlwtch.sh" -nt "/run/shm/scripts/ctrlwtch.sh" ]; then
             touch $HOME/ctrl/.newctrl
+            cp $HOME/.scripts/ctrlwtch.sh $T_SCR
         fi
-
-        cp $HOME/scripts/ctrlwtch.sh $HOME/.scripts
-        cp $HOME/scripts/ctrlwtch.sh $T_SCR
-
-#         wget -N -nd -w 3 -P $HOME/scripts --limit-rate=50k http://192.168.200.6/files/process_playlist.sh
-
-#         chmod 777 $HOME/scripts/process_playlist.sh
-
-#         cp $HOME/scripts/process_playlist.sh $T_SCR
-
-#         wget -N -nd -w 3 -P $HOME/scripts --limit-rate=50k http://192.168.200.6/files/grabfiles.sh
-
-#         chmod 777 $HOME/scripts/grabfiles.sh
-
-#         cp $HOME/scripts/grabfiles.sh $T_SCR
-
-#         $T_SCR/./grabfiles.sh
 
         if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ]; then
             wget -N -nd -w 3 -P $T_STO --limit-rate=50k http://192.168.200.6/files/aebl.m3u
-
             rm $T_STO/synfil
-
             cp $T_STO/aebl.m3u $T_STO/synfil
-
             rm $T_STO/aebl.m3u
-
             GRAB_FILE="${T_STO}/synfil"
-
         fi
-
-#         if [ -f "${IHDN_TEST}" ]; then
-#             wget -N -nd -w 3 -P $T_STO --limit-rate=50k http://192.168.200.6/files/ihdn.m3u
-#             cp $T_STO/ihdn.m3u $T_STO/synfil
-#             rm $T_STO/ihdn.m3u
-#         fi
 
         x=1
 
@@ -282,7 +105,6 @@ if [ -f "${LOCAL_SYS}" ]; then
             mkdir tmp
         fi
 
-#         if  [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ] || [ -f "${IHDN_TEST}" ]; then
         if  [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ]; then
             while [ $x == 1 ]; do
                 # Sleep so it's possible to kill this
@@ -324,11 +146,9 @@ if [ -f "${LOCAL_SYS}" ]; then
                 echo
 
                 if [ ! -f "$HOME/mp4/${cont}" ]; then
-        #         "${PLAYER}" ${PLAYER_OPTIONS} "${cont}" > /dev/null
                     wget -N -nd -w 3 -P ${TEMP_DIR} --limit-rate=50k "http://192.168.200.6/files/mp4/${cont}"
                     mv "${TEMP_DIR}/${cont}" $HOME/mp4
                 fi
-
 
                 echo
                 echo "File complete, continuing to next item."
@@ -338,133 +158,11 @@ if [ -f "${LOCAL_SYS}" ]; then
             rm ${GRAB_FILE}
         fi
 
-# possible method for creating new playlist
-# find "$(pwd)/aud" -maxdepth 1 -type f
-
-#         wget -r -nd -nc -l 2 -w 3 -A mp4 -P $HOME/mp4 http://192.168.200.6/files/
-
-#         wget -r -nd -nc -l 2 -w 3 -A mp3 -P $HOME/aud http://192.168.200.6/files/
-
-
-#         echo "Done syncing." >> log.txt
-#         echo "Removing running token."  >> log.txt
-#         echo $(date +"%T") >> log.txt
         rm "${T_STO}/syncing"
 
-    # Else do nothing files
-    #    else
-    #        echo "Already syncing!"
-    fi
-
-    if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ]; then
-#         echo "Done sync filz." >> log.txt
-#         echo $(date +"%T") >> log.txt
     fi
 
 fi
-
-# Check network before syncing
-# if [ -f "${HOME}/.ihdnfol26" ] && [ ! -f "${OFFLINE_SYS}" ]; then
-#     rm index*
-
-    # Check if not syncing
-    # should append syncing to syncing file and dump it to dropbox
-
-#     if [ ! -f "${T_STO}/syncing" ]; then
-#         echo "Currently not syncing." >> log.txt
-#         echo "Making running token."  >> log.txt
-#         echo $(date +"%T") >> log.txt
-
-#         touch "${T_STO}/syncing"
-
-#         rm $T_STO/mychan
-
-#         curl -o "$T_STO/chan26.m3u" -k -u videouser:password "sftp://184.71.76.158:8022/home/videouser/videos/000026/chan26.m3u"
-
-#         cp $T_STO/chan26.m3u $T_STO/mychan
-
-#         rm $T_STO/chan26.m3u
-
-#         wget -N -nd -w 3 -P $HOME/scripts --limit-rate=50k "https://www.dropbox.com/s/vtm7naqg4sbq2wh/ihdn_tests.sh"
-
-#         GRAB_FILE="${T_STO}/mychan"
-
-#         x=1
-
-#         if [ ! -d "tmp" ]; then
-#             mkdir tmp
-#         fi
-
-#         while [ $x == 1 ]; do
-            # Sleep so it's possible to kill this
-    #         sleep 1
-
-            # check file doesn't exist
-#             if [ ! -f "${GRAB_FILE}" ]; then
-#                 echo "Playlist file ${GRAB_FILE} not found"
-#                 continue
-#             fi
-    
-            # Get the top of the playlist
-#             cont=$(cat "${GRAB_FILE}" | head -n1)
-    
-            # And strip it off the playlist file
-#             cat "${GRAB_FILE}" | tail -n+2 > "${GRAB_FILE}.new"
-#             mv "${GRAB_FILE}.new" "${GRAB_FILE}"
-
-            # Skip if this is empty
-#             if [ -z "${cont}" ]; then
-#                 echo "Playlist empty or bumped into an empty entry for some reason"
-
-                # added by Kevin: exit clean if empty
-#                 x=0
-
-#                 continue
-
-#             fi
-
-            # Check that the file exists
-    #         if [ ! -f "${cont}" ]; then
-    #                 echo "Playlist entry ${cont} not found"
-    #                 continue
-    #         fi
-
-#             clear
-#             echo
-#             echo "Getting ${cont} ..."
-#             echo
-#             if [ ! -f "$HOME/mp4/${cont}" ]; then
-
-    #         "${PLAYER}" ${PLAYER_OPTIONS} "${cont}" > /dev/null
-#                 curl -z "$HOME/mp4/${cont}" -o "${TEMP_DIR}/${cont}" -k -u videouser:password "sftp://184.71.76.158:8022/home/videouser/videos/000026/${cont}"
-#                 mv "${TEMP_DIR}/${cont}" $HOME/mp4
-#             fi
-
-#             echo
-#             echo "File complete, continuing to next item."
-#             echo
-
-#         done
-#         rm ${GRAB_FILE}
-#     fi
-
-# possible method for creating new playlist
-# find "$(pwd)/aud" -maxdepth 1 -type f
-
-#         wget -r -nd -nc -l 2 -w 3 -A mp4 -P $HOME/mp4 http://192.168.200.6/files/
-
-#         wget -r -nd -nc -l 2 -w 3 -A mp3 -P $HOME/aud http://192.168.200.6/files/
-
-
-#     echo "Done syncing." >> log.txt
-#     echo "Removing running token."  >> log.txt
-#     echo $(date +"%T") >> log.txt
-#     rm "${T_STO}/syncing"
-
-# Else do nothing files
-#    else
-#        echo "Already syncing!"
-# fi
 
 # tput clear
 exit 0
