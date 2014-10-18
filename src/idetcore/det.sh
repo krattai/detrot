@@ -213,11 +213,11 @@ do
         # If there is a new set of ads, update for next rotation
         if [ -f "/run/shm/.newplay" ]; then
             rm /run/shm/.newplay
-            sudo -u pi mv "${PLAYLIST_FILE}" "${PLAYLIST_FILE}.cur"
-            sudo -u pi $T_SCR/./playlist.sh /home/pi/ad/*.mp4
-            rm "${NEW_PL}"
-            sudo -u pi mv "${PLAYLIST_FILE}" "${NEW_PL}"
-            sudo -u pi mv "${PLAYLIST_FILE}.cur" "${PLAYLIST_FILE}"
+#             sudo -u pi mv "${PLAYLIST_FILE}" "${PLAYLIST_FILE}.cur"
+#             sudo -u pi $T_SCR/./playlist.sh /home/pi/ad/*.mp4
+#             rm "${NEW_PL}"
+#             sudo -u pi mv "${PLAYLIST_FILE}" "${NEW_PL}"
+#             sudo -u pi mv "${PLAYLIST_FILE}.cur" "${PLAYLIST_FILE}"
         fi
 
         # Go back green ready reset cc
