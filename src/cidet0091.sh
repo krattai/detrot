@@ -236,9 +236,12 @@ if [ ! -f "${OFFLINE_SYS}" ]; then
 #    mv "${TEMP_DIR}/bpgameday00.mp4" /home/pi/ad
 #    cp "home/pi/ad/bpgameday00.mp4" ${PL_DIR}
 #    cp "${PL_DIR}/bpgameday00.mp4" ${MP4_DIR}
-    mv "${TEMP_DIR}/ihdn mrkt 14051500.mp4" ${PL_DIR}
-    cp "${PL_DIR}/ihdn mrkt 14051500.mp4" ${MP4_DIR}
-    cp "${PL_DIR}/ihdn mrkt 14051500.mp4" /home/pi/ad
+#    mv "${TEMP_DIR}/ihdn mrkt 14051500.mp4" ${PL_DIR}
+#    cp "${PL_DIR}/ihdn mrkt 14051500.mp4" ${MP4_DIR}
+#    cp "${PL_DIR}/ihdn mrkt 14051500.mp4" /home/pi/ad
+    mv "${TEMP_DIR}/IHDN Advertise Here.mp4" ${PL_DIR}
+    cp "${PL_DIR}/IHDN Advertise Here.mp4" ${MP4_DIR}
+    cp "${PL_DIR}/IHDN Advertise Here.mp4" /home/pi/ad
 
     mv ${TEMP_DIR}/inetup.sh ${SCRPT_DIR}
     chmod 777 ${SCRPT_DIR}/inetup.sh
