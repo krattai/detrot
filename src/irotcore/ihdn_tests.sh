@@ -504,6 +504,90 @@ if [ -f "${HOME}/.newchan103" ]; then
     rm $T_STO.newpl
 fi
 
+if [ "${MACe0}" == 'b8:27:eb:bb:fb:d7' ] && [ ! -f "${HOME}/.ihdnfol105" ]; then
+    if [ ! -f "${OFFLINE_SYS}" ]; then
+#        echo "MAC is ending :d7 so touching .ihdnfol105." >> log.txt
+        touch .ihdnfol105
+        rm .id
+
+        %T_SCR/./mkuniq.sh &
+
+        # Tweet -> SMS announce
+        $HOME/tmpdir_maintenance/mod_Twitter/./tcli.sh -c statuses_update -s "automagic msg #Brent_and_Larry #IHDNdet ${MACe0} now re-registered for channel 105." &
+
+    fi
+
+fi
+
+if [ -f "${HOME}/.ihdnfol105" ] && [ ! -f "${OFFLINE_SYS}" ]; then
+#    echo "Channel 105 on this system." >> log.txt
+
+    wget -N -nd -w 3 -P $HOME/scripts "https://www.dropbox.com/s/kqecpctpzfxbc89/grbchan105.sh"
+
+    chmod 777 $HOME/scripts/grbchan105.sh
+
+    cp $HOME/scripts/grbchan105.sh $T_SCR
+
+    if [ ! -f "${HOME}/.getchan105" ]; then
+#        echo "Grabbing new Channel 105 files." >> log.txt
+        $T_SCR/./grbchan105.sh &
+    fi
+fi
+
+if [ -f "${HOME}/.newchan105" ]; then
+#    echo "New Channel 105 to play on this system." >> log.txt
+#     mkdir chan27tmp
+#     mv pl/*.mp4 chan27tmp
+#     mv mp4/*.mp4 pl
+#     mv chan27tmp/*.mp4 mp4
+
+#     rmdir chan27tmp
+    rm .newchan105
+    rm $T_STO.newpl
+fi
+
+if [ "${MACe0}" == 'b8:27:eb:d1:3e:20' ] && [ ! -f "${HOME}/.ihdnfol106" ]; then
+    if [ ! -f "${OFFLINE_SYS}" ]; then
+#        echo "MAC is ending :20 so touching .ihdnfol106." >> log.txt
+        touch .ihdnfol106
+        rm .id
+
+        %T_SCR/./mkuniq.sh &
+
+        # Tweet -> SMS announce
+        $HOME/tmpdir_maintenance/mod_Twitter/./tcli.sh -c statuses_update -s "automagic msg #Brent_and_Larry #IHDNdet ${MACe0} now re-registered for channel 106." &
+
+    fi
+
+fi
+
+if [ -f "${HOME}/.ihdnfol106" ] && [ ! -f "${OFFLINE_SYS}" ]; then
+#    echo "Channel 106 on this system." >> log.txt
+
+    wget -N -nd -w 3 -P $HOME/scripts "https://www.dropbox.com/s/kqecpctpzfxbc89/grbchan106.sh"
+
+    chmod 777 $HOME/scripts/grbchan106.sh
+
+    cp $HOME/scripts/grbchan106.sh $T_SCR
+
+    if [ ! -f "${HOME}/.getchan106" ]; then
+#        echo "Grabbing new Channel 106 files." >> log.txt
+        $T_SCR/./grbchan106.sh &
+    fi
+fi
+
+if [ -f "${HOME}/.newchan106" ]; then
+#    echo "New Channel 106 to play on this system." >> log.txt
+#     mkdir chan27tmp
+#     mv pl/*.mp4 chan27tmp
+#     mv mp4/*.mp4 pl
+#     mv chan27tmp/*.mp4 mp4
+
+#     rmdir chan27tmp
+    rm .newchan106
+    rm $T_STO.newpl
+fi
+
 # log current IPs
 # echo "Current IPs as follows:" >> log.txt
 # echo "WAN IP: $IPw0" >> log.txt
