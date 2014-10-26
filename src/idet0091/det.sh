@@ -157,6 +157,35 @@ do
             # If file empty, playlist must be empty, so recreate
             if [ -z "${file}" ]; then
                 rm "${PLAYLIST_FILE}"
+
+                # make sure only playlist files in ad folder
+                sudo -u pi mv /home/pi/ad/*.mp4 /home/pi/mp4
+                sudo -u pi cp "${NEW_PL}" "${T_STO}/swp"
+                MV_FILE="${T_STO}/swp"
+                x=1
+                while [ $x == 1 ]; do
+                    # check file doesn't exist
+                    if [ ! -f "${MV_FILE}" ]; then
+                        echo "Playlist file ${MV_FILE} not found"
+                        exit 1
+                    fi
+                    # Get the top of the mv list
+                    cont=$(cat "${MV_FILE}" | head -n1 | sed 's/.*\///')
+                    # Skip if this is empty
+                    if [ -z "${cont}" ]; then
+                        echo "Move file empty or bumped"
+                        x=0
+                    else
+                        # And strip it off the move file
+                        cat "${MV_FILE}" | tail -n+2 > "${MV_FILE}.new"
+                        chown pi:pi "${MV_FILE}.new"
+                        sudo -u pi mv "${MV_FILE}.new" "${MV_FILE}"
+                        # Move file to ad folder
+                        sudo -u pi mv "/home/pi/mp4/${cont}" "/home/pi/ad"
+                    fi
+                done
+                rm "${T_STO}/swp"
+
                 sudo -u pi cp "${NEW_PL}" "${PLAYLIST_FILE}"
                 file=$(cat "${PLAYLIST_FILE}" | head -n1)
             fi
@@ -184,11 +213,11 @@ do
         # If there is a new set of ads, update for next rotation
         if [ -f "/run/shm/.newplay" ]; then
             rm /run/shm/.newplay
-            sudo -u pi mv "${PLAYLIST_FILE}" "${PLAYLIST_FILE}.cur"
-            sudo -u pi $T_SCR/./playlist.sh /home/pi/ad/*.mp4
-            rm "${NEW_PL}"
-            sudo -u pi mv "${PLAYLIST_FILE}" "${NEW_PL}"
-            sudo -u pi mv "${PLAYLIST_FILE}.cur" "${PLAYLIST_FILE}"
+#             sudo -u pi mv "${PLAYLIST_FILE}" "${PLAYLIST_FILE}.cur"
+#             sudo -u pi $T_SCR/./playlist.sh /home/pi/ad/*.mp4
+#             rm "${NEW_PL}"
+#             sudo -u pi mv "${PLAYLIST_FILE}" "${NEW_PL}"
+#             sudo -u pi mv "${PLAYLIST_FILE}.cur" "${PLAYLIST_FILE}"
         fi
 
         # Go back green ready reset cc

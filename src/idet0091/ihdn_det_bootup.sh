@@ -43,6 +43,7 @@ case "$1" in
     sudo -u pi rm /home/pi/.omx_playing
     sudo -u pi rm /home/pi/.mkplayrun
     sudo -u pi rm /home/pi/.optimized
+    sudo -u pi rm /home/pi/.getchan
     sudo -u pi rm /home/pi/.sysrunning
     mount -o exec,remount /run/shm
     sudo -u pi mkdir /run/shm/scripts
