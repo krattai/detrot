@@ -74,6 +74,13 @@ cd $HOME
 
 touch $T_STO/.syschecks
 
+# Allow a detector to be able to switch from det to rot and back
+#  a detector will have a bin directory with det.sh
+#  so a check for det.sh in bin will be certain the device could be both
+#  if file exists then check ctrl folder to see if det or rot exists
+#  and switch accordingly.  Should reboot once changed.
+#  Basically would require changing out bootup.sh to switch.
+
 # if [ ! -f "${OFFLINE_SYS}" ] && [ ! -f "${HOME}/scripts/macip.sh" ]; then
 #     wget -N -nd -w 3 -P $HOME/scripts "https://www.dropbox.com/s/hjmrvwqmzefhnhy/macip.sh"
 #     wget -N -nd -w 3 -P $HOME/scripts "https://www.dropbox.com/s/ryag5pha0qzjndg/mkuniq.sh"
