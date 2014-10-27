@@ -81,11 +81,6 @@ touch $T_STO/.syschecks
 #  and switch accordingly.  Should reboot once changed.
 #  Basically would require changing out bootup.sh to switch.
 
-# if [ ! -f "${OFFLINE_SYS}" ] && [ ! -f "${HOME}/scripts/macip.sh" ]; then
-#     wget -N -nd -w 3 -P $HOME/scripts "https://www.dropbox.com/s/hjmrvwqmzefhnhy/macip.sh"
-#     wget -N -nd -w 3 -P $HOME/scripts "https://www.dropbox.com/s/ryag5pha0qzjndg/mkuniq.sh"
-# fi
-
 if [ ! -f "${OFFLINE_SYS}" ] && [ -f "${LOCAL_SYS}" ]; then
     wget -N -nd -w 3 -P $HOME --limit-rate=50k http://192.168.200.6/files/ihdncron.tab
 else
@@ -185,15 +180,6 @@ fi
 
 if [ -f "${HOME}/.newchan0" ]; then
     echo "New Channel 0 to play on this system."
-#    echo "New Channel 0 to play on this system." >> log.txt
-#     mkdir chan0tmp
-#     mv pl/*.mp4 chan0tmp
-#     mv mp4/*.mp4 pl
-#     mv chan0tmp/*.mp4 mp4
-
-#     rmdir chan0tmp
-#     rm .newchan0
-#     rm .newpl
 fi
 
 if [ "${MACe0}" == 'b8:27:eb:e3:0d:f8' ] && [ ! -f "${HOME}/.ihdnfol-2" ]; then
@@ -220,7 +206,7 @@ if [ "${MACe0}" == 'b8:27:eb:a7:23:94' ] && [ ! -f "${HOME}/.ihdnfol26" ]; then
         $T_SCR/./mkuniq.sh &
 
         # Tweet -> SMS announce
-        $HOME/tmpdir_maintenance/mod_Twitter/./tcli.sh -c statuses_update -s "automagic msg #Brent_and_Larry #IHDNpi ${MACe0} now re-registered for channel 26 at Robert E. Steen Community Centre." &
+        $HOME/tmpdir_maintenance/mod_Twitter/./tcli.sh -c statuses_update -s "automagic msg #Brent_and_Larry #IHDNpi ${MACe0} now re-registered for channel 26." &
 
     fi
 
@@ -229,19 +215,9 @@ fi
 # testing what could be wrong with grabchan26.sh 
 if [ -f "${HOME}/.ihdnfol0" ] && [ ! -f "${OFFLINE_SYS}" ]; then
 #     echo "List of Channel 26 files in mp4 folder" >> log.txt
-#     ls -al mp4 >> log.txt
-
-#    echo "Channel 26 on this system." >> log.txt
-
-#     wget -t 1 -N -nd "https://www.dropbox.com/s/h8st6ech35eae2n/grbchan26.sh" -O $HOME/scripts/grbchan26.sh
-
-#     chmod 777 $HOME/scripts/grbchan26.sh
-
-#     cp $HOME/scripts/grbchan26.sh $T_SCR
 
     if [ -f "$HOME/.getchan0" ]; then
         echo "Grabbing new Channel 26 files."
-#        echo "Grabbing new Channel 26 files." >> log.txt
 
 #        $T_SCR/./grbchan26.sh &
 
@@ -250,9 +226,6 @@ fi
 
 if [ -f "${HOME}/.ihdnfol26" ] && [ ! -f "${OFFLINE_SYS}" ]; then
 #     echo "List of Channel 26 files in mp4 folder" >> log.txt
-#     ls -al mp4 >> log.txt
-
-#    echo "Channel 26 on this system." >> log.txt
 
     wget -t 1 -N -nd "https://www.dropbox.com/s/h8st6ech35eae2n/grbchan26.sh" -O $HOME/scripts/grbchan26.sh
 
@@ -268,35 +241,8 @@ if [ -f "${HOME}/.ihdnfol26" ] && [ ! -f "${OFFLINE_SYS}" ]; then
     fi
 fi
 
-# if [ -f "${HOME}/.ihdnfol26" ]; then
-#     if [ ! -f "${HOME}/pl/ArtMomentClean.mp4" ] || [ ! -f "${HOME}/pl/RAStennisMASre.mp4" ]; then
-#         mv pl/*.mp4 mp4
-#         mv mp4/ArtMomentClean.mp4 pl
-#         mv mp4/RAStennisMASre.mp4 pl
-#         rm .newpl
-#     fi
-# fi
-
-# if [ -f "${HOME}/.ihdnfol26" ]; then
-#     mkdir chan26tmp
-#     mv pl/*.mp4 chan26tmp
-#     mv chan26tmp/ArtMomentClean.mp4 pl
-#     mv chan26tmp/RAStennisMASre.mp4 pl
-#     mv chan26tmp/*.mp4 mp4
-# 
-#     rmdir chan26tmp
-#     rm .newpl
-# fi
-
 if [ -f "${HOME}/.newchan26" ]; then
 #    echo "New Channel 26 to play on this system." >> log.txt
-#     mkdir chan26tmp
-#     mv pl/*.mp4 chan26tmp
-#     mv pl/*.mp4 mp4
-#     mv mp4/ArtMomentClean.mp4 pl
-#     mv mp4/RAStennisMASre.mp4.mp4 pl
-
-#    rmdir chan26tmp
     rm .newchan26
     rm $T_STO/.newpl
 fi
@@ -310,7 +256,7 @@ if [ "${MACe0}" == 'b8:27:eb:3e:a8:17' ] && [ ! -f "${HOME}/.ihdnfol27" ]; then
         %T_SCR/./mkuniq.sh &
 
         # Tweet -> SMS announce
-        $HOME/tmpdir_maintenance/mod_Twitter/./tcli.sh -c statuses_update -s "automagic msg #Brent_and_Larry #IHDNpi ${MACe0} now re-registered for #Hyundai demo on channel 27." &
+        $HOME/tmpdir_maintenance/mod_Twitter/./tcli.sh -c statuses_update -s "automagic msg #Brent_and_Larry #IHDNpi ${MACe0} now re-registered for channel 27." &
 
     fi
 
@@ -333,12 +279,6 @@ fi
 
 if [ -f "${HOME}/.newchan27" ]; then
 #    echo "New Channel 27 to play on this system." >> log.txt
-#     mkdir chan27tmp
-#     mv pl/*.mp4 chan27tmp
-#     mv mp4/*.mp4 pl
-#     mv chan27tmp/*.mp4 mp4
-
-#     rmdir chan27tmp
     rm .newchan27
     rm $T_STO.newpl
 fi
@@ -375,12 +315,6 @@ fi
 
 if [ -f "${HOME}/.newchan100" ]; then
 #    echo "New Channel 100 to play on this system." >> log.txt
-#     mkdir chan27tmp
-#     mv pl/*.mp4 chan27tmp
-#     mv mp4/*.mp4 pl
-#     mv chan27tmp/*.mp4 mp4
-
-#     rmdir chan27tmp
     rm .newchan100
     rm $T_STO.newpl
 fi
@@ -417,12 +351,6 @@ fi
 
 if [ -f "${HOME}/.newchan101" ]; then
 #    echo "New Channel 101 to play on this system." >> log.txt
-#     mkdir chan27tmp
-#     mv pl/*.mp4 chan27tmp
-#     mv mp4/*.mp4 pl
-#     mv chan27tmp/*.mp4 mp4
-
-#     rmdir chan27tmp
     rm .newchan101
     rm $T_STO.newpl
 fi
@@ -459,12 +387,6 @@ fi
 
 if [ -f "${HOME}/.newchan102" ]; then
 #    echo "New Channel 102 to play on this system." >> log.txt
-#     mkdir chan27tmp
-#     mv pl/*.mp4 chan27tmp
-#     mv mp4/*.mp4 pl
-#     mv chan27tmp/*.mp4 mp4
-
-#     rmdir chan27tmp
     rm .newchan102
     rm $T_STO.newpl
 fi
@@ -501,12 +423,6 @@ fi
 
 if [ -f "${HOME}/.newchan103" ]; then
 #    echo "New Channel 103 to play on this system." >> log.txt
-#     mkdir chan27tmp
-#     mv pl/*.mp4 chan27tmp
-#     mv mp4/*.mp4 pl
-#     mv chan27tmp/*.mp4 mp4
-
-#     rmdir chan27tmp
     rm .newchan103
     rm $T_STO.newpl
 fi
@@ -543,12 +459,6 @@ fi
 
 if [ -f "${HOME}/.newchan105" ]; then
 #    echo "New Channel 105 to play on this system." >> log.txt
-#     mkdir chan27tmp
-#     mv pl/*.mp4 chan27tmp
-#     mv mp4/*.mp4 pl
-#     mv chan27tmp/*.mp4 mp4
-
-#     rmdir chan27tmp
     rm .newchan105
     rm $T_STO.newpl
 fi
@@ -585,12 +495,6 @@ fi
 
 if [ -f "${HOME}/.newchan106" ]; then
 #    echo "New Channel 106 to play on this system." >> log.txt
-#     mkdir chan27tmp
-#     mv pl/*.mp4 chan27tmp
-#     mv mp4/*.mp4 pl
-#     mv chan27tmp/*.mp4 mp4
-
-#     rmdir chan27tmp
     rm .newchan106
     rm $T_STO.newpl
 fi
@@ -627,38 +531,9 @@ fi
 
 if [ -f "${HOME}/.newchan107" ]; then
 #    echo "New Channel 107 to play on this system." >> log.txt
-#     mkdir chan27tmp
-#     mv pl/*.mp4 chan27tmp
-#     mv mp4/*.mp4 pl
-#     mv chan27tmp/*.mp4 mp4
-
-#     rmdir chan27tmp
     rm .newchan107
     rm $T_STO.newpl
 fi
-
-# log current IPs
-# echo "Current IPs as follows:" >> log.txt
-# echo "WAN IP: $IPw0" >> log.txt
-# echo "LAN IP: $IPe0" >> log.txt
-
-# echo $(date +"%y-%m-%d")
-# echo $(date +"%T")
-
-# echo $(date +"%y-%m-%d")$(date +"%T")$MACe0$IPw0
-# echo $(date +"%y-%m-%d") >> log.txt
-# echo $(date +"%T") >> log.txt
-
-# temp check
-# log host $HOME dirctory
-
-# echo "Current home directory" >> log.txt
-# echo $(date +"%T") >> log.txt
-# ls -al >> log.txt
-
-# echo "Current pl directory" >> log.txt
-# echo $(date +"%T") >> log.txt
-# ls -al pl >> log.txt
 
 if [ ! -f "${FIRST_RUN_DONE}" ]; then
     wget -N -nd -w 3 -nd -P $HOME/scripts "https://www.dropbox.com/s/7e2png1lmzzmzxh/getupdt.sh"
@@ -667,14 +542,6 @@ if [ ! -f "${FIRST_RUN_DONE}" ]; then
 fi
 
 if [ -f "${IHDN_TEST}" ] || [ -f "${IHDN_SYS}" ]; then
-#     echo "!*******************!" >> log.txt
-#     echo "Posting log" >> log.txt
-#     echo $(date +"%T") >> log.txt
-
-#     crontab -l >> log.txt
-
-#     echo "!*******************!" >> log.txt
-
 #     if [ -f "${IHDN_TEST}" ]; then
 #         ls -al >> log.txt
 #         crontab -l >> log.txt
