@@ -32,6 +32,7 @@ NEW_PL="${T_STO}/.newpl"
 
 OUT="/home/pi/.out"
 SHORT="/home/pi/.short"
+NOREP="/home/pi/.norep"
 
 # create playlist if not exist, which it should not on boot and start det.sh
 if [ ! -f "${PLAYLIST_FILE}" ] && [ ! -f "${NEW_PL}" ]; then
@@ -139,11 +140,15 @@ do
         echo "0" > /sys/class/gpio/gpio3/value
 
         # kill if omxplayer still running
-        if [ "$(pgrep omxplayer.bin)" ]; then
+        if [ "$(pgrep omxplayer.bin)" ] && [ ! -f "${NOREP}" ]; then
             # not finished playing, kill and do not log
             kill $(pgrep omxplayer.bin)
         else
-            # only log and advance ad if ad played through
+            if [ "$(pgrep omxplayer.bin)" ]; then
+                # kill kill if still playing
+                kill $(pgrep omxplayer.bin)
+            fi
+            # only log and advance ad if ad played through or .norep set
             NUMBER=`/bin/date +"%Y-%m-%d-%H-%M-%S"`
             echo "ad play...$NUMBER" >> /home/pi/logs/playlog.txt
 
