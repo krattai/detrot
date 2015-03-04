@@ -208,7 +208,11 @@ if [ ! -f "${OFFLINE_SYS}" ]; then
 
     # update rpi-update to do firmware revert
     sudo apt-get install rpi-update
-    # revert firmware to Jul5th, 2014 to fix undesirable GPI)2 behaviour
+    # from https://github.com/raspberrypi/firmware/issues/321
+    # revert firmware to Jul5th, 2014 to fix undesirable GPIO2 behaviour
+    # to remove old version, use:
+    # sudo rm /boot/.firmware_revision
+    sudo rm /boot/.firmware_revision
     sudo rpi-update d9eb023ba98317d81fc53a3f9d6752b127a8dbbf
 
     cat ${TEMP_DIR}/aeblcron.tab > $CRONCOMMFILE
