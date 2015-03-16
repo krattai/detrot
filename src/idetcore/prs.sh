@@ -25,12 +25,17 @@ OFFLINE_SYS="${T_STO}/.offline"
 # + hostname
 # + cat chan
 # + uptime
+# + etc
 
 cd $HOME
 
 # always ping on these
 if [ -f "${IHDN_SYS}" ] || [ -f "${IHDN_DET}" ] && [ -f $HOME/.production ]; then
-    echo hostname > ping.txt
+    hostname > ping.txt
+    MACe0=$(ip link show eth0 | awk '/ether/ {print $2}')
+    IPe0=$(ip addr show eth0 | awk '/inet / {print $2}' | cut -d/ -f 1)
+    echo "$IPe0" >> ping.txt
+    echo "$MACe0" >> ping.txt
     echo $(date +"%T") >> ping.txt
     cat chan >> ping.txt
     uptime >> ping.txt
