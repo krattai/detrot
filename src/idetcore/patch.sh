@@ -1,19 +1,29 @@
 #!/bin/bash
 # runs patch scripts
 #
-# Copyright (C) 2014 Uvea I. S., Kevin Rattai
+# Copyright (C) 2015 Uvea I. S., Kevin Rattai
+# BSD license https://raw.githubusercontent.com/krattai/AEBL/master/LICENSE
 #
 # patches are accumulated, so second patch happens after first patch
 # and contents of patches will make it into next version / upgrade
 # system will patch once a day if available
+#
+# 20150129 - Possible patch system path, although may not be viable
+# Patch version progresses from alpha to production
+# ie. 009113 - 009115 may be alpha
+#     009116 through 009119 may be beta
+#     009120 may be production
+#     alpha and beta can be various throughout patch progression
 #
 # generally, patches precede upgrades, upgrades supersede patches
 #
 
 AEBL_TEST="/home/pi/.aebltest"
 AEBL_SYS="/home/pi/.aeblsys"
+AEBL_VM="/home/pi/.aeblvm"
 IHDN_TEST="/home/pi/.ihdntest"
 IHDN_SYS="/home/pi/.ihdnsys"
+IHDN_DET="/home/pi/.ihdndet"
 
 T_STO="/run/shm"
 T_SCR="/run/shm/scripts"
@@ -33,11 +43,24 @@ MACe0=$(ip link show eth0 | awk '/ether/ {print $2}')
 cd $HOME
 
 # Should check for current version and use that as reference to patches.
+# Check patch version type now, rather than dropbox location
+
+# new logic
+# if patch production
+#     all do patch
+# else
+#     if patch beta && not production unit
+#         all remaining do patch
+#     else
+#         alpha do patch
+#     fi
+# fi
+
 if [ ! -f "${OFFLINE_SYS}" ]; then
     if [ -f "${LOCAL_SYS}" ]; then
         wget -N -nd -w 3 -P ${TEMP_DIR}/patch --limit-rate=50k http://192.168.200.6/files/v0091p
     else
-        wget -N -nd -w 3 -P ${TEMP_DIR}/patch --limit-rate=50k "https://www.dropbox.com/s/kgz7tf6eh7dkdz3/v0091p"
+        wget -N -nd -w 3 -P ${TEMP_DIR}/patch --limit-rate=50k "https://raw.githubusercontent.com/krattai/AEBL/master/core/patches/v0091p"
     fi
     cd $TEMP_DIR/patch
     GRAB_FILE="v0091p"
@@ -63,7 +86,7 @@ if [ ! -f "${OFFLINE_SYS}" ]; then
                 if [ -f "${LOCAL_SYS}" ]; then
                     wget -N -nd -w 3 -P ${TEMP_DIR}/patch/${cont} --limit-rate=50k "http://192.168.200.6/files/${cont}.zip"
                 else
-                    wget -N -nd -w 3 -P ${TEMP_DIR}/patch/${cont} --limit-rate=50k "https://www.dropbox.com/s/${dbox}/${cont}.zip"
+                    wget -N -nd -w 3 -P ${TEMP_DIR}/patch --limit-rate=50k "https://github.com/krattai/AEBL/raw/master/core/patches/${cont}.zip"
                 fi
                 cd ${TEMP_DIR}/patch/${cont}
                 unzip ${cont}.zip
