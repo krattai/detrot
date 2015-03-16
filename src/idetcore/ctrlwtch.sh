@@ -151,6 +151,34 @@ while [ ! -f "${HOME}/ctrl/reboot" ]; do
             mkdir /home/pi/blades
             touch /home/pi/blades/raspctl
         fi
+        if [ "$blade" == "mediatomb" ]; then
+            wget -N -r -nd -l2 -w 3 -O "${T_SCR}/mediatomb.sh" --limit-rate=50k https://github.com/krattai/AEBL/blob/master/blades/mediatomb.sh?raw=true
+            chmod 777 $T_SCR/mediatomb.sh
+            $T_SCR/mediatomb.sh &
+            mkdir /home/pi/blades
+            touch /home/pi/blades/mediatomb
+        fi
+        if [ "$blade" == "webmin" ]; then
+            wget -N -r -nd -l2 -w 3 -O "${T_SCR}/webmin.sh" --limit-rate=50k https://github.com/krattai/AEBL/blob/master/blades/webmin.sh?raw=true
+            chmod 777 $T_SCR/webmin.sh
+            $T_SCR/webmin.sh &
+            mkdir /home/pi/blades
+            touch /home/pi/blades/webmin
+        fi
+        if [ "$blade" == "owncloud" ]; then
+            wget -N -r -nd -l2 -w 3 -O "${T_SCR}/owncloud.sh" --limit-rate=50k https://github.com/krattai/AEBL/blob/master/blades/owncloud.sh?raw=true
+            chmod 777 $T_SCR/owncloud.sh
+            $T_SCR/owncloud.sh &
+            mkdir /home/pi/blades
+            touch /home/pi/blades/owncloud
+        fi
+        if [ "$blade" == "ajenti" ]; then
+            wget -N -r -nd -l2 -w 3 -O "${T_SCR}/ajenti.sh" --limit-rate=50k https://github.com/krattai/AEBL/blob/master/blades/ajenti.sh?raw=true
+            chmod 777 $T_SCR/ajenti.sh
+            $T_SCR/ajenti.sh &
+            mkdir /home/pi/blades
+            touch /home/pi/blades/ajenti
+        fi
 #         sudo apt-get install -y $blade
 
         # this should only remove mkblade once mkblade.sh no longer running
