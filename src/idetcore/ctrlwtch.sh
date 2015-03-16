@@ -43,10 +43,16 @@ while [ ! -f "${HOME}/ctrl/reboot" ]; do
         rm "${HOME}/ctrl/patch"
     fi
 
+    # change hostname
+    if [ -f "${HOME}/ctrl/hostname" ]; then
+        mv "${HOME}/ctrl/hostname" "${HOME}/ctrl/newhost"
+        /run/shm/scripts/chhostname.sh &
+    fi
+
     # Process request to display the contents of the pl folder
     if [ -f "${HOME}/ctrl/showpl" ]; then
-        rm "${HOME}/ctrl/playlist.txt"
-        ls -al > "${HOME}/ctrl/playlist.txt"
+        rm "${HOME}/ctrl/showpl"
+        cat "${T_STO}/.newpl"
     fi
 
     # Set stand alone AEBL playlist, currently only for mp4 content

@@ -45,6 +45,8 @@ cd $HOME
 # Should check for current version and use that as reference to patches.
 # Check patch version type now, rather than dropbox location
 
+# use v####p file, second element (previously dropbox field, as version type)
+
 # new logic
 # if patch production
 #     all do patch
@@ -57,11 +59,13 @@ cd $HOME
 # fi
 
 if [ ! -f "${OFFLINE_SYS}" ]; then
-    if [ -f "${LOCAL_SYS}" ]; then
-        wget -N -nd -w 3 -P ${TEMP_DIR}/patch --limit-rate=50k http://192.168.200.6/files/v0091p
-    else
+# test with no more local_sys patching
+#     if [ -f "${LOCAL_SYS}" ]; then
+#         wget -N -nd -w 3 -P ${TEMP_DIR}/patch --limit-rate=50k http://192.168.200.6/files/v0091p
+#     else
         wget -N -nd -w 3 -P ${TEMP_DIR}/patch --limit-rate=50k "https://raw.githubusercontent.com/krattai/AEBL/master/core/patches/v0091p"
-    fi
+#     fi
+
     cd $TEMP_DIR/patch
     GRAB_FILE="v0091p"
     x=1
@@ -77,17 +81,17 @@ if [ ! -f "${OFFLINE_SYS}" ]; then
             # added by Kevin: exit clean if empty
             x=0
         else
-            # Get dropbox companion link
-            dbox=$(cat "${GRAB_FILE}" | head -n1)
+            # Get version type
+            vtype=$(cat "${GRAB_FILE}" | head -n1)
             # And strip it off the playlist file
             cat "${GRAB_FILE}" | tail -n+2 > "${GRAB_FILE}.new"
             mv "${GRAB_FILE}.new" "${GRAB_FILE}"
             if [ ! -f "$HOME/.${cont}" ]; then
-                if [ -f "${LOCAL_SYS}" ]; then
-                    wget -N -nd -w 3 -P ${TEMP_DIR}/patch/${cont} --limit-rate=50k "http://192.168.200.6/files/${cont}.zip"
-                else
-                    wget -N -nd -w 3 -P ${TEMP_DIR}/patch --limit-rate=50k "https://github.com/krattai/AEBL/raw/master/core/patches/${cont}.zip"
-                fi
+#                 if [ -f "${LOCAL_SYS}" ]; then
+#                     wget -N -nd -w 3 -P ${TEMP_DIR}/patch/${cont} --limit-rate=50k "http://192.168.200.6/files/${cont}.zip"
+#                 else
+                    wget -N -nd -w 3 -P ${TEMP_DIR}/patch/${cont} --limit-rate=50k "https://github.com/krattai/AEBL/raw/master/core/patches/${cont}.zip"
+#                 fi
                 cd ${TEMP_DIR}/patch/${cont}
                 unzip ${cont}.zip
                 rm ${cont}.zip
