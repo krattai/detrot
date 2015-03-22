@@ -39,13 +39,20 @@ while [ ! -f "${HOME}/ctrl/reboot" ]; do
     # manual patch
     if [ -f "${HOME}/ctrl/patch" ]; then
         /run/shm/scripts/patch.sh &
+        sudo chown pi:pi "${HOME}/ctrl/patch"
         rm "${HOME}/ctrl/patch"
+    fi
+
+    # change hostname
+    if [ -f "${HOME}/ctrl/hostname" ]; then
+        mv "${HOME}/ctrl/hostname" "${HOME}/ctrl/newhost"
+        /run/shm/scripts/chhostname.sh &
     fi
 
     # Process request to display the contents of the pl folder
     if [ -f "${HOME}/ctrl/showpl" ]; then
-        rm "${HOME}/ctrl/playlist.txt"
-        ls -al > "${HOME}/ctrl/playlist.txt"
+        rm "${HOME}/ctrl/showpl"
+        cat "${T_STO}/.newpl"
     fi
 
     # Set stand alone AEBL playlist, currently only for mp4 content
@@ -151,6 +158,34 @@ while [ ! -f "${HOME}/ctrl/reboot" ]; do
             mkdir /home/pi/blades
             touch /home/pi/blades/raspctl
         fi
+        if [ "$blade" == "mediatomb" ]; then
+            wget -N -r -nd -l2 -w 3 -O "${T_SCR}/mediatomb.sh" --limit-rate=50k https://github.com/krattai/AEBL/blob/master/blades/mediatomb.sh?raw=true
+            chmod 777 $T_SCR/mediatomb.sh
+            $T_SCR/mediatomb.sh &
+            mkdir /home/pi/blades
+            touch /home/pi/blades/mediatomb
+        fi
+        if [ "$blade" == "webmin" ]; then
+            wget -N -r -nd -l2 -w 3 -O "${T_SCR}/webmin.sh" --limit-rate=50k https://github.com/krattai/AEBL/blob/master/blades/webmin.sh?raw=true
+            chmod 777 $T_SCR/webmin.sh
+            $T_SCR/webmin.sh &
+            mkdir /home/pi/blades
+            touch /home/pi/blades/webmin
+        fi
+        if [ "$blade" == "owncloud" ]; then
+            wget -N -r -nd -l2 -w 3 -O "${T_SCR}/owncloud.sh" --limit-rate=50k https://github.com/krattai/AEBL/blob/master/blades/owncloud.sh?raw=true
+            chmod 777 $T_SCR/owncloud.sh
+            $T_SCR/owncloud.sh &
+            mkdir /home/pi/blades
+            touch /home/pi/blades/owncloud
+        fi
+        if [ "$blade" == "ajenti" ]; then
+            wget -N -r -nd -l2 -w 3 -O "${T_SCR}/ajenti.sh" --limit-rate=50k https://github.com/krattai/AEBL/blob/master/blades/ajenti.sh?raw=true
+            chmod 777 $T_SCR/ajenti.sh
+            $T_SCR/ajenti.sh &
+            mkdir /home/pi/blades
+            touch /home/pi/blades/ajenti
+        fi
 #         sudo apt-get install -y $blade
 
         # this should only remove mkblade once mkblade.sh no longer running
@@ -228,6 +263,7 @@ while [ ! -f "${HOME}/ctrl/reboot" ]; do
     fi
 
     if [ -f "${HOME}/ctrl/halt" ]; then
+        sudo chown pi:pi "${HOME}/ctrl/halt"
         touch "${HOME}/ctrl/reboot"
     fi
 
@@ -277,13 +313,14 @@ while [ ! -f "${HOME}/ctrl/reboot" ]; do
 
 done
 
+sudo chown pi:pi "${HOME}/ctrl/reboot"
 rm $HOME/ctrl/reboot
 
 if [  -f "${HOME}/ctrl/halt" ]; then
     rm "${HOME}/ctrl/halt"
 
     sleep 1s
-    sudo halt &
+    sudo poweroff &
 else
     sleep 1s
     sudo reboot &

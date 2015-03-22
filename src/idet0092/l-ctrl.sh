@@ -1,7 +1,8 @@
 #!/bin/bash
 # keeps systems up to date
 #
-# Copyright (C) 2014 Uvea I. S., Kevin Rattai
+# Copyright (C) 2015 Uvea I. S., Kevin Rattai
+# BSD license https://raw.githubusercontent.com/krattai/AEBL/master/LICENSE
 #
 # This will eventually co-ordinate with Master Control.
 
@@ -9,6 +10,7 @@ AUTOOFF_CHECK_FILE="/home/pi/.noauto"
 FIRST_RUN_DONE="/home/pi/.firstrundone"
 AEBL_TEST="/home/pi/.aebltest"
 AEBL_SYS="/home/pi/.aeblsys"
+AEBL_VM="/home/pi/.aeblvm"
 IHDN_TEST="/home/pi/.ihdntest"
 IHDN_SYS="/home/pi/.ihdnsys"
 IHDN_DET="/home/pi/.ihdndet"
@@ -232,4 +234,24 @@ if [ ! -f "${OFFLINE_SYS}" ]; then
 
 fi
 
+if [ -f "${IHDN_SYS}" ] || [ -f "${IHDN_DET}" ] && [ -f $HOME/.production ]; then
+
+    $T_SCR/./prs.sh
+
+    cp /home/pi/chan /home/pi/chtmp
+    CHAN_LOC="chtmp"
+    # Get the channel id
+    c_id=$(cat "${CHAN_LOC}" | head -n1)
+    # And strip it off the file
+    cat "${CHAN_LOC}" | tail -n+2 > "${CHAN_LOC}.new"
+    mv "${CHAN_LOC}.new" "${CHAN_LOC}"
+    # Get channel number
+    chan=$(cat "${CHAN_LOC}" | head -n1)
+
+    rm "${CHAN_LOC}"
+
+    # upload ping.txt to sftp server
+    curl -T "$HOME/ping.txt" -k -u videouser:password "sftp://184.71.76.158:8022/home/videouser/videos/000000_uploads/ihdnpi_logs/ping_${chan}.txt" &
+ 
+fi
 exit

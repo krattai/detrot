@@ -607,6 +607,16 @@ if [ -f "${HOME}/.ihdnfol109" ] && [ ! -f "${OFFLINE_SYS}" ]; then
     fi
 fi
 
+# Next set of MACs
+# chan 110 - b8:27:eb:34:06:37
+# chan 111 - b8:27:eb:9a:d8:28
+# chan 112 - b8:27:eb:a6:26:b7
+# chan 113 - b8:27:eb:6a:a2:37
+# chan 114 - b8:27:eb:4a:06:cd
+# chan 115 - b8:27:eb:5e:43:5c
+# chan 116 - b8:27:eb:e9:fd:7c
+# chan 117 - b8:27:eb:45:0f:14
+
 if [ -f "${HOME}/.newchan109" ]; then
 #    echo "New Channel 109 to play on this system." >> log.txt
 #     mkdir chan27tmp

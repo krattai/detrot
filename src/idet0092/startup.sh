@@ -1,7 +1,8 @@
 #!/bin/bash
 # gets update scripts
 #
-# Copyright (C) 2014 Uvea I. S., Kevin Rattai
+# Copyright (C) 2015 Uvea I. S., Kevin Rattai
+# BSD license https://raw.githubusercontent.com/krattai/AEBL/master/LICENSE
 #
 # This is the first script from clean bootup.  It should immediately
 # put something to screen and audio so that people know it is working,
@@ -21,6 +22,7 @@
 FIRST_RUN_DONE="/home/pi/.firstrundone"
 AEBL_TEST="/home/pi/.aebltest"
 AEBL_SYS="/home/pi/.aeblsys"
+AEBL_VM="/home/pi/.aeblvm"
 IHDN_TEST="/home/pi/.ihdntest"
 IHDN_SYS="/home/pi/.ihdnsys"
 IHDN_DET="/home/pi/.ihdndet"
@@ -88,6 +90,13 @@ echo "~~~~~~~~~~~~~~~~~~~~~~~~" >> log.txt
 echo $(date +"%T") >> log.txt
 echo "Booted up." >> log.txt
 
+# create new ping.txt file
+if [ -f "${IHDN_SYS}" ] || [ -f "${IHDN_DET}" ] && [ -f $HOME/.production ]; then
+
+    $T_SCR/./prs.sh
+ 
+fi
+
 # Discover network availability if not previously tested
 if [ ! -f "${LOCAL_SYS}" ] && [ ! -f "${NETWORK_SYS}" ] && [ ! -f "${OFFLINE_SYS}" ]; then
 
@@ -97,7 +106,7 @@ fi
 
 # Always check and perform patching on startup, if internet available
 if [ -f "${NETWORK_SYS}" ]; then
-    /run/shm/scripts/patch.sh &
+    touch /home/pi/patch
 fi
 
 if [ ! -f "${OFFLINE_SYS}" ] && [ ! -f "${IHDN_DET}" ]; then
