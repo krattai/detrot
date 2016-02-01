@@ -1,0 +1,12 @@
+7z e -ppassword VTS_01_1.VOB.7z -aos
+7z e -ppassword VTS_02_1.VOB.7z -aos
+7z e -ppassword VTS_03_1.VOB.7z -aos
+7z e -ppassword VTS_04_1.VOB.7z -aos
+7z e -ppassword VTS_05_1.VOB.7z -aos
+7z e -ppassword VTS_06_1.VOB.7z -aos
+7z e -ppassword VTS_07_1.VOB.7z -aos
+7z e -ppassword VTS_08_1.VOB.7z -aos
+7z e -ppassword VTS_09_1.VOB.7z -aos
+7z e -ppassword VTS_10_1.VOB.7z -aos
+7z e -ppassword VTS_11_1.VOB.7z -aos
+7z e -ppassword VTS_12_1.VOB.7z -aos

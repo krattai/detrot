@@ -1,0 +1,14 @@
+[playlist]
+NumberOfEntries=12
+File1=demo/VTS_01_1.VOB
+File2=demo/VTS_02_1.VOB
+File3=demo/VTS_03_1.VOB
+File4=demo/VTS_04_1.VOB
+File5=demo/VTS_05_1.VOB
+File6=demo/VTS_06_1.VOB
+File7=demo/VTS_07_1.VOB
+File8=demo/VTS_08_1.VOB
+File9=demo/VTS_09_1.VOB
+File10=demo/VTS_10_1.VOB
+File11=demo/VTS_11_1.VOB
+File12=demo/VTS_12_1.VOB
