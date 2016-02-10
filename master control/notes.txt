@@ -1,0 +1,1 @@
+initial mockup should be console based management tool
