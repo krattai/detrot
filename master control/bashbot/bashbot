@@ -26,7 +26,8 @@
 	chans=( "#bottest" )
 EOF
 
-source bashbot.config
+# exec source file (which is just series of global assignments
+. bashbot.config
 
 # Basic helpers for communication with via IRC protocol
 recv() { echo "< $@" >&2; }
