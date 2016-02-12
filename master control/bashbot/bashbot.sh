@@ -18,12 +18,19 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+#
+# Copyright (C) 2016 Kevin Rattai <krattai@gmail.com>
+# Bot being modified to work on AEBL noo-ebs network
+#
+# mosquitto_sub -h 2001:5c0:1100:dd00:240:63ff:fefd:d3f1 -t "hello/+" -t "aebl/+" -t "ihdn/+" -t "uvea/+"
 
 [ -r bashbot.config ] || cat >bashbot.config <<-EOF
-	nick=bashbot
-	server=irc.freenode.net
-	port=6667
-	chans=( "#bottest" )
+# 	nick=bashbot
+        nick=hostname
+# 	server=irc.freenode.net
+        server=2001:5c0:1100:dd00:240:63ff:fefd:d3f1
+# 	port=6667
+	chans=( "uvea/bottest" )
 EOF
 
 # exec source file (which is just series of global assignments
