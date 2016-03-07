@@ -37,13 +37,34 @@ def on_message(mosq, obj, msg):
     message = msg.payload
 
     if os.path.isfile('chan/' + str(msg.payload)):
-        # get channel from file and publish
-        mqttc.publish("response/" + str(msg.payload),"exists")
-    else
+        # get channel from file
+        fchan = open("chan/" + str(msg.payload))
+        chan = fchan.readline()
+        chan = chan.rstrip('\n')
+        fchan.close()
+    else:
         # get next channel, create file and insert channel
+        fchan = open("chan/.0chan","r+")
+        chan = fchan.readline()
+        chan = chan.rstrip('\n')
+        nchan = int(chan) + 1
+        fchan.seek(0, 0)
+        fchan.write(repr(nchan).zfill(6) + "\n")
+        fchan.close()
+        fchan = open("chan/" + str(msg.payload),"w+")
+        fchan.write(chan + "\n")
+        fchan.close()
+
+    mqttc.publish("response/" + str(msg.payload),chan);
+
+#     fchan = open("chan/.0chan")
+#     chan = fchan.readline()
+#     fchan.close()
+#     chan = chan.rstrip('\n')
 
     # publish channel
-    mqttc.publish("response/" + str(msg.payload),msg.payload);
+#    mqttc.publish("response/" + str(msg.payload),msg.payload);
+
 #    if 'ACK' in message:
 #        mqttc.publish("alive/chan","NAK");
 #    if 'TEST' in message:
