@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
 # Copyright (C) 2016 Uvea I. S., Kevin Rattai
+#
+# Watch for channel request and assign channel based on prior or unassigned chan
+#
 # This software is based on an unknown license, but is available
 # with no license statement from here:
 # http://stackoverflow.com/questions/31775450/publish-and-subscribe-with-paho-mqtt-client
@@ -14,11 +17,6 @@
 # And portions of this code is based on the AEBL project:
 #     https://github.com/krattai/AEBL
 #
-# Obviously, in this first instance of noo-ebs for test and
-# production, this script installs MQTT
-#
-# The goal is to eventually move to, or at least add as a
-# supplemental, a peer to peer message queue system, most likely nanomsg
 
 import os
 import paho.mqtt.client as mqtt
@@ -30,8 +28,6 @@ import paho.mqtt.client as mqtt
 
 message = 'ON'
 def on_connect(mosq, obj, rc):
-# subscribe([("my/topic", 0), ("another/topic", 2)])
-#    mqttc.subscribe("aebl/alive", 0)
     mqttc.subscribe("request/chan", 0)
     print("rc: " + str(rc))
 
@@ -41,11 +37,11 @@ def on_message(mosq, obj, msg):
     message = msg.payload
     mqttc.publish("response/" + str(msg.payload),msg.payload);
 #    if 'ACK' in message:
-#        mqttc.publish("uvea/world","NAK");
-#    if 'XCHNG' in message:
-#        os.system("/home/kevin/scripts/xchng.sh")
-#         mqttc.publish("aebl/alive","NAK");
-#    mqttcb.publish("aebl/alive",msg.payload);
+#        mqttc.publish("alive/chan","NAK");
+#    if 'TEST' in message:
+#        os.system("/home/user/scripts/test.sh")
+#         mqttc.publish("test/output","NAK");
+#    mqttcb.publish("test/output",msg.payload);
 
 def on_publish(mosq, obj, mid):
     print("mid: " + str(mid))
@@ -64,13 +60,10 @@ mqttc.on_publish = on_publish
 mqttc.on_subscribe = on_subscribe
 
 # Connect
-# mqttc.connect("localhost", 1883,60)
-
-# Will ultimately use Uvea / AEBL broker by name
 mqttc.connect("ihdn.ca", 1883,60)
-# mqttc.connect("2001:5c0:1100:dd00:ba27:ebff:fe2c:41d7", 1883,60)
+# mqttc.connect("2001:dead::beef:1", 1883,60)
 
-# mosquitto_sub -h 2001:5c0:1100:dd00:ba27:ebff:fe2c:41d7 -t "hello/+" -t "aebl/+" -t "ihdn/+" -t "uvea/+"
+# mosquitto_sub -h 2001:dead::beef -t "hello/+" -t "ihdn/+" -t "test/+"
 
 # Continue the network loop
 mqttc.loop_forever()
