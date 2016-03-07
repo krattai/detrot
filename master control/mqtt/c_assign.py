@@ -35,6 +35,10 @@ def on_message(mosq, obj, msg):
     global message
     print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
     message = msg.payload
+
+    if os.path.isfile('chan/' + str(msg.payload)):
+        mqttc.publish("response/" + str(msg.payload),"exists")
+
     mqttc.publish("response/" + str(msg.payload),msg.payload);
 #    if 'ACK' in message:
 #        mqttc.publish("alive/chan","NAK");
