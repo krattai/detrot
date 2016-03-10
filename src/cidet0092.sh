@@ -150,9 +150,6 @@ if [ ! -f "${OFFLINE_SYS}" ]; then
     mv ${TEMP_DIR}/synfilz.sh ${SCRPT_DIR}
     chmod 777 ${SCRPT_DIR}/synfilz.sh
 
-    mv ${TEMP_DIR}/grabfiles.sh ${SCRPT_DIR}
-    chmod 777 ${SCRPT_DIR}/grabfiles.sh
-
     mv ${TEMP_DIR}/ihdn_play.sh ${SCRPT_DIR}
     chmod 777 ${SCRPT_DIR}/ihdn_play.sh
 
@@ -185,14 +182,6 @@ if [ ! -f "${OFFLINE_SYS}" ]; then
 
     mv ${TEMP_DIR}/grbchan.sh ${SCRPT_DIR}
     chmod 777 ${SCRPT_DIR}/grbchan.sh
-    mv ${TEMP_DIR}/grbchan0.sh ${SCRPT_DIR}
-    chmod 777 ${SCRPT_DIR}/grbchan0.sh
-    mv ${TEMP_DIR}/grbchan25.sh ${SCRPT_DIR}
-    chmod 777 ${SCRPT_DIR}/grbchan25.sh
-    mv ${TEMP_DIR}/grbchan26.sh ${SCRPT_DIR}
-    chmod 777 ${SCRPT_DIR}/grbchan26.sh
-    mv ${TEMP_DIR}/grbchan27.sh ${SCRPT_DIR}
-    chmod 777 ${SCRPT_DIR}/grbchan27.sh
 
     # archive files
     mkdir ${BKUP_DIR}
