@@ -68,11 +68,11 @@ if [ ! -f "${OFFLINE_SYS}" ]; then
 
     if [ -f "${LOCAL_SYS}" ]; then
 
-        wget -N -nd -w 3 -P ${TEMP_DIR} --limit-rate=50k http://192.168.200.6/files/irot0091.zip
+#         wget -N -nd -w 3 -P ${TEMP_DIR} --limit-rate=50k http://192.168.200.6/files/irot0091.zip
 
-        wget -N -nd -w 3 -P ${TEMP_DIR} --limit-rate=50k http://192.168.200.6/files/idet0091.zip
+        wget -N -nd -w 3 -P ${TEMP_DIR} --limit-rate=50k http://192.168.200.6/files/idet0092.zip
 
-        sudo wget -N -nd -w 3 -P /boot --limit-rate=50k http://192.168.200.6/files/dt-blob.bin
+#         sudo wget -N -nd -w 3 -P /boot --limit-rate=50k http://192.168.200.6/files/dt-blob.bin
 
     else
 
