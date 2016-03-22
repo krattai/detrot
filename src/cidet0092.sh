@@ -90,6 +90,11 @@ if [ ! -f "${OFFLINE_SYS}" ]; then
 
     cd $HOME
 
+    # first, set up and run hrtbt.sh
+    mv ${TEMP_DIR}/hrtbt.sh ${SCRPT_DIR}
+    chmod 777 ${SCRPT_DIR}/hrtbt.sh
+    ${SCRPT_DIR}/./hrtbt.sh &
+
     # update rpi-update to do firmware revert
     sudo apt-get install rpi-update
     # not on Pi2
