@@ -136,6 +136,7 @@ fi
 # clear all network check files
 rm index*
 
+$T_SCR/./hrtbt.sh &
 $T_SCR/./run.sh &
 
 exit
