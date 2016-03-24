@@ -2,6 +2,8 @@
 #
 # det_28.sh  10 second sleep time for testing
 # Dec 29 2015 Larry
+# Mar 24 2016 Kevin
+#   + add proper playlist function from idet0091 source
 #
 # Variables *****
 #  DD = detect input
