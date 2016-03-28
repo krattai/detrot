@@ -22,7 +22,7 @@
 # might want to export this code to seperate script once this works
 # If you want to switch omxplayer to something else, or add parameters, use these
 PLAYER="omxplayer"
-PLAYER_OPTIONS=""
+PLAYER_OPTIONS="-o hdmi -r"
 # additional constants
 T_STO="/run/shm"
 T_SCR="/run/shm/scripts"
