@@ -186,6 +186,12 @@ do
       NUMBER=`/bin/date +"%Y-%m-%d-%H-%M-%S"`
       echo "$file...$NUMBER" >> /home/pi/logs/playlog.txt 
 
+      hostn=$(cat /etc/hostname)
+      # ext_ip4=$(dig +short myip.opendns.com @resolver1.opendns.com)
+      # ext_ip6=$(curl icanhazip.com)
+      mosquitto_pub -d -t ihdn/plog -m "$(date) : $hostn played ${file}." -h "ihdn.ca"
+
+
       # pop current playing file off the playlist file
       cat "${PLAYLIST_FILE}" | tail -n+2 > "${PLAYLIST_FILE}.new"
       chown pi:pi "${PLAYLIST_FILE}.new"
@@ -360,3 +366,4 @@ exit 0
   #      echo "0" > /sys/class/gpio/gpio17/value
 
   #      # Setup GP
+
