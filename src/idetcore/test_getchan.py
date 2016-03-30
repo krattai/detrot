@@ -4,6 +4,9 @@
 #
 # Watch for channel request and assign channel based on prior or unassigned chan
 #
+# cli assignment of channel request:
+# mosquitto_pub -d -t request/chan -m "b8:27:eb:62:d9:19" -h "ihdn.ca"
+#
 # This software is based on an unknown license, but is available
 # with no license statement from here:
 # http://stackoverflow.com/questions/31775450/publish-and-subscribe-with-paho-mqtt-client
