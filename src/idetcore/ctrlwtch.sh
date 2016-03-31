@@ -60,7 +60,7 @@ while [ ! -f "${HOME}/ctrl/reboot" ]; do
    # change hostname
     if [ -f "${HOME}/ctrl/hostname" ]; then
         mv "${HOME}/ctrl/hostname" "${HOME}/ctrl/newhost"
-        /run/shm/.scripts/chhostname.sh &
+        /run/shm/scripts/chhostname.sh &
     fi
 
     # Process request to display the contents of the pl folder
