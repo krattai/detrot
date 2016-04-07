@@ -83,7 +83,7 @@ while [ ! -f "${HOME}/ctrl/reboot" ]; do
         while [ -f "${T_STO}/plfiles" ]; do
             # Do nothing if no remove file
             if [ ! -f "ctrl/${PL_FILES}" ]; then
-                echo "File ${PL_FILES} not found"
+                mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn File plfiles not found." -h "ihdn.ca" &
                 continue
             fi
             # Get the top of the remove list
@@ -93,13 +93,13 @@ while [ ! -f "${HOME}/ctrl/reboot" ]; do
             mv "ctrl/${PL_FILES}.new" "ctrl/${PL_FILES}"
             # Skip if this is empty
             if [ -z "${file}" ]; then
-                echo "Remove file empty or bumped into an empty entry"
+                mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn Remove file empty or bumped into an empty entry." -h "ihdn.ca" &
                 rm $T_STO/plfiles
                 continue
             fi
             # Check that the file exists
             if [ ! -f "pl/${file}" ]; then
-                echo "File ${file} not found"
+                mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn File ${file} not found." -h "ihdn.ca" &
                 continue
             fi
             # move the file
@@ -335,10 +335,11 @@ rm $HOME/ctrl/reboot
 
 if [  -f "${HOME}/ctrl/halt" ]; then
     rm "${HOME}/ctrl/halt"
-
+    mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn Powering off." -h "ihdn.ca" &
     sleep 1s
     sudo poweroff &
 else
+                mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn Rebooting." -h "ihdn.ca" &
     sleep 1s
     sudo reboot &
 fi
