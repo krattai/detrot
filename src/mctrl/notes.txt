@@ -1,1 +1,3 @@
 Need to consider server side scripts in order to manage master control functions
+
+Server should function as torrent server
