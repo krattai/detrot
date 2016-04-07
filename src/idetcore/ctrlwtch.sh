@@ -25,6 +25,8 @@ OFFLINE_SYS="${T_STO}/.offline"
 
 cd $HOME
 
+hostn=$(cat /etc/hostname)
+
 while [ ! -f "${HOME}/ctrl/reboot" ]; do
 
     # not clean, but useful for now, cron will restart ctrlwtch.sh
