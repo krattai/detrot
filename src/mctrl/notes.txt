@@ -1,3 +1,5 @@
 Need to consider server side scripts in order to manage master control functions
 
 Server should function as torrent server
+
+Need to keep track of status of appliances to ensure they are functioning
