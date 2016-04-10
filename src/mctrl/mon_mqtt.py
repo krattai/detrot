@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+#
+# Copyright (C) 2014 - 2016 IHDN, Uvea I. S., Kevin Rattai
+#
+# This script monitors broker and acts on messages
+
 import paho.mqtt.client as mqtt
 
 # Unknown license, code found here:  http://stackoverflow.com/questions/31775450/publish-and-subscribe-with-paho-mqtt-client
@@ -13,8 +18,9 @@ message = 'ON'
 def on_connect(mosq, obj, rc):
 #    mqttc.subscribe("aebl/hello", 0)
 #    mqttc.subscribe("aebl/alive", 0)
-    mqttc.subscribe("uvea/alive", 0)
+#    mqttc.subscribe("uvea/alive", 0)
 #    mqttc.subscribe("uvea/world", 0)
+    mqttc.subscribe("ihdn/#", 0)
     print("rc: " + str(rc))
 
 def on_message(mosq, obj, msg):
@@ -48,7 +54,7 @@ mqttc.on_subscribe = on_subscribe
 # Connect
 # mqttc.connect("localhost", 1883,60)
 
-mqttc.connect("2001:5c0:1100:dd00:240:63ff:fefd:d3f1", 1883,60)
+mqttc.connect("ihdn.ca", 1883,60)
 # mqttc.connect("2001:5c0:1100:dd00:ba27:ebff:fe2c:41d7", 1883,60)
 
 # mosquitto_sub -h 2001:5c0:1100:dd00:ba27:ebff:fe2c:41d7 -t "hello/+" -t "aebl/+" -t "ihdn/+" -t "uvea/+"
