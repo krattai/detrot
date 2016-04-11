@@ -29,11 +29,13 @@ def on_message(mosq, obj, msg):
     message = msg.payload
 #    mqttc.publish("uvea/world",msg.payload);
     mqttc.publish("uvea/world","uvea/alive - ACK");
-#    mqttc.publish("uvea/world",msg.payload);
 #    if 'ACK' in message:
-#        mqttc.publish("uvea/world","NAK");
-#
-#    mqttcb.publish("uvea/world",msg.payload);
+#        mqttc.publish("alive/chan","NAK");
+#    if 'TEST' in message:
+#        os.system("/home/user/scripts/test.sh")
+#         mqttc.publish("test/output","NAK");
+#    mqttcb.publish("test/output",msg.payload);
+
 
 def on_publish(mosq, obj, mid):
     print("mid: " + str(mid))
