@@ -33,6 +33,12 @@ def on_message(mosq, obj, msg):
 #        mqttc.publish("alive/chan","NAK");
     if 'played' in message:
 #        os.system("echo " + str(message) >> playlog.txt)
+#
+#       this parses line:
+#         echo idetkev played /home/pi/ad/15secPonyOUT.mp4 | grep -o -E 'ad/[^ ]+' | sed 's/.*ad/\//'
+#       result is:
+#         //15secPonyOUT.mp4
+
         myFile = open('/home/kevin/playlog.txt', 'a') # or 'a' to add text instead of truncate
         myFile.write(message + '\n')
         myFile.close()
