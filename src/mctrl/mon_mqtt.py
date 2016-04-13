@@ -32,7 +32,10 @@ def on_message(mosq, obj, msg):
 #    if 'ACK' in message:
 #        mqttc.publish("alive/chan","NAK");
     if 'played' in message:
-        os.system("echo " + str(message) >> playlog.txt)
+#        os.system("echo " + str(message) >> playlog.txt)
+        myFile = open('/home/kevin/playlog.txt', 'w') # or 'a' to add text instead of truncate
+        myFile.write('{message}')
+        myFile.close()
 #        mqttc.publish("test/output","NAK");
 #    mqttcb.publish("test/output",msg.payload);
 
