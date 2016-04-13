@@ -28,12 +28,12 @@ def on_message(mosq, obj, msg):
     print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
     message = msg.payload
 #    mqttc.publish("uvea/world",msg.payload);
-    mqttc.publish("uvea/world","uvea/alive - ACK");
+#    mqttc.publish("uvea/world","uvea/alive - ACK");
 #    if 'ACK' in message:
 #        mqttc.publish("alive/chan","NAK");
-#    if 'TEST' in message:
-#        os.system("/home/user/scripts/test.sh")
-#         mqttc.publish("test/output","NAK");
+    if 'played' in message:
+        os.system("echo " + str(message) >> playlog.txt)
+#        mqttc.publish("test/output","NAK");
 #    mqttcb.publish("test/output",msg.payload);
 
 
