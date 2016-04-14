@@ -14,6 +14,10 @@ import paho.mqtt.client as mqtt
 # requires:  sudo pip install paho-mqtt
 # pip requires: sudo apt-get install python-pip
 
+# Should include functionality to gzip and rotate of logs created by mon_mqtt to
+# prevent filling all disk space
+# 
+
 message = 'ON'
 def on_connect(mosq, obj, rc):
 #    mqttc.subscribe("aebl/hello", 0)
