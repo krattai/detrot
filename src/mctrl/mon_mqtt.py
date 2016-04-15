@@ -46,6 +46,10 @@ def on_message(mosq, obj, msg):
         myFile = open('/home/kevin/playlog.txt', 'a') # or 'a' to add text instead of truncate
         myFile.write(message + '\n')
         myFile.close()
+    if 'IPv6' in message:
+        myFile = open('/home/kevin/ipv6log.txt', 'a') # or 'a' to add text instead of truncate
+        myFile.write(message + '\n')
+        myFile.close()
 #        mqttc.publish("test/output","NAK");
 #    mqttcb.publish("test/output",msg.payload);
 
