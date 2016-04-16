@@ -43,15 +43,15 @@ def on_message(mosq, obj, msg):
 #       result is:
 #         //15secPonyOUT.mp4
 
-        myFile = open('/home/kevin/playlog.txt', 'a') # or 'a' to add text instead of truncate
+        myFile = open('$HOME/playlog.txt', 'a') # or 'a' to add text instead of truncate
         myFile.write(message + '\n')
         myFile.close()
     if 'IPv6' in message:
-        myFile = open('/home/kevin/ipv6log.txt', 'a') # or 'a' to add text instead of truncate
+        myFile = open('$HOME/ipv6log.txt', 'a') # or 'a' to add text instead of truncate
         myFile.write(message + '\n')
         myFile.close()
     if 'reboot' in message:
-        myFile = open('/home/kevin/actionlog.txt', 'a') # or 'a' to add text instead of truncate
+        myFile = open('$HOME/actionlog.txt', 'a') # or 'a' to add text instead of truncate
         myFile.write(message + '\n')
         myFile.close()
 #        mqttc.publish("test/output","NAK");
