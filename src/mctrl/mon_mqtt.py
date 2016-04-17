@@ -20,9 +20,6 @@ import paho.mqtt.client as mqtt
 
 message = 'ON'
 def on_connect(mosq, obj, rc):
-#    mqttc.subscribe("aebl/hello", 0)
-#    mqttc.subscribe("aebl/alive", 0)
-#    mqttc.subscribe("uvea/alive", 0)
 #    mqttc.subscribe("uvea/world", 0)
     mqttc.subscribe("ihdn/#", 0)
     print("rc: " + str(rc))
@@ -31,6 +28,7 @@ def on_message(mosq, obj, msg):
     global message
     print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
     message = msg.payload
+#   Keep tabs on message requests from clients and act on them
 #    mqttc.publish("uvea/world",msg.payload);
 #    mqttc.publish("uvea/world","uvea/alive - ACK");
 #    if 'ACK' in message:
