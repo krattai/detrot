@@ -1,0 +1,2 @@
+Blinking icon at top right of screen when ad playing:
+If this artifact exists, it could be a lazy power adapter.  Try replacing adapter.
