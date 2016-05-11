@@ -4,6 +4,10 @@
 #
 # 16/03/28 - Kevin Rattai
 # added playlist feature
+#
+# need to look at way to possibly watch for constant non-signal in order to
+# put device into a "sleep" mode and not play commercials if source is turned off
+#
 # ----------------
 # det_28.sh  10 second sleep time for testing
 # Dec 29 2015 Larry
