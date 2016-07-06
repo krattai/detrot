@@ -130,6 +130,7 @@ do
   if [ "$DD" -eq "1" ]; then
     # Start playback; could NOHUP this instead of &
     #  was:  omxplayer /home/pi/ad/*.mp4 &
+    # Before playback, check that no infra sig
 
     # If not out, switch then play, if out play then switch
     if [ ! -f "${OUT}" ]; then
