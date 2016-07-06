@@ -48,6 +48,9 @@ fi
 file=$(cat "${PLAYLIST_FILE}" | head -n1)
 
 # Set Variable Defaults *****
+# DD - hit
+# EE - IR
+# HH - ?
 DD=0
 EE=1
 HH=0
@@ -125,7 +128,8 @@ while :
 do
   # read inputs
   DD="$(cat /sys/class/gpio/gpio26/value)"
-   
+  EE="$(cat /sys/class/gpio/gpio4/value)"
+
   # Check if ready and Detect pulse
   if [ "$DD" -eq "1" ]; then
     # Start playback; could NOHUP this instead of &
