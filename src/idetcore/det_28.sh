@@ -17,6 +17,7 @@
 # Variables *****
 #  DD = detect input
 #  EE = eye input
+#  HH = HDMI input
 #  g1 = Green LED default is power led with pi.
 #  r1 = Red LED indicate sleep mode
 #  r2 = Relay output
@@ -48,9 +49,6 @@ fi
 file=$(cat "${PLAYLIST_FILE}" | head -n1)
 
 # Set Variable Defaults *****
-# DD - hit
-# EE - IR
-# HH - HDMI
 DD=0
 EE=1
 HH=0
