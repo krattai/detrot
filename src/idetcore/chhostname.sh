@@ -2,7 +2,7 @@
 #
 # Script changes hostname
 #
-# Copyright (C) 2015 Uvea I. S., Kevin Rattai
+# Copyright (C) 2015 - 2016 Uvea I. S., Kevin Rattai
 # BSD license https://raw.githubusercontent.com/krattai/AEBL/master/LICENSE
 #
 
@@ -32,6 +32,8 @@ newhost=$(cat "${HOME}/ctrl/newhost" | head -n1)
 #change hostname in /etc/hosts & /etc/hostname
 sudo sed -i "s/${hostn}/${newhost}/g" /etc/hosts
 sudo sed -i "s/${hostn}/${newhost}/g" /etc/hostname
+
+mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn changed to $newhost." -h "ihdn.ca"
 
 rm "${HOME}/ctrl/newhost"
 
