@@ -1,7 +1,7 @@
 #!/bin/bash
 # runs updates
 #
-# Copyright (C) 2014 IHDN, Uvea I. S., Kevin Rattai
+# Copyright (C) 2014 - 2016 IHDN, Uvea I. S., Kevin Rattai
 #
 # This file will be superceded by the l-ctrl file as far as
 # control of the system, as l-ctrl will be a cron job.  This
@@ -99,6 +99,10 @@ if [ -f "${NEW_PL}" ]; then
     while [ -f "${T_STO}/.omx_playing" ]; do
         echo "waiting for player off"
     done
+
+    hostn=$(cat /etc/hostname)
+    mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn replacing playlist." -h "ihdn.ca" &
+
     rm "${T_STO}/.playlist"
     cp "${T_STO}/.newpl" "${T_STO}/.playlist"
     rm "${T_STO}/.playlistnew"
