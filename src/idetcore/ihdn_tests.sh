@@ -81,6 +81,7 @@ touch $T_STO/.syschecks
 #  and switch accordingly.  Should reboot once changed.
 #  Basically would require changing out bootup.sh to switch.
 
+# This network no longer available
 # if [ ! -f "${OFFLINE_SYS}" ] && [ -f "${LOCAL_SYS}" ]; then
 #     wget -N -nd -w 3 -P $HOME --limit-rate=50k http://192.168.200.6/files/ihdncron.tab
 # else
@@ -979,6 +980,10 @@ if [ -f "${IHDN_TEST}" ] || [ -f "${IHDN_SYS}" ]; then
     if [ -f "${IHDN_SYS}" ]; then
 
         free
+
+#         hostn=$(cat /etc/hostname)
+#         mosquitto_pub -d -t ihdn/alive -m "$(cat /etc/hostname) has$(printf "\n")$(free)" -h "ihdn.ca" &
+
 #        free >> log.txt
 
 #        df -h >> log.txt
