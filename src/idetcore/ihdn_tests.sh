@@ -1,7 +1,7 @@
 #!/bin/bash
 # checks IHDN systems
 #
-# Copyright (C) 2014 IHDN, Uvea I. S., Kevin Rattai
+# Copyright (C) 2014 - 2016 IHDN, Uvea I. S., Kevin Rattai
 #
 # This file will be superceded by the l-ctrl file as far as
 # control of the system, as l-ctrl will be a cron job.  This
@@ -81,11 +81,11 @@ touch $T_STO/.syschecks
 #  and switch accordingly.  Should reboot once changed.
 #  Basically would require changing out bootup.sh to switch.
 
-if [ ! -f "${OFFLINE_SYS}" ] && [ -f "${LOCAL_SYS}" ]; then
-    wget -N -nd -w 3 -P $HOME --limit-rate=50k http://192.168.200.6/files/ihdncron.tab
-else
-    wget -N -nd -w 3 -P $HOME --limit-rate=50k "https://www.dropbox.com/s/c4f0djbwgui8ygt/ihdncron.tab"
-fi
+# if [ ! -f "${OFFLINE_SYS}" ] && [ -f "${LOCAL_SYS}" ]; then
+#     wget -N -nd -w 3 -P $HOME --limit-rate=50k http://192.168.200.6/files/ihdncron.tab
+# else
+#     wget -N -nd -w 3 -P $HOME --limit-rate=50k "https://www.dropbox.com/s/c4f0djbwgui8ygt/ihdncron.tab"
+# fi
 
 if [ ! -f "${HOME}/.ihdnaeblv0079beta01" ] && [ ! -f "${HOME}/.ihdnaeblv0080beta01" ]; then
 
