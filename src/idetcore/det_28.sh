@@ -133,6 +133,8 @@ do
     # Start playback; could NOHUP this instead of &
     #  was:  omxplayer /home/pi/ad/*.mp4 &
     # Before playback, check that no infra sig
+    hostn=$(cat /etc/hostname)
+    mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn ad triggered." -h "ihdn.ca" &
 
     # If not out, switch then play, if out play then switch
     if [ ! -f "${OUT}" ]; then
