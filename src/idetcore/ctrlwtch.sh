@@ -55,6 +55,8 @@ while [ ! -f "${HOME}/ctrl/reboot" ]; do
 
     # force patch rollback
     if [ -f "${HOME}/ctrl/rollback" ]; then
+        hostn=$(cat /etc/hostname)
+        mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn rolling back patches." -h "ihdn.ca" &
         /run/shm/scripts/rollback.sh &
         sudo chown pi:pi "${HOME}/ctrl/rollback"
         rm "${HOME}/ctrl/rollback"
