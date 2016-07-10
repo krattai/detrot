@@ -189,6 +189,8 @@ if [ ! -f "${AUTOOFF_CHECK_FILE}" ] && [ ! "$(pgrep run.sh)" ] && [ ! "$(pgrep o
     fi
 fi
 
+hostn=$(cat /etc/hostname)
+mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn running scheduled l-ctrl job." -h "ihdn.ca"
 echo "Running scheduled l-ctrl job" >> log.txt
 echo $(date +"%T") >> log.txt
 
@@ -227,7 +229,9 @@ if [ ! -f "${OFFLINE_SYS}" ]; then
 
     else
 
-        echo "no further realtime updates for non-local systems"
+        hostn=$(cat /etc/hostname)
+        mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn getting playlist from mcontrol." -h "ihdn.ca" &
+#         echo "no further realtime updates for non-local systems"
 
         # but DO get playlists
         if [ -f "${HOME}/.ihdnfol25" ]; then
