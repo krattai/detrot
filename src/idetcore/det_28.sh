@@ -198,7 +198,7 @@ do
       hostn=$(cat /etc/hostname)
       # ext_ip4=$(dig +short myip.opendns.com @resolver1.opendns.com)
       # ext_ip6=$(curl icanhazip.com)
-      mosquitto_pub -d -t ihdn/plog -m "$(date) : $hostn played ${file}." -h "ihdn.ca" &
+      mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn played ${file}." -h "ihdn.ca" &
 
 
       # pop current playing file off the playlist file
