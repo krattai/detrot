@@ -31,6 +31,10 @@ while [ ! -f "${HOME}/ctrl/reboot" ]; do
 
     # not clean, but useful for now, cron will restart ctrlwtch.sh
     if [ -f "${HOME}/ctrl/.newctrl" ]; then
+
+        hostn=$(cat /etc/hostname)
+        mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn upgrading ctrlwtch.sh." -h "ihdn.ca" &
+
         rm "${HOME}/ctrl/.newctrl"
         sleep 2
         if [ "$(pgrep ctrlwtch.sh)" ]; then
