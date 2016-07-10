@@ -31,8 +31,10 @@ OFFLINE_SYS="${T_STO}/.offline"
 cd $HOME
 
 if [ -f "${AEBL_TEST}" ] || [ -f "${AEBL_SYS}" ]; then
-    echo "Checking network status." >> log.txt
-    echo $(date +"%T") >> log.txt
+#     echo "Checking network status." >> log.txt
+#     echo $(date +"%T") >> log.txt
+    hostn=$(cat /etc/hostname)
+    mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn checking network status." -h "ihdn.ca" &
 fi
 
 # Discover network availability
@@ -54,16 +56,18 @@ if [ -f "${OFFLINE_SYS}" ]; then
 fi
 
 # Check internet availability against master control IP
-ping -c 1 184.71.76.158
+# ping -c 1 184.71.76.158
+ping -c ihdn.ca
 
 if [ $? -eq 0 ]; then
     touch $NETWORK_SYS
-    echo "Internet available."
+#    echo "Internet available."
 else
     rm $NETWORK_SYS
 fi
 
 # Check local network availability against local server
+# no longer relevant
 ping -c 1 192.168.200.6
 
 if [[ $? -eq 0 ]]; then
