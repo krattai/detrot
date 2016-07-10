@@ -68,21 +68,21 @@ fi
 
 # Check local network availability against local server
 # no longer relevant
-ping -c 1 192.168.200.6
-
-if [[ $? -eq 0 ]]; then
-    touch $LOCAL_SYS
-    echo "Local network available."
-else
-    rm $LOCAL_SYS
-fi
-
-if [ ! -f "${LOCAL_SYS}" ] && [ ! -f "${NETWORK_SYS}" ]; then
-    touch $OFFLINE_SYS
-    echo "No network available."
-else
-    rm $OFFLINE_SYS
-fi
+# ping -c 1 192.168.200.6
+# 
+# if [[ $? -eq 0 ]]; then
+#     touch $LOCAL_SYS
+#     echo "Local network available."
+# else
+#     rm $LOCAL_SYS
+# fi
+# 
+# if [ ! -f "${LOCAL_SYS}" ] && [ ! -f "${NETWORK_SYS}" ]; then
+#     touch $OFFLINE_SYS
+#     echo "No network available."
+# else
+#     rm $OFFLINE_SYS
+# fi
 
 # check IPv6 tun vs native assigned IPV6 up and if not, start/restart
 #
