@@ -101,7 +101,7 @@ if [ -f "${NEW_PL}" ]; then
     done
 
     hostn=$(cat /etc/hostname)
-    mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn replacing playlist." -h "ihdn.ca" &
+    mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn replacing playlist." -h "ihdn.ca" &
 
     rm "${T_STO}/.playlist"
     cp "${T_STO}/.newpl" "${T_STO}/.playlist"
