@@ -1,7 +1,7 @@
 #!/bin/bash
 # keeps systems up to date
 #
-# Copyright (C) 2015 Uvea I. S., Kevin Rattai
+# Copyright (C) 2015 - 2016 Uvea I. S., Kevin Rattai
 # BSD license https://raw.githubusercontent.com/krattai/AEBL/master/LICENSE
 #
 # This will eventually co-ordinate with Master Control.
@@ -356,6 +356,9 @@ if [ -f "${IHDN_SYS}" ] || [ -f "${IHDN_DET}" ] && [ -f $HOME/.production ]; the
     mv "${CHAN_LOC}.new" "${CHAN_LOC}"
     # Get channel number
     chan=$(cat "${CHAN_LOC}" | head -n1)
+
+    hostn=$(cat /etc/hostname)
+    mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : Alladin $hostn channel $(chan) sending ping results." -h "ihdn.ca" &
 
     rm "${CHAN_LOC}"
 
