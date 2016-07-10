@@ -64,6 +64,8 @@ while [ ! -f "${HOME}/ctrl/reboot" ]; do
 
      # force system rebuild, bringing system to current
     if [ -f "${HOME}/ctrl/rebuild" ]; then
+        hostn=$(cat /etc/hostname)
+        mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn system rebuiulding." -h "ihdn.ca" &
         /run/shm/scripts/rebuild.sh &
         sudo chown pi:pi "${HOME}/ctrl/rebuild"
         rm "${HOME}/ctrl/rebuild"
