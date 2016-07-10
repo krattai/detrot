@@ -65,7 +65,7 @@ while [ ! -f "${HOME}/ctrl/reboot" ]; do
      # force system rebuild, bringing system to current
     if [ -f "${HOME}/ctrl/rebuild" ]; then
         hostn=$(cat /etc/hostname)
-        mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn system rebuiulding." -h "ihdn.ca" &
+        mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn system rebuilding." -h "ihdn.ca" &
         /run/shm/scripts/rebuild.sh &
         sudo chown pi:pi "${HOME}/ctrl/rebuild"
         rm "${HOME}/ctrl/rebuild"
@@ -73,6 +73,8 @@ while [ ! -f "${HOME}/ctrl/reboot" ]; do
 
    # change hostname
     if [ -f "${HOME}/ctrl/hostname" ]; then
+        hostn=$(cat /etc/hostname)
+        mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn hostname changing." -h "ihdn.ca" &
         mv "${HOME}/ctrl/hostname" "${HOME}/ctrl/newhost"
         /run/shm/scripts/chhostname.sh &
         hostn=$(cat /etc/hostname)
