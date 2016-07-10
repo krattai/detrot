@@ -353,7 +353,7 @@ if [  -f "${HOME}/ctrl/halt" ]; then
     sleep 1s
     sudo poweroff &
 else
-                mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn Rebooting." -h "ihdn.ca" &
+    mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn Rebooting." -h "ihdn.ca" &
     sleep 1s
     sudo reboot &
 fi
