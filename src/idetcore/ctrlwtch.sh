@@ -44,6 +44,10 @@ while [ ! -f "${HOME}/ctrl/reboot" ]; do
 
     # manual patch
     if [ -f "${HOME}/ctrl/patch" ]; then
+
+        hostn=$(cat /etc/hostname)
+        mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn patching." -h "ihdn.ca" &
+
         /run/shm/scripts/patch.sh &
         sudo chown pi:pi "${HOME}/ctrl/patch"
         rm "${HOME}/ctrl/patch"
