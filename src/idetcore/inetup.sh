@@ -149,4 +149,7 @@ if [ -f "${NETWORK_SYS}" ]; then
     fi
 fi
 
+# nb: if doing ps on service that operates as root, use:
+#     ps -au root | grep rad
+
 exit
