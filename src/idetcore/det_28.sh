@@ -91,6 +91,14 @@ echo "in" > /sys/class/gpio/gpio26/direction
 echo "4" > /sys/class/gpio/export
 echo "in" > /sys/class/gpio/gpio4/direction
 
+# Setup GPIO 24, set to input for kill switch
+echo "24" > /sys/class/gpio/export
+echo "in" > /sys/class/gpio/gpio24/direction
+
+# Setup GPIO 25, set to output, and send 0 for kill LED
+echo "25" > /sys/class/gpio/export
+echo "out" > /sys/class/gpio/gpio25/direction
+echo "0" > /sys/class/gpio/gpio25/value
 
 # *********************************************
 
