@@ -129,7 +129,7 @@ do
   EE="$(cat /sys/class/gpio/gpio4/value)"
 
   # Check if ready and Detect pulse
-  if [ "$DD" -eq "1" ] && [ "$EE" eq "1" ]; then
+  if [ "$DD" -eq "1" ] && [ "$EE" -eq "1" ]; then
     # Start playback; could NOHUP this instead of &
     #  was:  omxplayer /home/pi/ad/*.mp4 &
     # Before playback, check that no infra sig
