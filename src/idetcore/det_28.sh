@@ -44,7 +44,7 @@ NEW_PL="${T_STO}/.newpl"
 
 OUT="/home/pi/.out"
 SHORT="/home/pi/.short"
-KILL="/home/pi/.kill"
+KILL="${T_STO}/.kill"
 
 # create playlist if not exist, which it should not on boot and start det.sh
 if [ ! -f "${PLAYLIST_FILE}" ] && [ ! -f "${NEW_PL}" ]; then
@@ -60,7 +60,7 @@ file=$(cat "${PLAYLIST_FILE}" | head -n1)
 DD=0
 EE=1
 HH=0
-KK=0
+KK=1
 g1=0
 r1=0
 r2=0
@@ -153,7 +153,7 @@ do
   EE="$(cat /sys/class/gpio/gpio4/value)"
   KK="$(cat /sys/class/gpio/gpio24/value)"
 
-  if [ "$KK" -eq "1" ]; then
+  if [ "$KK" -eq "0" ]; then
     touch $KILL
   fi
 
@@ -179,7 +179,7 @@ do
       while [ ! -f "${KILL}" ] && [ "$(pgrep omxplayer.bin)" ]; do
         # read inputs
         KK="$(cat /sys/class/gpio/gpio24/value)"
-        if [ "$KK" -eq "1" ]; then
+        if [ "$KK" -eq "0" ]; then
           touch $KILL
         fi
       done
@@ -209,7 +209,7 @@ do
       while [ ! "$DD" = "1" ] && [ ! -f "${KILL}" ] && [ "$(pgrep omxplayer.bin)" ]; do
         # read inputs
         KK="$(cat /sys/class/gpio/gpio24/value)"
-        if [ "$KK" -eq "1" ]; then
+        if [ "$KK" -eq "0" ]; then
           touch $KILL
         fi
         DD="$(cat /sys/class/gpio/gpio26/value)"
@@ -303,7 +303,7 @@ do
       sleep 1
       # read inputs
       KK="$(cat /sys/class/gpio/gpio24/value)"
-      if [ "$KK" -eq "1" ]; then
+      if [ "$KK" -eq "0" ]; then
         touch $KILL
       fi
     done
