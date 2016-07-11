@@ -8,6 +8,12 @@
 # need to look at way to possibly watch for constant non-signal in order to
 # put device into a "sleep" mode and not play commercials if source is turned off
 #
+# 10/07/7 - Kevin Rattai
+# added IR code
+#
+# 10/07/11 - Kevin Rattai
+# added kill switch code
+#
 # ----------------
 # det_28.sh  10 second sleep time for testing
 # Dec 29 2015 Larry
@@ -18,6 +24,7 @@
 #  DD = detect input
 #  EE = eye input
 #  HH = HDMI input
+#  KK = kill switch
 #  g1 = Green LED default is power led with pi.
 #  r1 = Red LED indicate sleep mode
 #  r2 = Relay output
@@ -37,6 +44,7 @@ NEW_PL="${T_STO}/.newpl"
 
 OUT="/home/pi/.out"
 SHORT="/home/pi/.short"
+KILL="/home/pi/.kill"
 
 # create playlist if not exist, which it should not on boot and start det.sh
 if [ ! -f "${PLAYLIST_FILE}" ] && [ ! -f "${NEW_PL}" ]; then
@@ -52,6 +60,7 @@ file=$(cat "${PLAYLIST_FILE}" | head -n1)
 DD=0
 EE=1
 HH=0
+KK=0
 g1=0
 r1=0
 r2=0
@@ -132,12 +141,24 @@ g1=1
 # Start Loop Program ****************************
 while :
 do
+  if [ -f "${KILL}" ]; then
+    hostn=$(cat /etc/hostname)
+    mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn kill triggered." -h "ihdn.ca" &
+    sleep 1h
+    rm $KILL
+  fi
+
   # read inputs
   DD="$(cat /sys/class/gpio/gpio26/value)"
   EE="$(cat /sys/class/gpio/gpio4/value)"
+  KK="$(cat /sys/class/gpio/gpio24/value)"
+
+  if [ "$KK" -eq "1" ]; then
+    touch $KILL
+  fi
 
   # Check if ready and Detect pulse
-  if [ "$DD" -eq "1" ] && [ "$EE" -eq "1" ]; then
+  if [ "$DD" -eq "1" ] && [ "$EE" -eq "1" ] && [ ! -f "${KILL}" ]; then
     # Start playback; could NOHUP this instead of &
     #  was:  omxplayer /home/pi/ad/*.mp4 &
     # Before playback, check that no infra sig
@@ -152,8 +173,16 @@ do
       sleep .2  
       echo "1" > /sys/class/gpio/gpio17/value
          
-      "${PLAYER}" ${PLAYER_OPTIONS} "${file}" > /dev/null
+      "${PLAYER}" ${PLAYER_OPTIONS} "${file}" > /dev/null &
 
+#     check for kill not set and video playing
+      while [ ! -f "${KILL}" ] && [ "$(pgrep omxplayer.bin)" ]; do
+        # read inputs
+        KK="$(cat /sys/class/gpio/gpio24/value)"
+        if [ "$KK" -eq "1" ]; then
+          touch $KILL
+        fi
+      done
     else
       "${PLAYER}" ${PLAYER_OPTIONS} "${file}" > /dev/null &
          
@@ -177,8 +206,12 @@ do
       # ie. gpio should be stream, for better realtime monitoring
 
       DD="$(cat /sys/class/gpio/gpio26/value)"
-      while [ ! "$DD" = "1" ] && [ "$(pgrep omxplayer.bin)" ]; do
+      while [ ! "$DD" = "1" ] && [ ! -f "${KILL}" ] && [ "$(pgrep omxplayer.bin)" ]; do
         # read inputs
+        KK="$(cat /sys/class/gpio/gpio24/value)"
+        if [ "$KK" -eq "1" ]; then
+          touch $KILL
+        fi
         DD="$(cat /sys/class/gpio/gpio26/value)"
       done
     fi
@@ -265,9 +298,14 @@ do
       wait=210
     fi
 
-    while [ $cc -le $wait ]; do
+    while [ $cc -le $wait ] && [ ! -f "${KILL}" ]; do
       cc=$(( $cc + 1 ))
       sleep 1
+      # read inputs
+      KK="$(cat /sys/class/gpio/gpio24/value)"
+      if [ "$KK" -eq "1" ]; then
+        touch $KILL
+      fi
     done
     cc=0
 
