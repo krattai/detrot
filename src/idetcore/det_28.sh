@@ -142,10 +142,12 @@ g1=1
 while :
 do
   if [ -f "${KILL}" ]; then
+    echo "1" > /sys/class/gpio/gpio25/value
     hostn=$(cat /etc/hostname)
     mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn kill triggered." -h "ihdn.ca" &
     sleep 1h
     rm $KILL
+    echo "0" > /sys/class/gpio/gpio25/value
   fi
 
   # read inputs
@@ -173,7 +175,7 @@ do
       sleep .2  
       echo "1" > /sys/class/gpio/gpio17/value
          
-      "${PLAYER}" ${PLAYER_OPTIONS} "${file}" > /dev/null &
+      "${PLAYER}" ${PLAYER_OPTIONS} "${file}" > /dev/null
 
 #     check for kill not set and video playing
       while [ ! -f "${KILL}" ] && [ "$(pgrep omxplayer.bin)" ]; do
