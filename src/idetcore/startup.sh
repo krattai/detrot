@@ -104,6 +104,9 @@ if [ ! -f "${LOCAL_SYS}" ] && [ ! -f "${NETWORK_SYS}" ] && [ ! -f "${OFFLINE_SYS
 
 fi
 
+hostn=$(cat /etc/hostname)
+mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn running startup." -h "ihdn.ca" &
+
 # Always check and perform patching on startup, if internet available
 if [ -f "${NETWORK_SYS}" ]; then
     touch /home/pi/patch
