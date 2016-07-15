@@ -141,6 +141,8 @@ g1=1
 # Start Loop Program ****************************
 while :
 do
+  # nb:  kill should turn off all LEDs on back panel, except green pwr
+  #      also, kill should place unit into test mode - refer to Larry's notes
   if [ -f "${KILL}" ]; then
     echo "1" > /sys/class/gpio/gpio25/value
     hostn=$(cat /etc/hostname)
