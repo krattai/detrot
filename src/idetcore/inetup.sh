@@ -140,6 +140,8 @@ if [ $? -eq 0 ]; then
     echo "VPN available."
 else
     rm $VPN_SYS
+    hostn=$(cat /etc/hostname)
+    mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn attempting to restart VPN." -h "ihdn.ca" &
     sudo service openvpn restart
 fi
 
