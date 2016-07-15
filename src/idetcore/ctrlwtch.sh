@@ -4,6 +4,8 @@
 #
 # Copyright (C) 2014 - 2016 Uvea I. S., Kevin Rattai
 #
+# Need to watch hosname channel and act according to messages, including
+#   things like rebooting, restarting blades and services, etc
 
 AEBL_TEST="/home/pi/.aebltest"
 AEBL_SYS="/home/pi/.aeblsys"
