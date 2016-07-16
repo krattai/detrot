@@ -1,1 +1,3 @@
 initial mockup should be console based management tool
+
+rethinking this, as for many users, a browser based tool might be better and faster to create
