@@ -143,10 +143,29 @@ while :
 do
   # nb:  kill should turn off all LEDs on back panel, except green pwr
   #      also, kill should place unit into test mode - refer to Larry's notes
+  #      - turn all LEDs off except red LED on front
+  #      - green power button will remain as light green
   if [ -f "${KILL}" ]; then
     echo "1" > /sys/class/gpio/gpio25/value
     hostn=$(cat /etc/hostname)
     mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn kill triggered." -h "ihdn.ca" &
+#   The following would be the equavalent of sleep 1h but with ability to do things:
+#
+#     This is POSIX compliant and works with /bin/sh
+#     secs=3600                         # Set interval (duration) in seconds.
+#     endTime=$(( $(date +%s) + secs )) # Calculate end time.
+#
+#     while [ $(date +%s) -lt $endTime ]; do  # Loop until interval has elapsed.
+        # ...
+#     done
+#
+#     This is not POSIX but will work in /bin/bash
+#     secs=3600   # Set interval (duration) in seconds.
+#
+#     SECONDS=0   # Reset $SECONDS; counting of seconds will (re)start from 0(-ish).
+#     while (( SECONDS < secs )); do    # Loop until interval has elapsed.
+        # ...
+#     done
     sleep 1h
     rm $KILL
     echo "0" > /sys/class/gpio/gpio25/value
