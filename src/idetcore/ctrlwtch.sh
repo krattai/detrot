@@ -4,8 +4,10 @@
 #
 # Copyright (C) 2014 - 2016 Uvea I. S., Kevin Rattai
 #
-# Need to watch hosname channel and act according to messages, including
+# Need to watch hostname channel and act according to messages, including
 #   things like rebooting, restarting blades and services, etc
+#
+# Watches token files in ctrl folder which indicate function messages
 
 AEBL_TEST="/home/pi/.aebltest"
 AEBL_SYS="/home/pi/.aeblsys"
