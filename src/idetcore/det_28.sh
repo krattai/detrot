@@ -180,6 +180,10 @@ do
     touch $KILL
   fi
 
+  if [ "$EE" -eq "0" ]; then
+    mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn IR triggered." -h "ihdn.ca" &
+  fi
+
   # Check if ready and Detect pulse
   if [ "$DD" -eq "1" ] && [ "$EE" -eq "1" ] && [ ! -f "${KILL}" ]; then
 #   if [ "$DD" -eq "1" ]; then
