@@ -201,29 +201,3 @@ do
 done
 
 exit 0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Notes for scripting *********************
-  # Setup GPIO 17, set to output, and send 0
-
-  #      echo "17" > /sys/class/gpio/export
-  #      echo "out" > /sys/class/gpio/gpio17/direction
-  #      echo "0" > /sys/class/gpio/gpio17/value
-
-  #      # Setup GP
-
