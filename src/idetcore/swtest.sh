@@ -183,10 +183,12 @@ do
   echo "$EE"
 
   if [ "$EE" -eq "0" ]; then
+    echo "1" > /sys/class/gpio/gpio25/value
     echo "IR triggered"
-#     mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn IR triggered." -h "ihdn.ca"
-  else
-    echo "IR clear"
+#     mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn IR clear." -h "ihdn.ca"    echo "0" > /sys/class/gpio/gpio25/value
+    echo "0" > /sys/class/gpio/gpio25/value
+#   else
+#     echo "IR clear"
 #     mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn IR clear." -h "ihdn.ca"
   fi
 
