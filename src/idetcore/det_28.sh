@@ -181,7 +181,9 @@ do
   fi
 
   if [ "$EE" -eq "0" ]; then
+    echo "1" > /sys/class/gpio/gpio25/value
     mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn IR triggered." -h "ihdn.ca" &
+    echo "0" > /sys/class/gpio/gpio25/value
   fi
 
   # Check if ready and Detect pulse
