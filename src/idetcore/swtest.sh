@@ -186,7 +186,7 @@ do
 
     echo "1" > /sys/class/gpio/gpio25/value
     echo "IR triggered"
-#     mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn IR clear." -h "ihdn.ca"    echo "0" > /sys/class/gpio/gpio25/value
+#     mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn IR clear." -h "ihdn.ca" &
     echo "0" > /sys/class/gpio/gpio25/value
 
 #   else
