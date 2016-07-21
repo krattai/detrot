@@ -172,18 +172,21 @@ do
   fi
 
   # read inputs
-  DD="$(cat /sys/class/gpio/gpio26/value)"
-  EE="$(cat /sys/class/gpio/gpio4/value)"
   KK="$(cat /sys/class/gpio/gpio24/value)"
+  EE="$(cat /sys/class/gpio/gpio4/value)"
 
   if [ "$KK" -eq "0" ]; then
     touch $KILL
   fi
 
   if [ "$EE" -eq "0" ]; then
+    hostn=$(cat /etc/hostname)
     echo "1" > /sys/class/gpio/gpio25/value
     mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn IR triggered." -h "ihdn.ca" &
     echo "0" > /sys/class/gpio/gpio25/value
+    DD="0"
+  else
+    DD="$(cat /sys/class/gpio/gpio26/value)"
   fi
 
   # Check if ready and Detect pulse
