@@ -16,31 +16,14 @@
 #  r2 = Relay output
 #  cc = sleep counter
 
-# Added code to create detector playlists
-# might want to export this code to seperate script once this works
-# If you want to switch omxplayer to something else, or add parameters, use these
-PLAYER="omxplayer"
-PLAYER_OPTIONS="-o hdmi -r"
 # additional constants
 T_STO="/run/shm"
 T_SCR="/run/shm/scripts"
-PLAYLIST="${T_STO}/.detpl"
-PLAYLIST_FILE="${T_STO}/.playlist"
-NEW_PL="${T_STO}/.newpl"
 
 OUT="/home/pi/.out"
 SHORT="/home/pi/.short"
 KILL="${T_STO}/.kill"
-
-# create playlist if not exist, which it should not on boot and start det.sh
-if [ ! -f "${PLAYLIST_FILE}" ] && [ ! -f "${NEW_PL}" ]; then
-    sudo -u pi $T_SCR/./playlist.sh /home/pi/ad/*.mp4
-    sudo -u pi cp "${PLAYLIST_FILE}" "${NEW_PL}"
-fi
-
-# Get the top of the playlist
-#  making assumption that the playlist has at least one file in it
-file=$(cat "${PLAYLIST_FILE}" | head -n1)
+IR="${T_STO}/.ir"
 
 # Set Variable Defaults *****
 DD=0
@@ -95,34 +78,6 @@ echo "25" > /sys/class/gpio/export
 echo "out" > /sys/class/gpio/gpio25/direction
 echo "0" > /sys/class/gpio/gpio25/value
 
-# *********************************************
-
-# Boot for HDMI switch
-
-
-HH="$(cat /sys/class/gpio/gpio22/value)" # chnl 2 led must be 1 to be net
-      if [ "$HH" -eq "0" ]; then
-         echo "0" > /sys/class/gpio/gpio17/value
-         sleep .2  
-         echo "1" > /sys/class/gpio/gpio17/value
-      fi
-
-sleep .5
-
-
-# *********************************************
-
-sudo setterm -blank 1
-
-
-sleep 2
-   # would be sent token if spin seperate program
-   # touch /home/pi/.ready
-   # if ready set LED green
-echo "0" > /sys/class/gpio/gpio5/value #red off
-echo "1" > /sys/class/gpio/gpio6/value #green on
-g1=1
-
 
 # Start Loop Program ****************************
 while :
@@ -131,10 +86,10 @@ do
   #      also, kill should place unit into test mode - refer to Larry's notes
   #      - turn all LEDs off except red LED on front
   #      - green power button will remain as light green
-  if [ -f "${KILL}" ]; then
+  if [ -f "${IR}" ]; then
     echo "1" > /sys/class/gpio/gpio25/value
     hostn=$(cat /etc/hostname)
-    mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn kill triggered." -h "ihdn.ca" &
+    mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn IR triggered." -h "ihdn.ca" &
 #   The following would be the equavalent of sleep 1h but with ability to do things:
 #
 #     This is POSIX compliant and works with /bin/sh
@@ -152,33 +107,25 @@ do
 #     while (( SECONDS < secs )); do    # Loop until interval has elapsed.
         # ...
 #     done
-    sleep 10
+    sleep 3
     rm $KILL
     echo "0" > /sys/class/gpio/gpio25/value
   fi
 
   # read inputs
-  DD="$(cat /sys/class/gpio/gpio26/value)"
+#   DD="$(cat /sys/class/gpio/gpio26/value)"
   EE="$(cat /sys/class/gpio/gpio4/value)"
-  KK="$(cat /sys/class/gpio/gpio24/value)"
+#   KK="$(cat /sys/class/gpio/gpio24/value)"
 
-  if [ "$KK" -eq "0" ]; then
-    touch $KILL
-  fi
+#   if [ "$KK" -eq "0" ]; then
+#     touch $KILL
+#   fi
 
   echo "$EE"
 
   if [ "$EE" -eq "0" ]; then
 
-    echo "1" > /sys/class/gpio/gpio25/value
-    echo "IR triggered"
-#     mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn IR clear." -h "ihdn.ca" &
-    echo "0" > /sys/class/gpio/gpio25/value
-
-#   else
-
-#     echo "IR clear"
-#     mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn IR clear." -h "ihdn.ca"
+    touch $IR
 
   fi
 
