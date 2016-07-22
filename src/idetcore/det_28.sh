@@ -45,6 +45,7 @@ NEW_PL="${T_STO}/.newpl"
 OUT="/home/pi/.out"
 SHORT="/home/pi/.short"
 KILL="${T_STO}/.kill"
+IR="${T_STO}/.ir"
 
 # create playlist if not exist, which it should not on boot and start det.sh
 if [ ! -f "${PLAYLIST_FILE}" ] && [ ! -f "${NEW_PL}" ]; then
@@ -97,8 +98,8 @@ echo "26" > /sys/class/gpio/export
 echo "in" > /sys/class/gpio/gpio26/direction
 
 # Setup GPIO 4, set to input for IR detect
-echo "4" > /sys/class/gpio/export
-echo "in" > /sys/class/gpio/gpio4/direction
+# echo "4" > /sys/class/gpio/export
+# echo "in" > /sys/class/gpio/gpio4/direction
 
 # Setup GPIO 24, set to input for kill switch
 echo "24" > /sys/class/gpio/export
@@ -179,18 +180,18 @@ do
     touch $KILL
   fi
 
-  if [ "$EE" -eq "0" ]; then
-    hostn=$(cat /etc/hostname)
-    echo "1" > /sys/class/gpio/gpio25/value
-    mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn IR triggered." -h "ihdn.ca" &
-    echo "0" > /sys/class/gpio/gpio25/value
-    DD="0"
-  else
-    DD="$(cat /sys/class/gpio/gpio26/value)"
-  fi
+#   if [ "$EE" -eq "0" ]; then
+#     hostn=$(cat /etc/hostname)
+#     echo "1" > /sys/class/gpio/gpio25/value
+#     mosquitto_pub -d -t ihdn/alladin/log -m "$(date) : $hostn IR triggered." -h "ihdn.ca" &
+#     echo "0" > /sys/class/gpio/gpio25/value
+#     DD="0"
+#   else
+#     DD="$(cat /sys/class/gpio/gpio26/value)"
+#   fi
 
   # Check if ready and Detect pulse
-  if [ "$DD" -eq "1" ] && [ "$EE" -eq "1" ] && [ ! -f "${KILL}" ]; then
+  if [ "$DD" -eq "1" ] && [ ! -f "${IR}" ] && [ ! -f "${KILL}" ]; then
 #   if [ "$DD" -eq "1" ]; then
     # Start playback; could NOHUP this instead of &
     #  was:  omxplayer /home/pi/ad/*.mp4 &
