@@ -190,6 +190,8 @@ do
 #     DD="$(cat /sys/class/gpio/gpio26/value)"
 #   fi
 
+DD="$(cat /sys/class/gpio/gpio26/value)"
+
   # Check if ready and Detect pulse
   if [ "$DD" -eq "1" ] && [ ! -f "${IR}" ] && [ ! -f "${KILL}" ]; then
 #   if [ "$DD" -eq "1" ]; then
