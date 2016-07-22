@@ -108,7 +108,7 @@ do
         # ...
 #     done
     sleep 3
-    rm $KILL
+    rm $IR
     echo "0" > /sys/class/gpio/gpio25/value
   fi
 
