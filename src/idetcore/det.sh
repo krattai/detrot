@@ -8,6 +8,8 @@
 # Kevin
 # Added call to start new IR detector
 #
+# NB:  Could possibly set GPIOs here and then reduce security for read/write
+#
 # Fix screen saver
 sudo setterm -blank 1
 # 
