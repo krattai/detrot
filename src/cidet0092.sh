@@ -53,7 +53,7 @@ while [ ! -f "${NETWORK_SYS}" ] && [ $net_wait < 10 ]; do
         echo "Internet available."
     else
         rm $NETWORK_SYS
-        net_wait=netwait+1
+        net_wait=net_wait+1
         sleep 30
     fi
 
