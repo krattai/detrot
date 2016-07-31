@@ -1,2 +1,6 @@
 Blinking icon at top right of screen when ad playing:
 If this artifact exists, it could be a lazy power adapter.  Try replacing adapter.
+
+~~~~
+
+will need to further seperate alladin from AEBL code base
