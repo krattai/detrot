@@ -23,8 +23,10 @@ def on_message(mosq, obj, msg):
     print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
     message = msg.payload
 #    mqttc.publish("uvea/world",msg.payload);
-    mqttc.publish("uvea/world","uvea/alive - ACK");
+#    mqttc.publish("uvea/world","uvea/alive - ACK");
 #    mqttcb.publish("uvea/world",msg.payload);
+    if 'halt' in message:
+        os.system("touch /home/pi/ctrl/halt")
 
 def on_publish(mosq, obj, mid):
     print("mid: " + str(mid))
