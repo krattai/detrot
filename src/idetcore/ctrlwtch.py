@@ -27,6 +27,8 @@ def on_message(mosq, obj, msg):
 #    mqttcb.publish("uvea/world",msg.payload);
     if 'halt' in message:
         os.system("touch /home/pi/ctrl/halt")
+    if 'reboot' in message:
+        os.system("touch /home/pi/ctrl/reboot")
 
 def on_publish(mosq, obj, mid):
     print("mid: " + str(mid))
