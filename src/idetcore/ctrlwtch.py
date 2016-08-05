@@ -11,6 +11,9 @@ import paho.mqtt.client as mqtt
 # requires:  sudo pip install paho-mqtt
 # pip requires: sudo apt-get install python-pip
 
+# sh command for grabbing MAC
+# ip link show wlan0 | awk '/ether/ {print $2}'
+
 message = 'ON'
 def on_connect(mosq, obj, rc):
 #    mqttc.subscribe("aebl/hello", 0)
