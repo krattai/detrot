@@ -32,6 +32,8 @@ def on_message(mosq, obj, msg):
         os.system("touch /home/pi/ctrl/halt")
     if 'reboot' in message:
         os.system("touch /home/pi/ctrl/reboot")
+    if 'reboot' in message:
+        os.system("touch /home/pi/ctrl/patch")
 
 def on_publish(mosq, obj, mid):
     print("mid: " + str(mid))
