@@ -1,9 +1,0 @@
-Need to consider server side scripts in order to manage master control functions
-
-Server should function as torrent server
-
-Need to keep track of status of appliances to ensure they are functioning
-
-master control should at least be viewable by web browser but would also like an application as master control, as well.
-
-Need to look at nanomsg as a alternative or complimentary service
