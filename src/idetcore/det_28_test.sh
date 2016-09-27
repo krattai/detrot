@@ -30,6 +30,12 @@
 #  r2 = Relay output
 #  cc = sleep counter
 
+# Possible latency issues:
+# + variables:
+# + HDMI switch
+# + omxd
+# + codec
+
 # Added code to create detector playlists
 # might want to export this code to seperate script once this works
 # If you want to switch omxplayer to something else, or add parameters, use these
