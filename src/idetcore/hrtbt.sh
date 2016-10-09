@@ -20,6 +20,10 @@ mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn IPv6 $ext_ip6 is online." -h
 IPt0=$(ip addr show tun0 | awk '/inet / {print $2}' | cut -d/ -f 1)
 mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn tun0 $IPt0 is online." -h "ihdn.ca"
 
+# added this line for better tun0 mmonitoring
+mosquitto_pub -d -t uvea/alive -m "$(date) : $hostn tun0 $IPt0 is online." -h "ihdn.ca"
+
+
 # i=$[$i+1]
 sleep 300
 done
