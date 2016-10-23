@@ -3,6 +3,9 @@
 #
 # Copyright (C) 2014 2016 IHDN, Uvea I. S., Kevin Rattai
 #
+# 20161023 - need to ensure installer provides up to date system
+#
+#
 # Useage:
 # wget -N -r -nd -l2 -w 3 -P $HOME --limit-rate=50k "https://www.dropbox.com/s/kkb5wq8p7wjgtfw/create-idet.sh"; chmod 777 $HOME/create-idet.sh; $HOME/./create-idet.sh; rm $HOME/create-idet.sh
 
