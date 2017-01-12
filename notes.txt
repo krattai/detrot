@@ -1,3 +1,6 @@
+current code base of file 
+160309-idet_p2.img
+
 Blinking icon at top right of screen when ad playing:
 If this artifact exists, it could be a lazy power adapter.  Try replacing adapter.
 
