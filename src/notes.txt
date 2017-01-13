@@ -1,2 +1,3 @@
 092 currently does not install tunnel
 would like way to turn into rotator, or otherwise set output to device and keep playing content in rotation
+should be adding a "cloud" option for people to upload their content on their own (would still need processing)
