@@ -6,6 +6,7 @@
 # 20161023 - need to ensure installer provides up to date system
 #
 # 20170116 - need to have tunnel installed
+# 20170117 - need to be sure content for dets need to be in ad dir
 #
 #
 # Useage:
