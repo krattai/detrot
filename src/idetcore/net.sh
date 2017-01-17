@@ -16,7 +16,7 @@ hostn=$(cat /etc/hostname)
 ping -c 1 10.8.0.1
 
 if [ $? -eq 0 ]; then
-    echo naw9Tb2r | sudo -S touch $VPN_SYS
+    echo !password! | sudo -S touch $VPN_SYS
     echo "VPN available."
 else
     hostn=$(cat /etc/hostname)
