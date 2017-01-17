@@ -1,9 +1,11 @@
 #!/bin/bash
 # Creates an IHDN system from base AEBL image
 #
-# Copyright (C) 2014 2016 IHDN, Uvea I. S., Kevin Rattai
+# Copyright (C) 2014 - 2016 IHDN, Uvea I. S., Kevin Rattai
 #
 # 20161023 - need to ensure installer provides up to date system
+#
+# 20170116 - need to have tunnel installed
 #
 #
 # Useage:
