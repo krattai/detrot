@@ -100,6 +100,8 @@ if [ ! -f "${OFFLINE_SYS}" ]; then
 
     fi
 
+    sudo apt-get -y install openvpn
+
     cd ${TEMP_DIR}
 
     unzip -o idet0092.zip
