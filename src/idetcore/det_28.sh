@@ -1,6 +1,11 @@
 #!/bin/bash
 #
-# Copyright (C) 2014 - 2016 IHDN, Uvea I. S., Kevin Rattai
+# Copyright (C) 2014 - 2017 IHDN, Uvea I. S., Kevin Rattai
+#
+#
+# 17/01/20 - Kevin Rattai
+# add play list log aggregator
+# either post by email every X entries, or add mail feature to cron
 #
 # 16/03/28 - Kevin Rattai
 # added playlist feature
