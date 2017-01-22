@@ -1,6 +1,7 @@
 /* example of using wiring pi                                               */
 /* from:                                                                    */
 /* http://fritzing.org/projects/simple-raspberry-pi-led-example             */
+/*                                                                          */
 /* Assumes you have the WiringPi library installed (http://wiringpi.com/).  */
 
 #include <wiringPi.h>
