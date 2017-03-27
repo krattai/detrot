@@ -1,3 +1,9 @@
 documents
 
 this folder is for relevent documents, including working out licensing for manufacturing, distribution, and resale.
+
+license to make for own, private purpose
+license to manufacture for commercial purpose
+license to distribute manufactured product to resllers
+license to obtain and use product for own purpose
+license to resell product for commercial purposes
