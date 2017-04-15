@@ -145,11 +145,11 @@ else
     sudo service openvpn restart
 fi
 
-if [ -f "${NETWORK_SYS}" ]; then
-    if [ ! -L /sys/class/net/tun ]; then
-        sudo /etc/init.d/gogoc restart
-    fi
-fi
+# if [ -f "${NETWORK_SYS}" ]; then
+#     if [ ! -L /sys/class/net/tun ]; then
+#         sudo /etc/init.d/gogoc restart
+#     fi
+# fi
 
 # nb: if doing ps on service that operates as root, use:
 #     ps -au root | grep rad
