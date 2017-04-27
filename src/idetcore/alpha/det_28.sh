@@ -2,6 +2,9 @@
 #
 # Copyright (C) 2014 - 2017 IHDN, Uvea I. S., Kevin Rattai
 #
+# 17/04/27 - Kevin Rattai
+# should put in 10-15s count on .out to play content through if .out doesn't fire
+#
 # 17/01/28 - Kevin Rattai
 # add rotator/detector trigger
 #
