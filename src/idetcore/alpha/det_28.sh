@@ -4,6 +4,7 @@
 #
 # 17/04/27 - Kevin Rattai
 # should put in 10-15s count on .out to play content through if .out doesn't fire
+# perhaps if .out empty or 0, then disabled, otherwise time in seconds in file sets disable
 #
 # 17/01/28 - Kevin Rattai
 # add rotator/detector trigger
@@ -152,6 +153,22 @@ echo "0" > /sys/class/gpio/gpio5/value #red off
 echo "1" > /sys/class/gpio/gpio6/value #green on
 g1=1
 
+# !!!!!!!!!!!!!!!!!! configure this properly !!!!!!
+# grab possible config info if .out set
+# if [ -f "${OUT}" ]; then
+  # if not empty, grab contents
+
+
+#   DD="$(cat /sys/class/gpio/gpio26/value)"
+#   while [ ! "$DD" = "1" ] && [ ! -f "${KILL}" ] && [ "$(pgrep omxplayer.bin)" ]; do
+    # read inputs
+#     KK="$(cat /sys/class/gpio/gpio24/value)"
+#     if [ "$KK" -eq "0" ]; then
+#       touch $KILL
+#     fi
+#     DD="$(cat /sys/class/gpio/gpio26/value)"
+#   done
+# fi
 
 # Start Loop Program ****************************
 while :
