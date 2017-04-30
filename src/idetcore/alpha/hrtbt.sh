@@ -25,6 +25,10 @@ mosquitto_pub -d -t ihdn/alive -m "$(date) : $hostn tun0 $IPt0 is online." -h "i
 # added this line for better tun0 mmonitoring
 mosquitto_pub -d -t uvea/alive -m "$(date) : $hostn tun0 $IPt0 is online." -h "ihdn.ca"
 
+# from:
+#     space=`df -h | awk '{print $5}' | grep % | grep -v Use | head -1 | cut -d "%" -f1 -`
+space=`df -h | awk '{print $5}' | grep % | grep -v Use | head -1`
+mosquitto_pub -d -t uvea/alive -m "$(date) : $hostn disk is $space full." -h "ihdn.ca"
 
 # i=$[$i+1]
 sleep 300
