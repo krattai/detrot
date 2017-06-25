@@ -248,11 +248,11 @@ DD="$(cat /sys/class/gpio/gpio26/value)"
       # switch relay and go Amber
       echo "1" > /sys/class/gpio/gpio5/value 
       echo "0" > /sys/class/gpio/gpio17/value
-      sleep .2  
+      sleep .1
       echo "1" > /sys/class/gpio/gpio17/value
-      sleep .2  
+      sleep .1
       echo "0" > /sys/class/gpio/gpio17/value
-      sleep .2  
+      sleep .1
       echo "1" > /sys/class/gpio/gpio17/value
          
       "${PLAYER}" ${PLAYER_OPTIONS} "${file}" > /dev/null
@@ -274,11 +274,11 @@ KK="1"
       # switch relay and go Amber
       echo "1" > /sys/class/gpio/gpio5/value 
       echo "0" > /sys/class/gpio/gpio17/value
-      sleep .2  
+      sleep .1
       echo "1" > /sys/class/gpio/gpio17/value
-      sleep .2  
+      sleep .1
       echo "0" > /sys/class/gpio/gpio17/value
-      sleep .2  
+      sleep .1
       echo "1" > /sys/class/gpio/gpio17/value
     fi
    
@@ -311,7 +311,7 @@ KK="1"
     # VERY FIRST THING! -> switch back
     # switch back
     echo "0" > /sys/class/gpio/gpio17/value
-    sleep .2  
+    sleep .1
     echo "1" > /sys/class/gpio/gpio17/value
         
     # go red sleep
