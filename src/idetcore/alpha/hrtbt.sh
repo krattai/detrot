@@ -1,11 +1,13 @@
 #!/bin/bash
 # provides heartbeat
 #
-# Copyright (C) 2016 IHDN, Uvea I. S., Kevin Rattai
+# Copyright (C) 2016 - 2017 IHDN, Uvea I. S., Kevin Rattai
 #
 # This will send an message to announce alive and addresses
 #
 # 161102 - Have script display local IP as well
+#
+# 170625 - need to install mail utilities
 
 VPN_SYS="${T_STO}/.vpn_on"
 
