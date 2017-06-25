@@ -100,11 +100,11 @@ echo "17" > /sys/class/gpio/export
 echo "out" > /sys/class/gpio/gpio17/direction
 echo "1" > /sys/class/gpio/gpio17/value
 
-# Setup GPIO 27, set to input for CHNL 1 check
+# Setup GPIO 27, set to input for AUX (pi) check
 echo "27" > /sys/class/gpio/export
 echo "in" > /sys/class/gpio/gpio27/direction
 
-# Setup GPIO 22, set to input for CHNL 2 check
+# Setup GPIO 22, set to input for CHNL 1 check
 echo "22" > /sys/class/gpio/export
 echo "in" > /sys/class/gpio/gpio22/direction
 
@@ -112,9 +112,15 @@ echo "in" > /sys/class/gpio/gpio22/direction
 echo "26" > /sys/class/gpio/export
 echo "in" > /sys/class/gpio/gpio26/direction
 
+# old
 # Setup GPIO 4, set to input for IR detect
 # echo "4" > /sys/class/gpio/export
 # echo "in" > /sys/class/gpio/gpio4/direction
+
+# Setup GPIO 4, set to  output, and send 1 for CHNL Control
+echo "4" > /sys/class/gpio/export
+echo "out" > /sys/class/gpio/gpio4/direction
+echo "1" > /sys/class/gpio/gpio4/value
 
 # Setup GPIO 24, set to input for kill switch
 echo "24" > /sys/class/gpio/export
@@ -126,20 +132,19 @@ echo "out" > /sys/class/gpio/gpio25/direction
 echo "0" > /sys/class/gpio/gpio25/value
 
 # *********************************************
-
+# no longer necessary
 # Boot for HDMI switch
-
-
-HH="$(cat /sys/class/gpio/gpio22/value)" # chnl 2 led must be 1 to be net
-      if [ "$HH" -eq "0" ]; then
-         echo "0" > /sys/class/gpio/gpio17/value
-         sleep .2  
-         echo "1" > /sys/class/gpio/gpio17/value
-      fi
-
-sleep .5
-
-
+#
+# HH="$(cat /sys/class/gpio/gpio22/value)" # chnl 2 led must be 1 to be net
+#       if [ "$HH" -eq "0" ]; then
+#          echo "0" > /sys/class/gpio/gpio17/value
+#          sleep .2  
+#          echo "1" > /sys/class/gpio/gpio17/value
+#       fi
+#
+# sleep .5
+#
+#
 # *********************************************
 
 sudo setterm -blank 1
@@ -169,6 +174,9 @@ g1=1
 #     DD="$(cat /sys/class/gpio/gpio26/value)"
 #   done
 # fi
+
+# force kill to 1 as not currently being used
+KK="1"
 
 # Start Loop Program ****************************
 while :
@@ -204,8 +212,11 @@ do
   fi
 
   # read inputs
-  KK="$(cat /sys/class/gpio/gpio24/value)"
+#   KK="$(cat /sys/class/gpio/gpio24/value)"
   EE="$(cat /sys/class/gpio/gpio4/value)"
+
+# force kill to 1 as not currently being used
+KK="1"
 
   if [ "$KK" -eq "0" ]; then
     touch $KILL
@@ -239,13 +250,19 @@ DD="$(cat /sys/class/gpio/gpio26/value)"
       echo "0" > /sys/class/gpio/gpio17/value
       sleep .2  
       echo "1" > /sys/class/gpio/gpio17/value
+      sleep .2  
+      echo "0" > /sys/class/gpio/gpio17/value
+      sleep .2  
+      echo "1" > /sys/class/gpio/gpio17/value
          
       "${PLAYER}" ${PLAYER_OPTIONS} "${file}" > /dev/null
 
 #     check for kill not set and video playing
       while [ ! -f "${KILL}" ] && [ "$(pgrep omxplayer.bin)" ]; do
         # read inputs
-        KK="$(cat /sys/class/gpio/gpio24/value)"
+#        KK="$(cat /sys/class/gpio/gpio24/value)"
+# force kill to 1 as not currently being used
+KK="1"
         if [ "$KK" -eq "0" ]; then
           touch $KILL
         fi
@@ -256,6 +273,10 @@ DD="$(cat /sys/class/gpio/gpio26/value)"
       # omxplayer -o hdmi -r /home/pi/ad/*.mp4
       # switch relay and go Amber
       echo "1" > /sys/class/gpio/gpio5/value 
+      echo "0" > /sys/class/gpio/gpio17/value
+      sleep .2  
+      echo "1" > /sys/class/gpio/gpio17/value
+      sleep .2  
       echo "0" > /sys/class/gpio/gpio17/value
       sleep .2  
       echo "1" > /sys/class/gpio/gpio17/value
@@ -275,7 +296,9 @@ DD="$(cat /sys/class/gpio/gpio26/value)"
       DD="$(cat /sys/class/gpio/gpio26/value)"
       while [ ! "$DD" = "1" ] && [ ! -f "${KILL}" ] && [ "$(pgrep omxplayer.bin)" ]; do
         # read inputs
-        KK="$(cat /sys/class/gpio/gpio24/value)"
+#        KK="$(cat /sys/class/gpio/gpio24/value)"
+# force kill to 1 as not currently being used
+KK="1"
         if [ "$KK" -eq "0" ]; then
           touch $KILL
         fi
@@ -369,7 +392,9 @@ DD="$(cat /sys/class/gpio/gpio26/value)"
       cc=$(( $cc + 1 ))
       sleep 1
       # read inputs
-      KK="$(cat /sys/class/gpio/gpio24/value)"
+#      KK="$(cat /sys/class/gpio/gpio24/value)"
+# force kill to 1 as not currently being used
+KK="1"
       if [ "$KK" -eq "0" ]; then
         touch $KILL
       fi
